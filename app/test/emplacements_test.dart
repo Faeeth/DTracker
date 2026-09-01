@@ -108,6 +108,12 @@ void main() {
     // pour le dire.
     final ou = Emplacements.reconnait();
     expect(ou.installe, isFalse);
+
+    // Les donnees du jeu ne sont pas dans le depot : c'est le contenu
+    // d'Ankama, il s'extrait du client installe. Sur une machine qui ne l'a
+    // pas — l'integration continue, par exemple — il n'y a rien a verifier.
+    if (!Directory('${ou.donnees}/../capture/data').existsSync()) return;
+
     expect(Directory(ou.ressources).existsSync(), isTrue,
         reason: 'les donnees extraites du jeu doivent etre la : '
             '${ou.ressources}');
