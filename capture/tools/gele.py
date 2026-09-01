@@ -27,6 +27,14 @@ import sys
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NOM = "dtracker-capture"
 
+#: Les gros paquets qu'un environnement Python de travail traine souvent, et
+#: dont ni la capture ni l'extraction n'ont besoin.
+EXCLUS = [
+    "torch", "transformers", "scipy", "onnxruntime", "llvmlite", "numba",
+    "matplotlib", "pandas", "IPython", "notebook", "imageio_ffmpeg", "av",
+    "sympy", "tensorflow", "sklearn", "cv2", "babel",
+]
+
 
 def gele() -> int:
     dist = os.path.join(RACINE, "dist")
@@ -41,11 +49,40 @@ def gele() -> int:
         # messages disparaissent — et c'est par eux qu'on comprend pourquoi une
         # capture reste muette.
         "--console",
+        # Les deux extracteurs vivent a la racine du depot et non dans le
+        # paquet : PyInstaller ne les suivrait pas tout seul.
+        "--paths", RACINE,
+        "--hidden-import", "extract_data",
+        "--hidden-import", "extract_images",
+        # UnityPy n'est importe qu'au moment d'ouvrir un bundle : l'analyse
+        # statique de PyInstaller ne le voit pas, et l'extraction des images
+        # echouait dans l'executable gele en le reclamant.
+        #
+        # `--collect-submodules` et non `--collect-all` : ce dernier suit les
+        # dependances declarees et ramassait quatre giga-octets — torch,
+        # transformers, scipy — qui n'ont rien a faire ici.
+        "--collect-submodules", "UnityPy",
+        "--collect-data", "UnityPy",
+        # UnityPy charge tous ses convertisseurs au demarrage, dont celui du
+        # son, qui importe `fmod_toolkit` en dur. Sans sa DLL, l'import
+        # echoue et emporte le decodage des **images** avec lui : toutes les
+        # textures ressortaient « undecodable ». Un mega-octet et demi.
+        "--collect-all", "fmod_toolkit",
+        # `archspec` lit une table de microarchitectures rangee a cote de son
+        # code : sans elle, la detection du processeur echoue et le decodage
+        # des textures tombe avec. Ces deux-la sont des dependances de
+        # `UnityPy` qui ne se voient qu'a l'usage.
+        "--collect-all", "archspec",
         "--distpath", dist,
         "--workpath", travail,
         "--specpath", travail,
         # Le module est lance par son chemin, pas par `-m` : on gele donc un
         # petit lanceur qui appelle son `main`.
+        # Ce que l'environnement de developpement traine et qui n'a rien a
+        # faire dans une capture reseau. Nomme explicitement : PyInstaller
+        # suit les imports transitifs, et un paquet scientifique installe a
+        # cote suffit a doubler la taille.
+        *[a for m in EXCLUS for a in ("--exclude-module", m)],
         os.path.join(RACINE, "tools", "_lanceur_capture.py"),
     ]
     print(" ".join(commande))

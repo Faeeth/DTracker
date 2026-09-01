@@ -63,6 +63,20 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 LABELS = os.path.join(ROOT, "data", "labels")
 RECORDS = os.path.join(ROOT, "data", "records")
 DATA = os.path.join(ROOT, "data")
+
+
+def set_output(folder: str) -> None:
+    """Write somewhere else than next to this script.
+
+    The installed application keeps the game data in the user's own folder:
+    it is extracted from *their* client, and must survive an update that
+    replaces the program.
+    """
+    global LABELS, RECORDS, DATA, ICONS
+    DATA = folder
+    LABELS = os.path.join(folder, "labels")
+    RECORDS = os.path.join(folder, "records")
+    ICONS = os.path.join(folder, "icons")
 ICONS = os.path.join(ROOT, "data", "icons")
 
 # Usual client locations, tried in order.
@@ -362,13 +376,16 @@ def write_monster_digest(records_dir: str, out: str) -> int:
     return write_json(out, digest)
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Extract game data from the Dofus client.")
     parser.add_argument("--client", help="the game's Dofus_Data folder")
     parser.add_argument("--labels-only", action="store_true",
                         help="skip data/records/, keep only identifier to label")
-    args = parser.parse_args()
+    parser.add_argument("--out", help="write there instead of ./data")
+    args = parser.parse_args(argv)
+    if args.out:
+        set_output(args.out)
 
     client = find_client(args.client)
     if not client:

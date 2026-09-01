@@ -497,4 +497,46 @@ class TextesEs extends Textes {
   @override
   String diagSansCarte(String carte) => 'El controlador está, pero ninguna tarjeta de red es escuchable.\nAjuste actual: $carte.\n\nElige «Todas las interfaces» en Ajustes → Captura.';
 
+  @override
+  String majTitre(String version) => 'DTracker $version está disponible';
+
+  @override
+  String majDetail(String courante) => 'Tienes la versión $courante.\n\nLa página de descarga se abrirá en tu navegador. Tus ajustes, tu historial\ny tus sesiones se conservan.';
+
+  @override
+  String get majOuvrir => 'Descargar';
+
+  @override
+  String get majPlusTard => 'Más tarde';
+
+  @override
+  String get premiereFoisTitre => 'Faltan los nombres y las imágenes';
+
+  @override
+  String get premiereFoisDetail => 'Los nombres de objetos, retratos e iconos pertenecen a Ankama: no pueden\nvenir con DTracker. Se toman de tu propio cliente.\n\nSin ellos la herramienta cuenta bien — experiencia, kamas y ritmos son exactos —\npero un objeto aparece como «Objeto 1731».';
+
+  @override
+  String get premiereFoisLancer => 'Extraer ahora';
+
+  @override
+  String get premiereFoisReessayer => 'Reintentar';
+
+  @override
+  String get premiereFoisPlusTard => 'Más tarde';
+
+  @override
+  String get premiereFoisDuree => 'Unos dos minutos y 265 MB. El juego puede estar cerrado.';
+
+  @override
+  String get premiereFoisRecherche => 'Buscando el cliente de Dofus…';
+
+  @override
+  String get premiereFoisFaite => 'Listo. Los nombres y las imágenes están en su sitio.';
+
+  @override
+  String get premiereFoisSansClient => 'No se ha encontrado la carpeta Dofus_Data. ¿Está el juego instalado en esta máquina?';
+
+  @override
+  String premiereFoisEchec(String detail) => 'La extracción se ha detenido: $detail';
+
 }

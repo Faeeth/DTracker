@@ -75,7 +75,12 @@ jobs:
         # `--no-tree-shake-icons` n'est pas une precaution de principe : le
         # sous-ensemble de police est mis en cache, et une icone ajoutee au
         # code se retrouve absente du binaire sans que rien ne le signale.
-        run: flutter build windows --release --no-tree-shake-icons
+        # La version voyage par `--dart-define` : elle s'affiche dans le rail
+        # et sert a se comparer a la derniere publiee. Sans elle, le binaire
+        # se croit en developpement et ne propose jamais de mise a jour.
+        run: >
+          flutter build windows --release --no-tree-shake-icons
+          --dart-define=DTRACKER_VERSION=${{ steps.version.outputs.v }}
 
       # ------------------------------------------------------- l'installateur
       # Inno Setup n'est pas garanti sur l'image du runner : on l'installe.

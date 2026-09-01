@@ -62,6 +62,12 @@ if hasattr(sys.stdout, "buffer"):
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUTPUT = os.path.join(ROOT, "data", "images")
+
+
+def set_output(folder: str) -> None:
+    """Write somewhere else than next to this script. See extract_data."""
+    global OUTPUT
+    OUTPUT = folder
 FONTS = os.path.join(ROOT, "data", "fonts")
 
 CLIENT_PATHS = [
@@ -185,7 +191,13 @@ def extract_bundle(path: str, destination: str) -> tuple[int, int]:
         try:
             data = obj.read()
             image = data.image
-        except Exception:                              # noqa: BLE001
+        except Exception as exc:                       # noqa: BLE001
+            # Une texture illisible se compte ; savoir *pourquoi* demande de
+            # le demander. Utile surtout dans l'executable gele, ou une
+            # dependance manquante fait echouer toutes les images d'un coup
+            # sans que rien ne le dise.
+            if os.environ.get("DTRACKER_DEBUG"):
+                print(f"    {type(exc).__name__}: {exc}", flush=True)
             # A few textures use formats the decoder does not know. One
             # unreadable sprite must not cost the other thousands.
             failed += 1
@@ -219,10 +231,11 @@ def folder_size(path: str) -> int:
     return total
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Extract the Dofus client's artwork as PNG files.")
     parser.add_argument("--client", help="the game's Dofus_Data folder")
+    parser.add_argument("--out", help="write there instead of ./data/images")
     parser.add_argument("--folder", default=DEFAULT_FOLDER,
                         help="content folder to walk (default: Picto)")
     parser.add_argument("--only", help="comma-separated categories, e.g. item,spell")
@@ -232,7 +245,9 @@ def main() -> int:
                         help="redo bundles already extracted")
     parser.add_argument("--list", action="store_true",
                         help="show what would be extracted and stop")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if args.out:
+        set_output(args.out)
 
     client = find_client(args.client)
     if not client:

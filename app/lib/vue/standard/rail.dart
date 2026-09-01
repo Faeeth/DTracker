@@ -20,6 +20,7 @@ import 'briques.dart';
 import 'navigation.dart';
 import '../../i18n/textes.dart';
 import '../../source/emplacements.dart';
+import '../../config.dart';
 
 class Rail extends StatelessWidget {
   const Rail({
@@ -103,16 +104,28 @@ class Rail extends StatelessWidget {
   Widget _marque(BuildContext context) {
     final theme = ShadTheme.of(context);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(LucideIcons.swords, size: 15, color: theme.colorScheme.primary),
-        const SizedBox(width: Pas.s),
-        Text(
-          T.marque,
-          style: theme.textTheme.small.copyWith(
-            fontSize: 12,
-            letterSpacing: 0.2,
-            fontWeight: FontWeight.w700,
-          ),
+        // Le logo porte deja le nom : il remplace l'icone **et** le texte.
+        // Cent dix pixels de large, ce qui laisse la place au bouton de la
+        // vue compacte sur un rail qui en fait deux cent quarante-quatre.
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/marque/logo.png',
+              width: 110,
+              filterQuality: FilterQuality.medium,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: Pas.xs),
+              child: Text(
+                versionApp,
+                style: theme.textTheme.muted.copyWith(fontSize: 10),
+              ),
+            ),
+          ],
         ),
         const Spacer(),
         // L'icone seule ne dit pas ou elle mene : deux fleches qui se

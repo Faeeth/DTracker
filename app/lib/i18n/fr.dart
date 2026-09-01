@@ -497,4 +497,46 @@ class TextesFr extends Textes {
   @override
   String diagSansCarte(String carte) => 'Le pilote est là, mais aucune carte réseau n\'est écoutable.\nRéglage courant : $carte.\n\nChoisissez « Toutes les interfaces » dans Réglages → Capture.';
 
+  @override
+  String majTitre(String version) => 'DTracker $version est disponible';
+
+  @override
+  String majDetail(String courante) => 'Vous avez la version $courante.\n\nLa page de téléchargement s\'ouvrira dans votre navigateur. Vos réglages,\nvotre historique et vos sessions sont conservés par la mise à jour.';
+
+  @override
+  String get majOuvrir => 'Télécharger';
+
+  @override
+  String get majPlusTard => 'Plus tard';
+
+  @override
+  String get premiereFoisTitre => 'Il manque les noms et les images';
+
+  @override
+  String get premiereFoisDetail => 'Les noms d\'objets, les portraits et les icônes appartiennent à Ankama : ils ne\npeuvent pas être livrés avec DTracker. Ils se prennent dans votre propre client.\n\nSans eux, l\'outil compte juste — l\'expérience, les kamas et les cadences sont\nexacts — mais un objet s\'affiche « Objet 1731 ».';
+
+  @override
+  String get premiereFoisLancer => 'Extraire maintenant';
+
+  @override
+  String get premiereFoisReessayer => 'Réessayer';
+
+  @override
+  String get premiereFoisPlusTard => 'Plus tard';
+
+  @override
+  String get premiereFoisDuree => 'Environ deux minutes, et 265 Mo. Le jeu peut rester fermé.';
+
+  @override
+  String get premiereFoisRecherche => 'Recherche du client Dofus…';
+
+  @override
+  String get premiereFoisFaite => 'Terminé. Les noms et les images sont en place.';
+
+  @override
+  String get premiereFoisSansClient => 'Le dossier Dofus_Data n\'a pas été trouvé. Le jeu est-il installé sur cette machine ?';
+
+  @override
+  String premiereFoisEchec(String detail) => 'L\'extraction s\'est arrêtée : $detail';
+
 }

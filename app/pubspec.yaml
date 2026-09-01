@@ -34,6 +34,7 @@ flutter:
     # Les drapeaux du choix de langue, dessines plutot qu'emojis : Windows
     # n'a pas les glyphes des indicatifs regionaux et rend « FR » en lettres.
     - assets/drapeaux/
+    - assets/marque/
   fonts:
     # La police du jeu, extraite de son propre habillage par
     # `dofus_stats/extract_images.py`.

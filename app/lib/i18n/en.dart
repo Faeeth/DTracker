@@ -497,4 +497,46 @@ class TextesEn extends Textes {
   @override
   String diagSansCarte(String carte) => 'The driver is there, but no network card can be listened on.\nCurrent setting: $carte.\n\nPick « All interfaces » in Settings → Capture.';
 
+  @override
+  String majTitre(String version) => 'DTracker $version is available';
+
+  @override
+  String majDetail(String courante) => 'You have version $courante.\n\nThe download page will open in your browser. Your settings, history and\nsessions are kept by the update.';
+
+  @override
+  String get majOuvrir => 'Download';
+
+  @override
+  String get majPlusTard => 'Later';
+
+  @override
+  String get premiereFoisTitre => 'The names and pictures are missing';
+
+  @override
+  String get premiereFoisDetail => 'Item names, portraits and icons belong to Ankama: they cannot ship with\nDTracker. They are taken from your own client.\n\nWithout them the tool still counts right — experience, kamas and rates are\nexact — but an item shows up as « Item 1731 ».';
+
+  @override
+  String get premiereFoisLancer => 'Extract now';
+
+  @override
+  String get premiereFoisReessayer => 'Try again';
+
+  @override
+  String get premiereFoisPlusTard => 'Later';
+
+  @override
+  String get premiereFoisDuree => 'About two minutes, and 265 MB. The game can stay closed.';
+
+  @override
+  String get premiereFoisRecherche => 'Looking for the Dofus client…';
+
+  @override
+  String get premiereFoisFaite => 'Done. Names and pictures are in place.';
+
+  @override
+  String get premiereFoisSansClient => 'The Dofus_Data folder was not found. Is the game installed on this machine?';
+
+  @override
+  String premiereFoisEchec(String detail) => 'Extraction stopped: $detail';
+
 }

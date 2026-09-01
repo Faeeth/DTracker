@@ -20,6 +20,17 @@ import 'package:flutter/widgets.dart' show Size;
 /// un fond clair, et l'outil n'aurait plus d'usage.
 const int opaciteTexteMin = 20;
 
+/// La version, telle qu'elle s'affiche et telle qu'on la compare.
+///
+/// Posee a la construction — `--dart-define=DTRACKER_VERSION=1.0.0`, ce que
+/// fait le workflow depuis le tag. Depuis les sources elle vaut `dev` : c'est
+/// aussi ce qui empeche une version de developpement de se croire en retard
+/// sur la derniere publiee.
+const versionApp = String.fromEnvironment(
+  'DTRACKER_VERSION',
+  defaultValue: 'dev',
+);
+
 /// Taille minimale de chaque vue.
 ///
 /// Elles ne se confondent pas. La vue compacte tient dans une bande etroite :

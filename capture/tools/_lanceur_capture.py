@@ -17,4 +17,12 @@ if not getattr(sys, "frozen", False):
 from dofus_stats.cli.stream import main
 
 if __name__ == "__main__":
+    # Deux metiers dans un seul executable : ecouter le reseau, et tirer du
+    # client du jeu les noms et les images. Le second ne sert qu'une fois,
+    # mais il doit voyager avec le premier — il n'y a pas de Python sur la
+    # machine ou l'outil est installe.
+    if len(sys.argv) > 2 and sys.argv[1] == "--extraire":
+        from dofus_stats.cli.extraction import extrait
+        raise SystemExit(extrait(sys.argv[2],
+                                 sys.argv[3] if len(sys.argv) > 3 else None))
     raise SystemExit(main())

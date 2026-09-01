@@ -28,6 +28,12 @@ import '../theme.dart';
 import 'compacte.dart';
 import 'standard/coquille.dart';
 import '../i18n/textes.dart';
+import '../source/maj.dart';
+import '../source/emplacements.dart';
+import '../vue/standard/briques.dart';
+import '../source/extraction.dart';
+import 'standard/pages/premiere_fois.dart';
+import 'package:shadcn_ui/shadcn_ui.dart' hide Cache;
 
 class Surcouche extends StatefulWidget {
   const Surcouche({
@@ -86,6 +92,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       if (mounted) setState(() => _etat = etat);
     });
     widget.flux.demarre();
+    _chercheUneMiseAJour();
 
     _horloge = Timer.periodic(const Duration(seconds: 1), (_) {
       // Le compteur se lit sur la session plutot que de s'incrementer : elle
@@ -119,6 +126,37 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
         setState(() {});
       }
     });
+  }
+
+  /// Demande a GitHub s'il y a mieux, et le propose une seule fois.
+  ///
+  /// Au demarrage et nulle part ailleurs : rien ne justifie d'interrompre
+  /// quelqu'un en pleine soiree pour lui parler de version. Et en silence
+  /// s'il n'y a rien, si le reseau manque, ou si la reponse est illisible.
+  Future<void> _chercheUneMiseAJour() async {
+    final neuve = await cherche(courante: versionApp);
+    if (neuve == null || !mounted) return;
+    final veut = await showShadDialog<bool>(
+      context: context,
+      builder: (contexte) => ShadDialog.alert(
+        title: Text(T.majTitre(neuve.version)),
+        description: Padding(
+          padding: const EdgeInsets.symmetric(vertical: Pas.s),
+          child: Text(T.majDetail(versionApp)),
+        ),
+        actions: [
+          ShadButton.outline(
+            onPressed: () => Navigator.of(contexte).pop(false),
+            child: Text(T.majPlusTard),
+          ),
+          ShadButton(
+            onPressed: () => Navigator.of(contexte).pop(true),
+            child: Text(T.majOuvrir),
+          ),
+        ],
+      ),
+    );
+    if (veut == true) await ouvreAdresse(neuve.adresse);
   }
 
   @override
@@ -400,8 +438,29 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
     };
   }
 
+  /// Faut-il proposer d'aller chercher les noms et les images ?
+  ///
+  /// Une seule fois : dire non ouvre l'outil sans eux, et la question ne
+  /// revient pas dans la meme session. Elle reviendra au prochain lancement,
+  /// tant que les fichiers manquent — c'est une aide, pas une insistance.
+  late final bool _debutSansDonnees =
+      !donneesPresentes(widget.flux.ou.ressources);
+  late bool _proposeExtraction = _debutSansDonnees;
+
   @override
   Widget build(BuildContext context) {
+    if (_proposeExtraction && !config.compact) {
+      return PagePremiereFois(
+        ou: widget.flux.ou,
+        onFini: () async {
+          // Les ressources se relisent : les index sont retenus au premier
+          // acces, et celui-ci a eu lieu quand il n'y avait rien.
+          await widget.res.charge();
+          if (mounted) setState(() => _proposeExtraction = false);
+        },
+        onPlusTard: () => setState(() => _proposeExtraction = false),
+      );
+    }
     if (config.compact) {
       return VueCompacte(
         session: session,
