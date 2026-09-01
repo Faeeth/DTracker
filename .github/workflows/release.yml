@@ -78,19 +78,26 @@ jobs:
         run: flutter build windows --release --no-tree-shake-icons
 
       # ------------------------------------------------------- l'installateur
+      # Inno Setup n'est pas garanti sur l'image du runner : on l'installe.
+      - name: Installer Inno Setup
+        run: choco install innosetup --no-progress -y
+
       - name: Construire l'installateur
         working-directory: app
+        # `OutputDir` du script vaut `..\dist` relatif au .iss : l'installateur
+        # sort donc dans `app/dist`.
         run: |
-          iscc installateur\dtracker.iss /DVersion=${{ steps.version.outputs.v }}
+          & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" installateur\dtracker.iss /DVersion=${{ steps.version.outputs.v }}
 
       - name: Composer l'archive
         shell: bash
         run: |
           version="${{ steps.version.outputs.v }}"
-          mkdir -p paquet
-          cp "dist/DTracker-$version-installateur.exe" paquet/
+          mkdir -p paquet dist
+          cp "app/dist/DTracker-$version-installateur.exe" paquet/
           cp INSTALLATION.md paquet/LISEZ-MOI.md
           cd paquet && 7z a -tzip "../dist/DTracker-$version.zip" ./*
+          cd .. && cp "app/dist/DTracker-$version-installateur.exe" dist/
 
       - uses: actions/upload-artifact@v4
         with:
