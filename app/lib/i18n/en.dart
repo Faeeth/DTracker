@@ -539,4 +539,19 @@ class TextesEn extends Textes {
   @override
   String premiereFoisEchec(String detail) => 'Extraction stopped: $detail';
 
+  @override
+  String get majInstaller => 'Update';
+
+  @override
+  String get majReessayer => 'Try again';
+
+  @override
+  String majTelechargement(int pourcent) => 'Downloading… $pourcent %';
+
+  @override
+  String get majLancement => 'Starting the installer. DTracker will close.';
+
+  @override
+  String get majRate => 'The download did not complete. The release page is still available.';
+
 }

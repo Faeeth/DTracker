@@ -539,4 +539,19 @@ class TextesPt extends Textes {
   @override
   String premiereFoisEchec(String detail) => 'A extração parou: $detail';
 
+  @override
+  String get majInstaller => 'Atualizar';
+
+  @override
+  String get majReessayer => 'Tentar de novo';
+
+  @override
+  String majTelechargement(int pourcent) => 'A transferir… $pourcent %';
+
+  @override
+  String get majLancement => 'A iniciar o instalador. O DTracker vai fechar.';
+
+  @override
+  String get majRate => 'A transferência não terminou. A página da release continua disponível.';
+
 }

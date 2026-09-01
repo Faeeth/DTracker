@@ -29,11 +29,9 @@ import 'compacte.dart';
 import 'standard/coquille.dart';
 import '../i18n/textes.dart';
 import '../source/maj.dart';
-import '../source/emplacements.dart';
-import '../vue/standard/briques.dart';
 import '../source/extraction.dart';
 import 'standard/pages/premiere_fois.dart';
-import 'package:shadcn_ui/shadcn_ui.dart' hide Cache;
+import 'standard/maj_dialogue.dart';
 
 class Surcouche extends StatefulWidget {
   const Surcouche({
@@ -136,27 +134,11 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
   Future<void> _chercheUneMiseAJour() async {
     final neuve = await cherche(courante: versionApp);
     if (neuve == null || !mounted) return;
-    final veut = await showShadDialog<bool>(
-      context: context,
-      builder: (contexte) => ShadDialog.alert(
-        title: Text(T.majTitre(neuve.version)),
-        description: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Pas.s),
-          child: Text(T.majDetail(versionApp)),
-        ),
-        actions: [
-          ShadButton.outline(
-            onPressed: () => Navigator.of(contexte).pop(false),
-            child: Text(T.majPlusTard),
-          ),
-          ShadButton(
-            onPressed: () => Navigator.of(contexte).pop(true),
-            child: Text(T.majOuvrir),
-          ),
-        ],
-      ),
-    );
-    if (veut == true) await ouvreAdresse(neuve.adresse);
+    final suite = await proposeMiseAJour(context, neuve);
+    // L'installateur tourne : il doit pouvoir remplacer les fichiers, et
+    // c'est nous qui les tenons. On se ferme comme si l'on quittait — la
+    // session est close proprement, les reglages ecrits.
+    if (suite == SuiteMaj.installe) await _quitte();
   }
 
   @override

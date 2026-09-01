@@ -105,6 +105,41 @@ void main() {
       expect(await cherche(courante: '2.0.0', adresse: adresse), isNull);
     });
 
+
+    test("l'installateur est reconnu parmi les fichiers joints", () async {
+      final serveur = await serveurQuiRepond(
+          200,
+          jsonEncode({
+            'tag_name': 'v9.1.0',
+            'html_url': 'https://exemple/releases/v9.1.0',
+            'assets': [
+              {'name': 'DTracker-9.1.0.zip', 'size': 100,
+               'browser_download_url': 'https://exemple/archive.zip'},
+              {'name': 'DTracker-9.1.0-installateur.exe', 'size': 21000000,
+               'browser_download_url': 'https://exemple/installateur.exe'},
+            ],
+          }));
+      addTearDown(() => serveur.close(force: true));
+      final neuve = await cherche(
+          courante: '1.0.0', adresse: 'http://127.0.0.1:${serveur.port}/');
+      expect(neuve!.telechargeable, isTrue);
+      // L'archive ne contient que l'installateur et un mode d'emploi : la
+      // decompresser pour rien ferait un detour de plus.
+      expect(neuve.installateur, 'https://exemple/installateur.exe');
+      expect(neuve.taille, 21000000);
+    });
+
+    test('une release sans installateur reste proposee', () async {
+      // On renverra vers sa page : elle marche toujours.
+      final serveur = await serveurQuiRepond(
+          200, jsonEncode({'tag_name': 'v9.1.0', 'html_url': 'x'}));
+      addTearDown(() => serveur.close(force: true));
+      final neuve = await cherche(
+          courante: '1.0.0', adresse: 'http://127.0.0.1:${serveur.port}/');
+      expect(neuve, isNotNull);
+      expect(neuve!.telechargeable, isFalse);
+    });
+
     test('un brouillon et une avant-premiere sont ignores', () async {
       // Le workflow ouvre justement les releases en brouillon : les proposer
       // enverrait tout le monde vers une version pas encore relue.

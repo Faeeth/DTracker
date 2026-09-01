@@ -25,13 +25,29 @@ const _delai = Duration(seconds: 4);
 
 /// Une version publiee, plus recente que la notre.
 class MiseAJour {
-  const MiseAJour({required this.version, required this.adresse});
+  const MiseAJour({
+    required this.version,
+    required this.adresse,
+    this.installateur = '',
+    this.taille = 0,
+  });
 
   /// Le numero, sans le `v` du tag.
   final String version;
 
-  /// La page de la release, ou l'on prend l'archive.
+  /// La page de la release, ou l'on prend l'archive a la main.
   final String adresse;
+
+  /// L'installateur lui-meme, quand la release en porte un.
+  ///
+  /// C'est lui qu'on telecharge : l'archive ne contient que ce fichier et un
+  /// mode d'emploi, et la decompresser pour rien ferait un detour de plus.
+  final String installateur;
+
+  /// Ce que pese l'installateur, pour montrer une progression qui avance.
+  final int taille;
+
+  bool get telechargeable => installateur.isNotEmpty;
 }
 
 /// Demande a GitHub s'il y a mieux. Rend nul si non, ou en cas de pepin.
@@ -66,9 +82,25 @@ Future<MiseAJour?> cherche({
     final tag = '${objet['tag_name'] ?? ''}';
     final publiee = tag.startsWith('v') ? tag.substring(1) : tag;
     if (publiee.isEmpty || !plusRecente(publiee, courante)) return null;
+    // L'installateur parmi les fichiers joints. Une release qui n'en porte
+    // pas reste proposee : on renverra alors vers sa page.
+    var installateur = '';
+    var taille = 0;
+    for (final joint in objet['assets'] as List? ?? []) {
+      if (joint is! Map) continue;
+      final nom = '${joint['name'] ?? ''}';
+      if (nom.endsWith('.exe') && nom.contains('installateur')) {
+        installateur = '${joint['browser_download_url'] ?? ''}';
+        taille = (joint['size'] as num?)?.toInt() ?? 0;
+        break;
+      }
+    }
     return MiseAJour(
       version: publiee,
-      adresse: '${objet['html_url'] ?? 'https://github.com/Faeeth/DTracker/releases'}',
+      adresse:
+          '${objet['html_url'] ?? 'https://github.com/Faeeth/DTracker/releases'}',
+      installateur: installateur,
+      taille: taille,
     );
   } on Exception {
     return null;
@@ -99,4 +131,86 @@ bool plusRecente(String a, String b) {
     if (ai != bi) return ai > bi;
   }
   return false;
+}
+
+/// Telecharge l'installateur et rend l'avancement, de 0 a 1.
+///
+/// Le fichier va dans le dossier temporaire du systeme : Windows le nettoie
+/// tout seul, et personne n'a a se souvenir de l'effacer.
+///
+/// Rend le chemin du fichier a la fin, ou nul si quelque chose a echoue —
+/// auquel cas l'appelant renvoie vers la page, qui marche toujours.
+Stream<double> telecharge(MiseAJour maj, void Function(String?) fini) async* {
+  final http = HttpClient();
+  File? sortie;
+  try {
+    final cible = File(
+      '${Directory.systemTemp.path}/DTracker-${maj.version}-installateur.exe',
+    );
+    var requete = await http.getUrl(Uri.parse(maj.installateur));
+    requete.headers.set(HttpHeaders.userAgentHeader, 'DTracker/${maj.version}');
+    var reponse = await requete.close();
+    // GitHub sert ses fichiers depuis un autre domaine : la redirection se
+    // suit a la main, `HttpClient` ne la franchit pas seule quand elle change
+    // d'hote.
+    var sauts = 0;
+    while (reponse.isRedirect && sauts < 5) {
+      final vers = reponse.headers.value(HttpHeaders.locationHeader);
+      if (vers == null) break;
+      await reponse.drain<void>();
+      requete = await http.getUrl(Uri.parse(vers));
+      requete.headers.set(HttpHeaders.userAgentHeader, 'DTracker');
+      reponse = await requete.close();
+      sauts++;
+    }
+    if (reponse.statusCode != 200) {
+      fini(null);
+      return;
+    }
+    final total = reponse.contentLength > 0 ? reponse.contentLength : maj.taille;
+    final flux = cible.openWrite();
+    var recu = 0;
+    var dernier = 0.0;
+    await for (final morceau in reponse) {
+      flux.add(morceau);
+      recu += morceau.length;
+      final part = total > 0 ? (recu / total).clamp(0.0, 1.0) : 0.0;
+      // Un pour cent a la fois : rendre la main a chaque paquet ferait
+      // repeindre la fenetre des centaines de fois pour rien.
+      if (part - dernier >= 0.01 || part >= 1) {
+        dernier = part;
+        yield part;
+      }
+    }
+    await flux.close();
+    sortie = cible;
+  } on Exception {
+    sortie = null;
+  } finally {
+    http.close(force: true);
+    fini(sortie?.path);
+  }
+}
+
+/// Lance l'installateur et rend la main tout de suite.
+///
+/// `/SILENT` montre la progression sans les pages de l'assistant : une mise a
+/// jour n'a rien a demander qu'on n'ait deja demande.
+///
+/// `/CLOSEAPPLICATIONS` laisse l'installateur fermer ce qui tient encore les
+/// fichiers. L'appelant se ferme juste apres, mais l'ordre exact des deux ne
+/// se controle pas : mieux vaut que l'installateur sache le faire aussi.
+///
+/// Detache, sans quoi il mourrait avec l'application qui vient de le lancer.
+Future<bool> lanceInstallateur(String chemin) async {
+  try {
+    await Process.start(
+      chemin,
+      ['/SILENT', '/CLOSEAPPLICATIONS', '/NORESTART'],
+      mode: ProcessStartMode.detached,
+    );
+    return true;
+  } on Exception {
+    return false;
+  }
 }

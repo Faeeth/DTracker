@@ -105,6 +105,11 @@ abstract class Textes {
   String majDetail(String courante);
   String get majOuvrir;
   String get majPlusTard;
+  String get majInstaller;
+  String get majReessayer;
+  String majTelechargement(int pourcent);
+  String get majLancement;
+  String get majRate;
   String get reduire;
   String get sessions;
   String get reglages;
