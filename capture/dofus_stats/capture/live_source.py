@@ -34,6 +34,31 @@ def find_dumpcap() -> str:
     return "dumpcap"
 
 
+def dumpcap_present() -> bool:
+    """dumpcap est-il installe ?
+
+    Wireshark n'est pas fourni avec l'outil et ne peut pas l'etre : c'est le
+    pilote npcap qui compte, et sa licence interdit la redistribution. Une
+    machine sans lui est donc un cas ordinaire, pas une anomalie — tout ce qui
+    appelle dumpcap doit le supporter.
+    """
+    return any(os.path.exists(p) for p in DUMPCAP_CANDIDATES)
+
+
+def _dumpcap(*arguments: str) -> bytes:
+    """Lance dumpcap et rend sa sortie. Vide s'il n'est pas la.
+
+    Sans ce garde-fou, l'absence de Wireshark remontait en `FileNotFoundError`
+    depuis les profondeurs de `subprocess` — une trace de dix lignes la ou il
+    fallait lire « aucune carte ».
+    """
+    try:
+        res = subprocess.run([find_dumpcap(), *arguments], capture_output=True)
+        return res.stdout or b""
+    except OSError:
+        return b""
+
+
 def _texte(donnees: bytes) -> str:
     """Decode la sortie de dumpcap, quel que soit son encodage.
 
@@ -56,9 +81,8 @@ def _texte(donnees: bytes) -> str:
 
 
 def list_interfaces() -> list[tuple[str, str]]:
-    res = subprocess.run([find_dumpcap(), "-D"], capture_output=True)
     out = []
-    for line in _texte(res.stdout).splitlines():
+    for line in _texte(_dumpcap("-D")).splitlines():
         num, _, rest = line.partition(". ")
         if num.strip().isdigit():
             out.append((num.strip(), rest.strip()))
@@ -159,9 +183,8 @@ def detailed_interfaces() -> list[dict]:
     d'un demarrage a l'autre ; le numero de la liste, lui, ne l'est pas — une
     carte qui apparait decale tous les suivants.
     """
-    res = subprocess.run([find_dumpcap(), "-M", "-D"], capture_output=True)
     try:
-        brut = json.loads(_texte(res.stdout))
+        brut = json.loads(_texte(_dumpcap("-M", "-D")))
     except (json.JSONDecodeError, TypeError):
         return []
     macs = adresses_mac()

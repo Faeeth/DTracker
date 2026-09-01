@@ -644,13 +644,42 @@ def test_liste_des_interfaces() -> None:
             "interfaces : aucun caractere de remplacement")
 
 
+def test_sans_wireshark() -> None:
+    """Une machine sans Wireshark rend une liste vide, pas une exception.
+
+    C'est le cas ordinaire, pas l'anomalie : npcap et dumpcap ne peuvent pas
+    etre fournis avec l'outil — la licence de npcap interdit sa
+    redistribution. Quelqu'un installe donc DTracker, l'ouvre, et n'a rien.
+
+    Il doit alors lire « aucune carte », pas une trace de dix lignes remontee
+    des profondeurs de `subprocess`. Le defaut a ete trouve par l'integration
+    continue, dont les machines n'ont pas Wireshark.
+    """
+    from dofus_stats.capture import live_source
+
+    connus = live_source.DUMPCAP_CANDIDATES
+    live_source.DUMPCAP_CANDIDATES = ["/nulle/part/dumpcap"]
+    try:
+        verifie(live_source.dumpcap_present() is False,
+                "sans wireshark : l'absence est vue")
+        verifie(live_source.detailed_interfaces() == [],
+                "sans wireshark : liste detaillee vide")
+        verifie(live_source.list_interfaces() == [],
+                "sans wireshark : liste simple vide")
+        verifie(live_source.all_interfaces() == [],
+                "sans wireshark : aucune carte a ecouter")
+    finally:
+        live_source.DUMPCAP_CANDIDATES = connus
+
+
 def main() -> int:
     for fn in [test_combat_deux_personnages, test_butin_complet, test_succes,
                test_caracteristiques, test_pods_et_kamas, test_degats_et_elements,
                test_fin_de_tour, test_challenges, test_classes,
                test_succes_sans_kamas,
                test_recolte, test_interfaces,
-               test_liste_des_interfaces, test_doublons_de_capture,
+               test_liste_des_interfaces, test_sans_wireshark,
+               test_doublons_de_capture,
                test_duree_de_combat, test_adversaires,
                test_transferts, test_consommables,
                test_integrite_du_decodage]:
