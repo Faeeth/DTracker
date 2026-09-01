@@ -19,9 +19,14 @@ import os
 
 from PIL import Image
 
-SOURCE = ('C:/Users/orfre/.claude/image-cache/'
-          'ef29350c-b3d9-447b-90fe-c4b08a3c4247/2.png')
-APP = 'D:/claude/dtracker/app'
+import sys
+
+# Le logo d'origine, a vraie transparence. Le premier essai portait son
+# damier **peint dans l'image** : le fond a carreaux se voyait a l'ecran.
+SOURCE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    'assets', 'marque', 'source.png')
+APP = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 src = Image.open(SOURCE).convert('RGBA')
 print('source :', src.size)

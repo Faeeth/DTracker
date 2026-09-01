@@ -144,6 +144,29 @@ bool Win32Window::Create(const std::wstring& title,
     return false;
   }
 
+  // L'icone de la fenetre, posee explicitement et aux deux tailles.
+  //
+  // `WNDCLASS.hIcon` suffit en theorie, mais `LoadIcon` ne rend qu'une seule
+  // taille : la barre des taches, qui demande la grande, retombait sur
+  // l'icone par defaut. `LoadImage` permet de demander celle qu'on veut, et
+  // `WM_SETICON` la pose sur la fenetre elle-meme plutot que sur sa classe —
+  // ce qui contourne au passage le cache d'icones de Windows.
+  HINSTANCE instance = GetModuleHandle(nullptr);
+  if (HICON grande = static_cast<HICON>(
+          LoadImage(instance, MAKEINTRESOURCE(IDI_APP_ICON), IMAGE_ICON,
+                    GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON),
+                    0))) {
+    SendMessage(window, WM_SETICON, ICON_BIG,
+                reinterpret_cast<LPARAM>(grande));
+  }
+  if (HICON petite = static_cast<HICON>(
+          LoadImage(instance, MAKEINTRESOURCE(IDI_APP_ICON), IMAGE_ICON,
+                    GetSystemMetrics(SM_CXSMICON),
+                    GetSystemMetrics(SM_CYSMICON), 0))) {
+    SendMessage(window, WM_SETICON, ICON_SMALL,
+                reinterpret_cast<LPARAM>(petite));
+  }
+
   UpdateTheme(window);
 
   return OnCreate();

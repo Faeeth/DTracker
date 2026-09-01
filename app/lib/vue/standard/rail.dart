@@ -104,28 +104,20 @@ class Rail extends StatelessWidget {
   Widget _marque(BuildContext context) {
     final theme = ShadTheme.of(context);
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Le logo porte deja le nom : il remplace l'icone **et** le texte.
-        // Cent dix pixels de large, ce qui laisse la place au bouton de la
-        // vue compacte sur un rail qui en fait deux cent quarante-quatre.
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/marque/logo.png',
-              width: 110,
-              filterQuality: FilterQuality.medium,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: Pas.xs),
-              child: Text(
-                versionApp,
-                style: theme.textTheme.muted.copyWith(fontSize: 10),
-              ),
-            ),
-          ],
+        // Le logo accompagne la version, il ne la surmonte pas : seize
+        // pixels, la taille d'une puce. Il porte deja le nom, ce qui dispense
+        // du texte, et l'en-tete du rail garde sa hauteur d'une ligne.
+        Image.asset(
+          'assets/marque/marque.png',
+          width: 16,
+          height: 16,
+          filterQuality: FilterQuality.medium,
+        ),
+        const SizedBox(width: Pas.s),
+        Text(
+          versionApp,
+          style: theme.textTheme.muted.copyWith(fontSize: 11),
         ),
         const Spacer(),
         // L'icone seule ne dit pas ou elle mene : deux fleches qui se

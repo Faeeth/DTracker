@@ -84,7 +84,7 @@ Stream<Avancement> extrait(Emplacements ou, {String? client}) async* {
   // La diffusion prefixe chaque diagnostic d'un `#`, et nomme ses ennuis
   // d'un mot convenu : on les reconnait a ce mot plutot qu'a une phrase.
   final lignes = processus.stderr
-      .transform(utf8.decoder)
+      .transform(const Utf8Decoder(allowMalformed: true))
       .transform(const LineSplitter());
   var dernier = const Avancement(EtapeExtraction.travail);
   await for (final ligne in lignes) {

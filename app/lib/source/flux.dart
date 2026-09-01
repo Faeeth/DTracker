@@ -154,7 +154,7 @@ class Flux {
       // La sortie d'erreur porte les diagnostics de la bibliotheque ; on la
       // relaie telle quelle, sans quoi une capture qui echoue reste muette.
       _processus!.stderr
-          .transform(utf8.decoder)
+          .transform(const Utf8Decoder(allowMalformed: true))
           .listen((ligne) {
             stderr.write('[capture] $ligne');
             _lit(ligne);

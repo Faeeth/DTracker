@@ -116,8 +116,11 @@ def main(argv=None) -> int:
             print("# aucune-carte : le pilote est la, mais aucune interface "
                   "n'est ecoutable", file=sys.stderr)
             return 4
-        print(f"# ecoute sur {len(cartes)} interface(s)"
-              f" — {'npcap' if npcap_source.disponible() else 'dumpcap'}",
+        # En ASCII pur, comme la liste des interfaces : ces lignes sont
+        # relues par l'application, et la console de Windows n'ecrit pas en
+        # UTF-8. Un tiret cadratin y suffisait a faire tomber le decodage.
+        moteur = "npcap" if npcap_source.disponible() else "dumpcap"
+        print(f"# ecoute sur {len(cartes)} interface(s), via {moteur}",
               file=sys.stderr)
 
     prices = _load_prices(args.prices)
