@@ -376,7 +376,7 @@ class TextesFr extends Textes {
   String get diagNeRepondPas => 'La diffusion ne répond pas.\nLa capture démarre, ou Python n\'a pas pu la lancer.';
 
   @override
-  String get diagNaPasDemarre => 'La capture n\'a pas pu démarrer.\nPython ou Wireshark manquent à l\'appel.';
+  String get diagNaPasDemarre => 'La capture n\'a pas pu démarrer.\nLe pilote npcap manque à l\'appel.';
 
   @override
   String get diagAucuneCapture => 'Aucune capture en cours.';

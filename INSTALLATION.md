@@ -2,25 +2,19 @@
 
 ## Ce qu'il faut avant
 
-**Wireshark** — [wireshark.org/download.html](https://www.wireshark.org/download.html)
+**npcap** — [npcap.com](https://npcap.com/#download)
 
-DTracker n'écoute pas le réseau lui-même. Il lui faut deux choses :
+C'est tout, et c'est un mégaoctet. Lire le trafic réseau se fait dans le noyau
+de Windows : il y faut un pilote, et aucun programme ne peut s'en passer.
+npcap ne peut pas être fourni avec DTracker — sa licence interdit qu'on le
+redistribue — mais son installation ne se demande qu'une fois.
 
-- **npcap**, le pilote qui donne accès au trafic. Lire les paquets se fait
-  dans le noyau de Windows : aucun programme ne peut s'en passer.
-- **dumpcap**, le moteur de capture livré avec Wireshark.
+L'installateur vérifie sa présence et vous propose la page de téléchargement
+s'il manque.
 
-Ni l'un ni l'autre n'est fourni avec DTracker. Ce n'est pas un oubli : la
-licence de npcap interdit de le redistribuer. L'installateur les cherche, dit
-lesquels manquent et **ouvre la page de téléchargement** si vous le
-souhaitez — le pilote se prend à la source, où il est signé et tenu à jour.
-
-Le plus simple reste d'installer Wireshark : il propose npcap au passage, et
-vous aurez les deux d'un coup. Laissez la case npcap cochée ; le reste peut
-être décoché.
-
-Python n'est pas nécessaire : la partie qui décode le protocole du jeu est
-livrée compilée.
+Ni Wireshark ni Python ne sont nécessaires. DTracker parle directement à la
+bibliothèque que npcap installe, et la partie qui décode le protocole du jeu
+est livrée compilée.
 
 ## Installer
 

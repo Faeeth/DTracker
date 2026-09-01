@@ -645,32 +645,57 @@ def test_liste_des_interfaces() -> None:
 
 
 def test_sans_wireshark() -> None:
-    """Une machine sans Wireshark rend une liste vide, pas une exception.
+    """Wireshark n'est plus necessaire, npcap suffit.
 
-    C'est le cas ordinaire, pas l'anomalie : npcap et dumpcap ne peuvent pas
-    etre fournis avec l'outil — la licence de npcap interdit sa
-    redistribution. Quelqu'un installe donc DTracker, l'ouvre, et n'a rien.
+    npcap installe `wpcap.dll`, l'API libpcap : la bibliotheque l'appelle
+    directement. dumpcap — donc Wireshark, et ses quatre-vingts mega-octets —
+    n'est plus qu'un chemin de repli pour qui aurait l'un sans l'autre.
 
-    Il doit alors lire « aucune carte », pas une trace de dix lignes remontee
-    des profondeurs de `subprocess`. Le defaut a ete trouve par l'integration
-    continue, dont les machines n'ont pas Wireshark.
+    Deux cas, donc. Sans dumpcap mais avec npcap, on voit les cartes comme
+    avant. Sans ni l'un ni l'autre, on rend des listes vides : c'est le
+    premier lancement de quelqu'un qui n'a pas encore installe le pilote, et
+    il doit lire « aucune carte », pas une trace remontee des profondeurs de
+    `subprocess`.
     """
-    from dofus_stats.capture import live_source
+    from dofus_stats.capture import live_source, npcap_source
 
     connus = live_source.DUMPCAP_CANDIDATES
     live_source.DUMPCAP_CANDIDATES = ["/nulle/part/dumpcap"]
     try:
         verifie(live_source.dumpcap_present() is False,
-                "sans wireshark : l'absence est vue")
-        verifie(live_source.detailed_interfaces() == [],
-                "sans wireshark : liste detaillee vide")
-        verifie(live_source.list_interfaces() == [],
-                "sans wireshark : liste simple vide")
-        verifie(live_source.all_interfaces() == [],
-                "sans wireshark : aucune carte a ecouter")
+                "sans wireshark : l'absence de dumpcap est vue")
+        if npcap_source.disponible():
+            cartes = live_source.detailed_interfaces()
+            verifie(len(cartes) > 0,
+                    "sans wireshark : npcap voit les cartes")
+            verifie(all(c.get("device") for c in cartes),
+                    "sans wireshark : chacune porte son peripherique")
+            # Le nom convivial vient de Windows, pas de npcap, qui ne connait
+            # que le materiel : « Wi-Fi 4 » et non « MediaTek MT7925 ».
+            verifie(any(c.get("mac") for c in cartes),
+                    "sans wireshark : les adresses materielles sont la")
+            verifie(any(c.get("physique") for c in cartes),
+                    "sans wireshark : au moins une vraie carte")
+
+        # Et maintenant sans npcap non plus.
+        chemins = npcap_source.CHEMINS
+        dll, cherche = npcap_source._dll, npcap_source._cherche
+        npcap_source.CHEMINS = ["/nulle/part/wpcap.dll"]
+        npcap_source._dll, npcap_source._cherche = None, False
+        try:
+            verifie(npcap_source.disponible() is False,
+                    "sans rien : l'absence de npcap est vue")
+            verifie(live_source.detailed_interfaces() == [],
+                    "sans rien : liste detaillee vide")
+            verifie(live_source.list_interfaces() == [],
+                    "sans rien : liste simple vide")
+            verifie(live_source.all_interfaces() == [],
+                    "sans rien : aucune carte a ecouter")
+        finally:
+            npcap_source.CHEMINS = chemins
+            npcap_source._dll, npcap_source._cherche = dll, cherche
     finally:
         live_source.DUMPCAP_CANDIDATES = connus
-
 
 def main() -> int:
     for fn in [test_combat_deux_personnages, test_butin_complet, test_succes,

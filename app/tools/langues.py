@@ -352,11 +352,10 @@ TABLE = [
      'A difusão não responde.\\nA captura está a arrancar, ou o Python não '
      'a conseguiu lançar.'),
     ('diagNaPasDemarre', None,
-     'La capture n\\\'a pas pu démarrer.\\nPython ou Wireshark manquent à '
-     'l\\\'appel.',
-     'The capture could not start.\\nPython or Wireshark are missing.',
-     'La captura no ha podido arrancar.\\nFaltan Python o Wireshark.',
-     'A captura não conseguiu arrancar.\\nFaltam o Python ou o Wireshark.'),
+     "La capture n'a pas pu démarrer.\\nLe pilote npcap manque à l'appel.",
+     'The capture could not start.\\nThe npcap driver is missing.',
+     'La captura no ha podido arrancar.\\nFalta el controlador npcap.',
+     'A captura não conseguiu arrancar.\\nFalta o controlador npcap.'),
     ('diagAucuneCapture', None,
      'Aucune capture en cours.', 'No capture running.',
      'Ninguna captura en curso.', 'Nenhuma captura em curso.'),
@@ -551,7 +550,13 @@ for code, colonne, classe, nom in LANGUES:
         params = entree[1]
         valeur = entree[colonne]
         assert valeur is not None, f'{classe} : {clef} manque'
-        litteral = "'" + valeur.replace("\n", "\\n") + "'"
+        # Les apostrophes sont echappees ici, une fois pour
+        # toutes : les ecrire a la main dans la table, c'est les
+        # oublier un jour — et une apostrophe nue ferme la chaine
+        # Dart au milieu d'une phrase.
+        brut = valeur.replace(chr(92) + "'", "'")
+        brut = brut.replace(chr(10), chr(92) + "n")
+        litteral = "'" + brut.replace("'", chr(92) + "'") + "'"
         if params:
             lignes.append("  @override")
             lignes.append(f"  String {clef}({params}) => {litteral};")

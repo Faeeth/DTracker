@@ -376,7 +376,7 @@ class TextesEs extends Textes {
   String get diagNeRepondPas => 'La difusión no responde.\nLa captura está arrancando, o Python no ha podido lanzarla.';
 
   @override
-  String get diagNaPasDemarre => 'La captura no ha podido arrancar.\nFaltan Python o Wireshark.';
+  String get diagNaPasDemarre => 'La captura no ha podido arrancar.\nFalta el controlador npcap.';
 
   @override
   String get diagAucuneCapture => 'Ninguna captura en curso.';

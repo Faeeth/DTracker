@@ -21,9 +21,9 @@ ne veulent rien dire.
 
 ## Installer
 
-Voir [INSTALLATION.md](INSTALLATION.md). En deux lignes : Wireshark (pour son
-pilote de capture), puis l'installateur de la derniere
-[release](../../releases).
+Voir [INSTALLATION.md](INSTALLATION.md). En deux lignes : npcap — un
+mega-octet, le pilote sans lequel rien ne peut lire le reseau — puis
+l'installateur de la derniere [release](../../releases).
 
 ## Developper
 

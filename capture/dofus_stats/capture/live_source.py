@@ -1,9 +1,18 @@
-"""Capture en direct via dumpcap.
+"""Capture en direct, par npcap ou par dumpcap.
 
-dumpcap est le moteur de capture de Wireshark : ecrit en C, il tient la charge
-sans perte la ou du Python pur decrocherait. On le branche en sous-processus,
-sortie pcapng sur un tube, et on relit ce tube avec le meme lecteur que pour un
-fichier. Direct et differe empruntent ainsi exactement le meme chemin de code.
+**npcap d'abord.** Il installe `wpcap.dll`, l'API libpcap : on l'appelle
+directement, et Wireshark n'est plus necessaire. C'est quatre-vingts
+mega-octets de moins a installer pour qui veut se servir de l'outil, contre
+un mega-octet pour le seul pilote — lequel reste indispensable, la lecture du
+trafic se faisant dans le noyau de Windows.
+
+**dumpcap si npcap manque.** Il est le moteur de capture de Wireshark : ecrit
+en C, branche en sous-processus, sortie pcapng sur un tube. Ce chemin-la est
+garde parce qu'il a servi longtemps et qu'il marche ; il rend service a qui a
+deja Wireshark sans avoir npcap seul.
+
+Les deux rendent des `Frame`, et tout ce qui suit ignore d'ou elles viennent —
+comme pour un fichier rejoue.
 """
 from __future__ import annotations
 
@@ -16,6 +25,7 @@ import sys
 import subprocess
 from typing import Iterator
 
+from . import npcap_source
 from .pcap_source import _read_pcapng
 from .source import Frame
 
@@ -131,6 +141,53 @@ def est_physique(interface: dict) -> bool:
 GUID = re.compile(r"\{[0-9A-Fa-f-]{36}\}")
 
 
+def _cartes_windows() -> dict[str, dict]:
+    """Ce que Windows sait de chaque carte, par GUID d'interface.
+
+    Une seule interrogation pour tout : le nom convivial — celui qu'on lit
+    dans les reglages du systeme, « Wi-Fi 4 » —, la description du materiel,
+    l'adresse materielle, et le fait qu'elle soit virtuelle. npcap ne donne
+    que la description ; le reste vient de la.
+
+    `-IncludeHidden` n'est pas un detail : les cartes virtuelles d'un pilote
+    Wi-Fi moderne — « Wi-Fi 3 », « Wi-Fi 4 » — n'y figurent pas autrement, et
+    ce sont justement celles qu'on ne sait pas reconnaitre de vue.
+
+    Rend une table vide sur tout autre systeme, ou si PowerShell manque : ces
+    details sont un agrement d'affichage, pas une condition.
+    """
+    if not sys.platform.startswith("win"):
+        return {}
+    try:
+        res = subprocess.run(
+            ["powershell", "-NoProfile", "-NonInteractive", "-Command",
+             "Get-NetAdapter -IncludeHidden | Select-Object InterfaceGuid, "
+             "Name, MacAddress, InterfaceDescription, Virtual | "
+             "ConvertTo-Json"],
+            capture_output=True, timeout=15,
+        )
+        brut = json.loads(_texte(res.stdout))
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError,
+            TypeError, ValueError):
+        return {}
+    if isinstance(brut, dict):
+        brut = [brut]
+    table: dict[str, dict] = {}
+    for entree in brut if isinstance(brut, list) else []:
+        if not isinstance(entree, dict):
+            continue
+        guid = str(entree.get("InterfaceGuid") or "").upper()
+        if not guid:
+            continue
+        table[guid] = {
+            "nom": str(entree.get("Name") or "").strip(),
+            "mac": str(entree.get("MacAddress") or "").strip().upper(),
+            "description": str(entree.get("InterfaceDescription") or "").strip(),
+            "virtuel": bool(entree.get("Virtual")),
+        }
+    return table
+
+
 def adresses_mac() -> dict[str, str]:
     """L'adresse materielle de chaque carte, par GUID d'interface.
 
@@ -148,41 +205,52 @@ def adresses_mac() -> dict[str, str]:
     Rend une table vide sur tout autre systeme, ou si PowerShell manque :
     l'adresse est un agrement d'affichage, pas une condition.
     """
-    if not sys.platform.startswith("win"):
-        return {}
-    try:
-        res = subprocess.run(
-            ["powershell", "-NoProfile", "-NonInteractive", "-Command",
-             "Get-NetAdapter -IncludeHidden | "
-             "Select-Object InterfaceGuid, MacAddress | ConvertTo-Json"],
-            capture_output=True, timeout=15,
-        )
-        brut = json.loads(_texte(res.stdout))
-    except (OSError, subprocess.SubprocessError, json.JSONDecodeError,
-            TypeError, ValueError):
-        return {}
-    # Une carte unique sort en objet, pas en liste.
-    if isinstance(brut, dict):
-        brut = [brut]
-    table = {}
-    for entree in brut if isinstance(brut, list) else []:
-        if not isinstance(entree, dict):
-            continue
-        guid = str(entree.get("InterfaceGuid") or "").upper()
-        mac = str(entree.get("MacAddress") or "").strip().upper()
-        if guid and mac:
-            table[guid] = mac
-    return table
+    return {guid: detail["mac"]
+            for guid, detail in _cartes_windows().items()
+            if detail.get("mac")}
 
 
 def detailed_interfaces() -> list[dict]:
-    """Les interfaces avec leurs adresses, telles que dumpcap les decrit.
+    """Les cartes, d'ou qu'elles viennent.
 
-    `dumpcap -M -D` rend du JSON : nom de peripherique, nom convivial,
-    adresses, et si c'est une boucle locale. Le nom de peripherique est stable
-    d'un demarrage a l'autre ; le numero de la liste, lui, ne l'est pas — une
-    carte qui apparait decale tous les suivants.
+    npcap les nomme par leur materiel — « MediaTek Wi-Fi 7 MT7925 » — la ou
+    dumpcap donne le nom convivial de Windows — « Wi-Fi 4 ». Or c'est celui-la
+    qu'on lit dans les reglages du systeme, et donc celui qu'il faut montrer.
+    On le recupere de Windows, avec l'adresse materielle, et on apparie sur le
+    GUID que le nom de peripherique porte deja.
     """
+    cartes = npcap_source.interfaces()
+    if cartes:
+        return _habille(cartes)
+    return _interfaces_dumpcap()
+
+
+def _habille(cartes: list[dict]) -> list[dict]:
+    """Rend aux cartes leur nom convivial et leur adresse materielle."""
+    connues = _cartes_windows()
+    for carte in cartes:
+        trouve = GUID.search(carte.get("device", "") or "")
+        detail = connues.get(trouve.group(0).upper()) if trouve else None
+        if not detail:
+            carte.setdefault("mac", "")
+            continue
+        if detail.get("nom"):
+            carte["libelle"] = detail["nom"]
+        if detail.get("description"):
+            carte["description"] = detail["description"]
+        carte["mac"] = detail.get("mac", "")
+        # Windows sait ce qui est virtuel mieux que le nom ne le dit.
+        if detail.get("virtuel"):
+            carte["type"] = None
+    # Le verdict accompagne la carte plutot que de filtrer la liste : une
+    # interface graphique doit pouvoir montrer le tout si on le lui demande.
+    for carte in cartes:
+        carte["physique"] = est_physique(carte)
+    return cartes
+
+
+def _interfaces_dumpcap() -> list[dict]:
+    """Le chemin d'avant, pour une machine qui a Wireshark sans npcap."""
     try:
         brut = json.loads(_texte(_dumpcap("-M", "-D")))
     except (json.JSONDecodeError, TypeError):
@@ -261,6 +329,7 @@ class LiveSource:
         self.interface = interface
         self.bpf = bpf if bpf is not None else (f"tcp port {port}" if port else "tcp")
         self.proc: subprocess.Popen | None = None
+        self.source: npcap_source.NpcapSource | None = None
 
     def interfaces(self) -> list[str]:
         """Les interfaces a ecouter, dans l'ordre des `-i`."""
@@ -275,13 +344,22 @@ class LiveSource:
         return all_interfaces() or ["1"]
 
     def frames(self) -> Iterator[Frame]:
+        """Les trames, par npcap si possible, par dumpcap sinon."""
+        cartes = self.interfaces()
+        if npcap_source.disponible():
+            self.source = npcap_source.NpcapSource(cartes, self.bpf)
+            yield from self.source.frames()
+            return
+        yield from self._frames_dumpcap(cartes)
+
+    def _frames_dumpcap(self, cartes: list[str]) -> Iterator[Frame]:
         # Ne pas brider le tampon de dumpcap. L'option -N, essayee pour reduire
         # la latence, s'est revelee desastreuse : limite a un paquet en memoire,
         # dumpcap en a perdu deux sur trois des que le decodage prenait la main,
         # et un flux TCP ampute ne se reassemble plus. Mieux vaut quelques
         # dizaines de millisecondes de retard qu'un flux troue.
         cmd = [find_dumpcap(), "-w", "-", "-q"]
-        for interface in self.interfaces():
+        for interface in cartes:
             cmd += ["-i", interface]
         if self.bpf:
             cmd += ["-f", self.bpf]
@@ -303,6 +381,9 @@ class LiveSource:
             self.close()
 
     def close(self) -> None:
+        if self.source is not None:
+            self.source.close()
+            self.source = None
         if self.proc and self.proc.poll() is None:
             self.proc.terminate()
             try:

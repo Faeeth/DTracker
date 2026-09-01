@@ -376,7 +376,7 @@ class TextesEn extends Textes {
   String get diagNeRepondPas => 'The stream is not answering.\nThe capture is starting, or Python could not launch it.';
 
   @override
-  String get diagNaPasDemarre => 'The capture could not start.\nPython or Wireshark are missing.';
+  String get diagNaPasDemarre => 'The capture could not start.\nThe npcap driver is missing.';
 
   @override
   String get diagAucuneCapture => 'No capture running.';

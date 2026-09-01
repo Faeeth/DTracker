@@ -9,7 +9,7 @@
 ;   build\windows\x64\runner\Release   l'application
 ;   ..\capture\dist\capture        la diffusion de capture gelee
 ;
-; NPCAP N'EST PAS FOURNI, ET NE PEUT PAS L'ETRE. Sa licence est explicite :
+; NPCAP EST LA SEULE DEPENDANCE, ET IL N'EST PAS FOURNI. Sa licence est explicite :
 ; « it is not open source software and may not be redistributed or used in
 ; other software without special permission from the Nmap Project ». La
 ; licence gratuite couvre cinq installations chez l'utilisateur final, pas la
@@ -102,22 +102,21 @@ Filename: "{app}\{#Executable}"; Description: "{cm:LaunchProgram,{#Nom}}"; Flags
 Type: filesandordirs; Name: "{app}\logs"
 
 [Code]
-{ Deux choses manquent peut-etre a la machine, et elles ne se remplacent pas
-  l'une l'autre :
+{ Une seule chose manque peut-etre : npcap. Sans lui, aucun programme ne
+  peut lire le trafic — c'est une affaire de noyau, et aucun langage n'y
+  change rien.
 
-    npcap     le pilote. Sans lui, aucun programme ne peut lire le trafic —
-              c'est une affaire de noyau, aucun langage n'y change rien.
+  DTracker parle a `wpcap.dll`, que npcap installe. Wireshark n'est plus
+  necessaire : il n'apportait que `dumpcap`, un programme qui se sert de la
+  meme bibliotheque. Le chemin par dumpcap reste en place pour qui aurait
+  Wireshark sans npcap seul, mais ce n'est plus ce qu'on demande.
 
-    dumpcap   le moteur de capture, livre avec Wireshark. C'est lui que la
-              diffusion appelle.
-
-  Ni l'un ni l'autre n'est fourni ici : voir l'en-tete. On les cherche, on le
-  dit, et on propose ce qu'il faut telecharger — sans jamais bloquer, car on
-  peut tres bien installer l'outil aujourd'hui et le reste demain. }
+  On cherche, on le dit, et on renvoie au site officiel — sans jamais
+  bloquer, car on peut tres bien installer l'outil aujourd'hui et le pilote
+  demain. }
 
 const
   NpcapUrl = 'https://npcap.com/#download';
-  WiresharkUrl = 'https://www.wireshark.org/download.html';
 
 { Trois marqueurs, dont un seul suffit : le pilote peut etre installe sans
   que le service tourne au moment ou l'on regarde. }
@@ -129,12 +128,6 @@ begin
          or RegKeyExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\Npcap');
 end;
 
-function DumpcapPresent(): Boolean;
-begin
-  Result := FileExists(ExpandConstant('{commonpf}\Wireshark\dumpcap.exe'))
-         or FileExists(ExpandConstant('{commonpf32}\Wireshark\dumpcap.exe'));
-end;
-
 procedure Ouvrir(Adresse: String);
 var
   Code: Integer;
@@ -143,40 +136,26 @@ begin
 end;
 
 function InitializeSetup(): Boolean;
-var
-  Manquants: String;
 begin
   Result := True;
-
-  Manquants := '';
-  if not NpcapPresent() then
-    Manquants := Manquants + '  -  npcap, le pilote de capture' + #13#10;
-  if not DumpcapPresent() then
-    Manquants := Manquants + '  -  Wireshark, dont DTracker utilise dumpcap'
-                 + #13#10;
-  if Manquants = '' then
+  if NpcapPresent() then
     Exit;
 
   { Une installation silencieuse ne doit pas s'arreter sur une boite de
-    dialogue que personne ne verra : on se tait, et on installe. }
+    dialogue que personne ne verra. }
   if WizardSilent() then
     Exit;
 
   { On informe, on n'empeche pas : quelqu'un peut tres bien installer l'outil
-    aujourd'hui et le reste demain. }
-  if MsgBox('DTracker a besoin de deux choses qui ne sont pas fournies avec '
-            + 'lui,' + #13#10 + 'et qui manquent sur cette machine :'
-            + #13#10 + #13#10 + Manquants + #13#10
-            + 'Le plus simple est d''installer Wireshark : il propose npcap '
-            + 'au passage,' + #13#10 + 'et vous aurez les deux d''un coup.'
-            + #13#10 + #13#10
+    aujourd'hui et le pilote demain. }
+  if MsgBox('DTracker a besoin de npcap, le pilote qui donne acces au trafic '
+            + 'reseau.' + #13#10 + 'Il ne semble pas installe sur cette '
+            + 'machine.' + #13#10 + #13#10
+            + 'Il est gratuit, pese environ un mega-octet, et ne se demande '
+            + 'qu''une fois.' + #13#10
+            + 'Sans lui, DTracker s''ouvre mais reste muet.' + #13#10 + #13#10
             + 'Ouvrir la page de telechargement maintenant ?' + #13#10
             + '(l''installation de DTracker se poursuit dans tous les cas)',
             mbConfirmation, MB_YESNO) = IDYES then
-  begin
-    if not DumpcapPresent() then
-      Ouvrir(WiresharkUrl)
-    else
-      Ouvrir(NpcapUrl);
-  end;
+    Ouvrir(NpcapUrl);
 end;
