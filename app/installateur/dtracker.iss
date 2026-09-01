@@ -18,9 +18,9 @@
 ; « we normally recommend that such authors instead ask your users to
 ; download and install Npcap themselves ».
 ;
-; On telecharge donc depuis le site officiel, a la demande, et on lance leur
-; installateur — l'utilisateur voit et accepte leur licence. Rien n'est
-; redistribue.
+; L'installateur le cherche, dit ce qui manque, et renvoie au site
+; officiel. Rien n'est telecharge ni redistribue : le pilote se prend
+; a la source, ou il est tenu a jour et signe.
 ;
 ; CE QU'IL NE TOUCHE JAMAIS : les reglages, le cache et les sessions. Ils
 ; vivent dans %APPDATA%\DTracker et n'apparaissent nulle part ci-dessous — ni
@@ -111,11 +111,8 @@ Type: filesandordirs; Name: "{app}\logs"
   peut tres bien installer l'outil aujourd'hui et le reste demain. }
 
 const
-  NpcapUrl = 'https://npcap.com/dist/npcap-1.88.exe';
+  NpcapUrl = 'https://npcap.com/#download';
   WiresharkUrl = 'https://www.wireshark.org/download.html';
-
-var
-  TelechargerNpcap: Boolean;
 
 { Trois marqueurs, dont un seul suffit : le pilote peut etre installe sans
   que le service tourne au moment ou l'on regarde. }
@@ -133,12 +130,18 @@ begin
          or FileExists(ExpandConstant('{commonpf32}\Wireshark\dumpcap.exe'));
 end;
 
+procedure Ouvrir(Adresse: String);
+var
+  Code: Integer;
+begin
+  ShellExec('open', Adresse, '', '', SW_SHOW, ewNoWait, Code);
+end;
+
 function InitializeSetup(): Boolean;
 var
   Manquants: String;
 begin
   Result := True;
-  TelechargerNpcap := False;
 
   Manquants := '';
   if not NpcapPresent() then
@@ -149,67 +152,21 @@ begin
   if Manquants = '' then
     Exit;
 
-  MsgBox('DTracker a besoin de deux choses qui ne sont pas fournies avec lui,'
-         + #13#10 + 'et qui manquent sur cette machine :' + #13#10 + #13#10
-         + Manquants + #13#10
-         + 'L''installation se poursuit : vous pourrez les ajouter apres '
-         + 'coup.' + #13#10
-         + 'Sans elles, DTracker s''ouvre mais reste muet.',
-         mbInformation, MB_OK);
-
-  if not NpcapPresent() then
+  { On informe, on n'empeche pas : quelqu'un peut tres bien installer l'outil
+    aujourd'hui et le reste demain. }
+  if MsgBox('DTracker a besoin de deux choses qui ne sont pas fournies avec '
+            + 'lui,' + #13#10 + 'et qui manquent sur cette machine :'
+            + #13#10 + #13#10 + Manquants + #13#10
+            + 'Le plus simple est d''installer Wireshark : il propose npcap '
+            + 'au passage,' + #13#10 + 'et vous aurez les deux d''un coup.'
+            + #13#10 + #13#10
+            + 'Ouvrir la page de telechargement maintenant ?' + #13#10
+            + '(l''installation de DTracker se poursuit dans tous les cas)',
+            mbConfirmation, MB_YESNO) = IDYES then
   begin
-    TelechargerNpcap :=
-      MsgBox('Telecharger npcap maintenant depuis le site officiel ?'
-             + #13#10 + #13#10
-             + 'Il sera telecharge depuis npcap.com et son installateur '
-             + 'sera lance a la fin.' + #13#10
-             + 'Npcap est gratuit, et vous verrez sa propre licence.',
-             mbConfirmation, MB_YESNO) = IDYES;
-  end;
-end;
-
-{ Le telechargement se fait a la page de preparation, la ou Inno sait montrer
-  une progression et laisser annuler. }
-function PrepareToInstall(var NeedsRestart: Boolean): String;
-var
-  Page: TDownloadWizardPage;
-begin
-  Result := '';
-  if not TelechargerNpcap then
-    Exit;
-  Page := CreateDownloadPage('Telechargement de npcap',
-                             'Depuis npcap.com', nil);
-  Page.Clear;
-  Page.Add(NpcapUrl, 'npcap-installateur.exe', '');
-  Page.Show;
-  try
-    try
-      Page.Download;
-    except
-      { Un telechargement qui echoue n'empeche pas d'installer DTracker : on
-        le dit, et on continue. }
-      MsgBox('Le telechargement de npcap a echoue.' + #13#10 + #13#10
-             + 'Vous pourrez l''installer plus tard depuis npcap.com.',
-             mbError, MB_OK);
-      TelechargerNpcap := False;
-    end;
-  finally
-    Page.Hide;
-  end;
-end;
-
-{ Et on lance leur installateur une fois le notre fini : deux assistants a
-  l'ecran en meme temps se marchent dessus. }
-procedure CurStepChanged(CurStep: TSetupStep);
-var
-  Code: Integer;
-begin
-  if (CurStep = ssPostInstall) and TelechargerNpcap then
-  begin
-    if not Exec(ExpandConstant('{tmp}\npcap-installateur.exe'), '', '',
-                SW_SHOW, ewWaitUntilTerminated, Code) then
-      MsgBox('L''installateur de npcap n''a pas pu demarrer.' + #13#10
-             + 'Vous le trouverez sur npcap.com.', mbError, MB_OK);
+    if not DumpcapPresent() then
+      Ouvrir(WiresharkUrl)
+    else
+      Ouvrir(NpcapUrl);
   end;
 end;

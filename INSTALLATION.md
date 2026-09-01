@@ -12,8 +12,8 @@ DTracker n'écoute pas le réseau lui-même. Il lui faut deux choses :
 
 Ni l'un ni l'autre n'est fourni avec DTracker. Ce n'est pas un oubli : la
 licence de npcap interdit de le redistribuer. L'installateur les cherche, dit
-lesquels manquent, et **propose de télécharger npcap depuis son site
-officiel** — vous verrez alors sa propre licence.
+lesquels manquent et **ouvre la page de téléchargement** si vous le
+souhaitez — le pilote se prend à la source, où il est signé et tenu à jour.
 
 Le plus simple reste d'installer Wireshark : il propose npcap au passage, et
 vous aurez les deux d'un coup. Laissez la case npcap cochée ; le reste peut

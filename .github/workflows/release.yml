@@ -87,7 +87,9 @@ jobs:
         # `OutputDir` du script vaut `..\dist` relatif au .iss : l'installateur
         # sort donc dans `app/dist`.
         run: |
-          & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" installateur\dtracker.iss /DVersion=${{ steps.version.outputs.v }}
+          # Les accolades ne sont pas decoratives : sans elles, PowerShell
+          # s'arrete au nom `ProgramFiles` et laisse le `(x86)` de cote.
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installateur\dtracker.iss /DVersion=${{ steps.version.outputs.v }}
 
       - name: Composer l'archive
         shell: bash
