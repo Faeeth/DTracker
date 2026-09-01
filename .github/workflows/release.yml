@@ -26,6 +26,12 @@ jobs:
   windows:
     runs-on: windows-latest
 
+    # Le jeton du workflow est en lecture seule par defaut : la publication
+    # d'une release echouait sur un 403 « Resource not accessible by
+    # integration », apres avoir construit tout le reste sans broncher.
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
 
