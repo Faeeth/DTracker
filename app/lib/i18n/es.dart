@@ -504,7 +504,7 @@ class TextesEs extends Textes {
   String majDetail(String courante) => 'Tienes la versión $courante.\n\nLa página de descarga se abrirá en tu navegador. Tus ajustes, tu historial\ny tus sesiones se conservan.';
 
   @override
-  String get majOuvrir => 'Descargar';
+  String get majOuvrir => 'Ver la página';
 
   @override
   String get majPlusTard => 'Más tarde';

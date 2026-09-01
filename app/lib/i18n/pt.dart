@@ -504,7 +504,7 @@ class TextesPt extends Textes {
   String majDetail(String courante) => 'Tem a versão $courante.\n\nA página de transferência abrirá no seu navegador. As suas configurações,\no histórico e as sessões são mantidos.';
 
   @override
-  String get majOuvrir => 'Transferir';
+  String get majOuvrir => 'Ver a página';
 
   @override
   String get majPlusTard => 'Mais tarde';
