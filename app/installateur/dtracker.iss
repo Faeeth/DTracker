@@ -94,7 +94,10 @@ Name: "{group}\{cm:UninstallProgram,{#Nom}}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#Nom}"; Filename: "{app}\{#Executable}"; Tasks: bureau
 
 [Run]
-Filename: "{app}\{#Executable}"; Description: "{cm:LaunchProgram,{#Nom}}"; Flags: nowait postinstall skipifsilent
+; Sans `skipifsilent` : une mise a jour lancee depuis l'outil se fait en
+; silence, et doit rendre l'outil a qui l'utilisait. Il l'avait ferme pour
+; laisser la place a l'installateur, pas pour en finir avec lui.
+Filename: "{app}\{#Executable}"; Description: "{cm:LaunchProgram,{#Nom}}"; Flags: nowait postinstall
 
 [UninstallDelete]
 ; Ce que le programme ecrit a cote de lui et qui n'est pas a lui : les

@@ -91,6 +91,14 @@ class _DialogueState extends State<_Dialogue> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(T.majDetail(versionApp)),
+            const SizedBox(height: Pas.s),
+            // Un lien plutot qu'un bouton : voir ce qu'on installe est une
+            // curiosite, pas une action au meme rang que la mise a jour. Et
+            // il reste la porte de secours quand le telechargement echoue.
+            _Lien(
+              texte: T.majOuvrir,
+              onTap: () => ouvreAdresse(widget.maj.adresse),
+            ),
             if (enCours) ...[
               const SizedBox(height: Pas.m),
               ShadProgress(value: _part, minHeight: 6),
@@ -122,17 +130,6 @@ class _DialogueState extends State<_Dialogue> {
                 onPressed: () => Navigator.of(context).pop(SuiteMaj.rien),
                 child: Text(T.majPlusTard),
               ),
-              // La page reste offerte : elle marche quand tout le reste a
-              // echoue, et certains preferent voir ce qu'ils installent.
-              ShadButton.outline(
-                onPressed: () async {
-                  await ouvreAdresse(widget.maj.adresse);
-                  if (context.mounted) {
-                    Navigator.of(context).pop(SuiteMaj.rien);
-                  }
-                },
-                child: Text(T.majOuvrir),
-              ),
               if (widget.maj.telechargeable)
                 ShadButton(
                   leading: const Icon(LucideIcons.download, size: 14),
@@ -140,6 +137,38 @@ class _DialogueState extends State<_Dialogue> {
                   child: Text(_rate ? T.majReessayer : T.majInstaller),
                 ),
             ],
+    );
+  }
+}
+
+/// Un texte qui mene quelque part.
+///
+/// Souligne et de la couleur d'accent : sans l'un ni l'autre, rien ne dit
+/// qu'on peut cliquer, et le curseur seul ne se decouvre qu'en passant
+/// dessus par hasard.
+class _Lien extends StatelessWidget {
+  const _Lien({required this.texte, required this.onTap});
+
+  final String texte;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Text(
+          texte,
+          style: theme.textTheme.small.copyWith(
+            fontSize: 12,
+            color: theme.colorScheme.primary,
+            decoration: TextDecoration.underline,
+            decorationColor: theme.colorScheme.primary.withValues(alpha: 0.5),
+          ),
+        ),
+      ),
     );
   }
 }

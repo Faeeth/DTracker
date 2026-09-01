@@ -504,7 +504,7 @@ class TextesFr extends Textes {
   String majDetail(String courante) => 'Vous avez la version $courante.\n\nLa page de téléchargement s\'ouvrira dans votre navigateur. Vos réglages,\nvotre historique et vos sessions sont conservés par la mise à jour.';
 
   @override
-  String get majOuvrir => 'Voir la page';
+  String get majOuvrir => 'Voir cette version sur GitHub';
 
   @override
   String get majPlusTard => 'Plus tard';
