@@ -34,6 +34,11 @@
   #define Version "0.0.0"
 #endif
 
+; `VersionInfoVersion` n'accepte que des nombres : un tag `v1.0.0-beta`
+; ferait echouer la compilation. On coupe donc au premier tiret pour la
+; ressource de version, et on garde le libelle entier pour l'affichage.
+#define VersionNumerique Copy(Version, 1, Pos("-", Version + "-") - 1)
+
 #define Nom "DTracker"
 #define Editeur "DTracker"
 #define Executable "dofus_tracker.exe"
@@ -44,7 +49,7 @@ AppName={#Nom}
 AppVersion={#Version}
 AppVerName={#Nom} {#Version}
 AppPublisher={#Editeur}
-VersionInfoVersion={#Version}
+VersionInfoVersion={#VersionNumerique}
 
 ; Par utilisateur, et non pour toute la machine : pas d'invite
 ; d'administrateur, pas d'ecriture dans Program Files, et l'outil s'installe
