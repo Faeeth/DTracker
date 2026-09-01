@@ -157,4 +157,43 @@ void main() {
     // Deux perdants : le monstre et lui.
     expect(find.text('2'), findsOneWidget);
   });
+  testWidgets("la ligne d'un invite passe entiere en retrait", (tester) async {
+    // Le pseudo seul ne suffisait pas : l'experience, les kamas et les objets
+    // restaient aussi francs que ceux des notres, et l'oeil additionnait des
+    // chiffres qui n'entrent dans aucun total.
+    await monte(
+      tester,
+      combatAvec(const [], participants: [
+        joueur('Kaska-yopette'),
+        ParticipantCombat(
+          nom: 'Ami-iop',
+          niveau: 200,
+          xp: 9000,
+          xpTotal: 0,
+          xpSeuilBas: 0,
+          xpSeuilHaut: 0,
+          kamas: 900,
+          butin: const {2663: (3, 100)},
+          suivi: false,
+        ),
+      ]),
+    );
+
+    // Sa ligne porte la marque, et l'explication au survol.
+    expect(find.byIcon(LucideIcons.userMinus), findsOneWidget);
+
+    // Et tout ce qui la compose est attenue — a la moitie, ce qui laisse aux
+    // icones d'objets assez de couleur pour se reconnaitre.
+    final voiles = tester
+        .widgetList<Opacity>(find.byType(Opacity))
+        .where((o) => (o.opacity - 0.5).abs() < 0.001)
+        .length;
+    expect(voiles, greaterThanOrEqualTo(4),
+        reason: 'niveau, experience, butin et objets doivent l\'etre');
+    // Ses chiffres restent lisibles dans sa ligne — c'est ce que le jeu
+    // affichait — mais le total du combat, lui, les ignore.
+    expect(find.textContaining('9\u00A0000'), findsOneWidget,
+        reason: "sa ligne montre bien ce qu'il a gagne");
+  });
+
 }

@@ -696,39 +696,62 @@ class PageRecapitulatif extends StatelessWidget {
             ],
           ),
         ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '${p.niveau ?? '—'}',
-            style: theme.textTheme.small.copyWith(fontSize: 13),
-          ),
-          const SizedBox(height: Pas.xs + 1),
-          SizedBox(
-            width: 96,
-            child: ShadProgress(
-              value: p.progression,
-              minHeight: 5,
-              color: theme.colorScheme.primary,
+      _enRetrait(
+        p,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${p.niveau ?? '—'}',
+              style: theme.textTheme.small.copyWith(fontSize: 13),
             ),
-          ),
-        ],
-      ),
-      Text(
-        '${formateNombre(p.xp)} ${T.xp}',
-        style: theme.textTheme.small.copyWith(fontSize: 12),
-      ),
-      Infobulle(
-        builder: (_) => Text(
-          '${T.kamasEnPiece} : ${formateNombre(p.kamas)}\n'
-          '${T.valeurEstimee} : '
-          '${formateNombre(p.valeurButin)}',
+            const SizedBox(height: Pas.xs + 1),
+            SizedBox(
+              width: 96,
+              child: ShadProgress(
+                value: p.progression,
+                minHeight: 5,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+          ],
         ),
-        child: Kamas(p.kamasTotal, image: res.imageKamas, taille: 12),
       ),
-      RangeeObjets(lots: lots, res: res, titrePopover: T.butinDe(p.nom)),
+      _enRetrait(
+        p,
+        Text(
+          '${formateNombre(p.xp)} ${T.xp}',
+          style: theme.textTheme.small.copyWith(fontSize: 12),
+        ),
+      ),
+      _enRetrait(
+        p,
+        Infobulle(
+          builder: (_) => Text(
+            '${T.kamasEnPiece} : ${formateNombre(p.kamas)}\n'
+            '${T.valeurEstimee} : '
+            '${formateNombre(p.valeurButin)}',
+          ),
+          child: Kamas(p.kamasTotal, image: res.imageKamas, taille: 12),
+        ),
+      ),
+      _enRetrait(
+        p,
+        RangeeObjets(lots: lots, res: res, titrePopover: T.butinDe(p.nom)),
+      ),
     ];
   }
+
+  /// Ce qui n'entre pas dans les totaux se lit en retrait.
+  ///
+  /// Le pseudo seul ne suffisait pas : la ligne restait aussi franche que les
+  /// autres, et l'oeil additionnait des chiffres qui ne comptent pas.
+  ///
+  /// La moitie et non moins : les icones d'objets gardent alors assez de
+  /// couleur pour se reconnaitre, ce qui est tout leur interet — on veut
+  /// toujours voir ce que l'ami a ramasse, simplement pas le compter.
+  Widget _enRetrait(ParticipantCombat p, Widget enfant) =>
+      p.suivi ? enfant : Opacity(opacity: 0.5, child: enfant);
 }
