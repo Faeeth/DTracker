@@ -62,5 +62,11 @@ print('marque.png : 256x256')
 # redimensionnement a la volee, qui bave a seize pixels.
 tailles = [(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128),
            (256, 256)]
-carre.save(f'{APP}/windows/runner/resources/app_icon.ico', sizes=tailles)
+# `bitmap_format='bmp'` n'est pas un detail : Pillow ecrit sinon **toutes**
+# les tailles en PNG, et Windows ne sait lire le PNG dans un .ico qu'a partir
+# de 256 pixels. `LoadImage` echouait donc pour les petites, et la barre des
+# taches gardait l'icone par defaut de Flutter — pendant que l'Explorateur,
+# qui lit le PNG, affichait le bon logo dans la liste des programmes.
+carre.save(f'{APP}/windows/runner/resources/app_icon.ico', sizes=tailles,
+           bitmap_format='bmp')
 print('app_icon.ico :', ', '.join(f'{t[0]}' for t in tailles))
