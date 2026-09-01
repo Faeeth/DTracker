@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+
+# Ce que la construction produit
+/build/
+/dist/
+
+# Les captures : lourdes (dizaines de mega-octets) et elles portent des
+# adresses reseau. Elles restent en local ; les tests de non-regression les
+# sautent proprement quand elles manquent.
+/captures/
+
+# Extrait du client du jeu : ce sont les fichiers d'Ankama, ils ne se
+# redistribuent pas. `extract_data.py` et `extract_images.py` les refont.
+/data/

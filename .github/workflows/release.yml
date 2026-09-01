@@ -1,0 +1,108 @@
+# Construit une version et la publie.
+#
+# Se declenche sur un tag `v*` — `git tag v1.0.0 && git push --tags` — ou a la
+# main depuis l'onglet Actions.
+#
+# Produit deux fichiers :
+#
+#   DTracker-<version>-installateur.exe   l'installateur seul
+#   DTracker-<version>.zip                l'installateur et les notes
+#
+# Le zip est ce qui est demande : un seul fichier a telecharger, dont on tire
+# l'installateur. Windows marque parfois un .exe telecharge comme suspect ;
+# dans une archive, il passe sans que le navigateur s'en mele.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, sans le v (ex. 1.0.0)"
+        required: true
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: version
+        shell: bash
+        run: |
+          # Le tag fait foi quand il y en a un ; sinon ce qui a ete saisi.
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            echo "v=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "v=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # ------------------------------------------------ la diffusion de capture
+      # Gelee en executable : c'est ce qui evite d'exiger Python de qui
+      # installe l'outil.
+      - name: Verifier la bibliotheque
+        working-directory: capture
+        run: python tests/test_regression.py
+
+      - name: Geler la diffusion
+        working-directory: capture
+        run: |
+          python -m pip install --upgrade pip pyinstaller
+          python tools/gele.py
+
+      # ------------------------------------------------------- l'application
+      - name: Verifier l'application
+        working-directory: app
+        run: |
+          flutter pub get
+          flutter analyze
+          flutter test
+
+      - name: Construire l'application
+        working-directory: app
+        # `--no-tree-shake-icons` n'est pas une precaution de principe : le
+        # sous-ensemble de police est mis en cache, et une icone ajoutee au
+        # code se retrouve absente du binaire sans que rien ne le signale.
+        run: flutter build windows --release --no-tree-shake-icons
+
+      # ------------------------------------------------------- l'installateur
+      - name: Construire l'installateur
+        working-directory: app
+        run: |
+          iscc installateur\dtracker.iss /DVersion=${{ steps.version.outputs.v }}
+
+      - name: Composer l'archive
+        shell: bash
+        run: |
+          version="${{ steps.version.outputs.v }}"
+          mkdir -p paquet
+          cp "dist/DTracker-$version-installateur.exe" paquet/
+          cp INSTALLATION.md paquet/LISEZ-MOI.md
+          cd paquet && 7z a -tzip "../dist/DTracker-$version.zip" ./*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DTracker-${{ steps.version.outputs.v }}
+          path: dist/*
+
+      - name: Publier
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/DTracker-${{ steps.version.outputs.v }}.zip
+            dist/DTracker-${{ steps.version.outputs.v }}-installateur.exe
+          body_path: INSTALLATION.md
+          draft: true

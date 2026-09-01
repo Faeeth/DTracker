@@ -1,0 +1,42 @@
+name: dofus_tracker
+description: "Suivi de session Dofus : surcouche translucide posee au-dessus du jeu."
+publish_to: 'none'
+version: 2.0.0
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Fenetre sans bordure, toujours au premier plan, au fond transparent.
+  window_manager: ^0.5.2
+  # Consommation du flux d'evenements diffuse par la bibliotheque Python.
+  web_socket_channel: ^3.0.3
+  shadcn_ui: ^0.56.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    # Un decor du jeu, pour l'apercu de la vue compacte dans les reglages :
+    # une transparence se juge sur ce qui passera vraiment dessous, pas sur un
+    # damier ni sur un aplat.
+    - assets/apercu_jeu.jpg
+  fonts:
+    # La police du jeu, extraite de son propre habillage par
+    # `dofus_stats/extract_images.py`.
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Lexend-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lexend-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lexend-Bold.ttf
+          weight: 700

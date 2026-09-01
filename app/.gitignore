@@ -1,0 +1,22 @@
+# Flutter
+/build/
+.dart_tool/
+.flutter-plugins-dependencies
+*.iml
+
+# Ce que la construction produit
+/dist/
+/installateur/Output/
+
+# Ce que l'utilisateur produit : jamais dans le depot.
+/settings.json
+/cache.json
+/sessions/
+/data/
+
+# Un releve, pas une source : voir tools/langues.py.
+/TEXTES.md
+
+# Genere par Flutter a chaque `flutter build` : deux cent soixante
+# mega-octets de SDK recopie, qui n'ont rien a faire dans un depot.
+/windows/flutter/ephemeral/
