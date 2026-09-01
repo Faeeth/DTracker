@@ -7,6 +7,8 @@
 /// vraiment l'ecran, et pas seulement le fichier de langue.
 library;
 
+import 'dart:io';
+
 import 'package:dofus_tracker/config.dart';
 import 'package:dofus_tracker/i18n/en.dart';
 import 'package:dofus_tracker/i18n/es.dart';
@@ -16,7 +18,8 @@ import 'package:dofus_tracker/i18n/textes.dart';
 import 'package:dofus_tracker/modele/session.dart';
 import 'package:dofus_tracker/source/archives.dart';
 import 'package:dofus_tracker/vue/standard/navigation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'archives_test.dart' show dossierTemporaire, sessionJouee;
@@ -53,6 +56,28 @@ void main() {
       }
       expect(identiques, isEmpty,
           reason: 'non traduits en ${autre.runtimeType} : $identiques');
+    }
+  });
+
+  testWidgets('les quatre drapeaux se peignent', (tester) async {
+    // Dessines et non emojis : Windows n'a pas les glyphes des indicatifs
+    // regionaux et rendrait « FR » en lettres. Et un SVG mal forme se charge
+    // sans erreur sans rien peindre — verifier que le fichier existe ne
+    // suffit donc pas.
+    for (final l in Langue.values) {
+      expect(File(l.drapeau).existsSync(), isTrue,
+          reason: 'le drapeau de ${l.nom} manque');
+      await tester.pumpWidget(MaterialApp(
+        home: Center(
+          child: SizedBox(
+            width: 21,
+            height: 14,
+            child: SvgPicture.asset(l.drapeau, fit: BoxFit.cover),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull, reason: 'drapeau ${l.code}');
     }
   });
 

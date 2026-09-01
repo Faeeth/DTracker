@@ -14,6 +14,10 @@ dependencies:
   # Consommation du flux d'evenements diffuse par la bibliotheque Python.
   web_socket_channel: ^3.0.3
   shadcn_ui: ^0.56.2
+  # Declare bien qu'il vienne aussi avec shadcn_ui : les drapeaux du choix de
+  # langue s'en servent directement, et dependre d'une reexportation nous
+  # rendrait tributaire d'un detail de ce paquet.
+  flutter_svg: ^2.0.10
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +31,9 @@ flutter:
     # une transparence se juge sur ce qui passera vraiment dessous, pas sur un
     # damier ni sur un aplat.
     - assets/apercu_jeu.jpg
+    # Les drapeaux du choix de langue, dessines plutot qu'emojis : Windows
+    # n'a pas les glyphes des indicatifs regionaux et rend « FR » en lettres.
+    - assets/drapeaux/
   fonts:
     # La police du jeu, extraite de son propre habillage par
     # `dofus_stats/extract_images.py`.

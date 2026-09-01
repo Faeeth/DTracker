@@ -472,7 +472,29 @@ class _PageReglagesState extends State<PageReglages> {
         config.langue = langue.code;
         changeLangue(langue);
       }),
-      child: Text(langue.nom),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Un filet autour : le blanc du drapeau francais se perdrait sur
+          // une carte claire, et le bord donne au dessin l'air d'un objet
+          // plutot que d'une tache de couleur.
+          Container(
+            width: 21,
+            height: 14,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              border: Border.all(
+                color: theme.colorScheme.border,
+                width: 0.5,
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: SvgPicture.asset(langue.drapeau, fit: BoxFit.cover),
+          ),
+          const SizedBox(width: Pas.s),
+          Text(langue.nom),
+        ],
+      ),
     );
   }
 

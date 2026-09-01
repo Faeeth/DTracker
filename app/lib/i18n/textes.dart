@@ -38,6 +38,12 @@ enum Langue {
   /// traduction dans une langue qu'on ne lit pas.
   final String nom;
 
+  /// Le drapeau qui l'accompagne.
+  ///
+  /// Un dessin et non un emoji : Windows n'a pas les glyphes des indicatifs
+  /// regionaux et rend « 🇫🇷 » par les deux lettres « FR ».
+  String get drapeau => 'assets/drapeaux/$code.svg';
+
   static Langue depuisCode(String? code) {
     for (final l in values) {
       if (l.code == code) return l;
