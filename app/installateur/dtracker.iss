@@ -157,6 +157,11 @@ begin
   if Manquants = '' then
     Exit;
 
+  { Une installation silencieuse ne doit pas s'arreter sur une boite de
+    dialogue que personne ne verra : on se tait, et on installe. }
+  if WizardSilent() then
+    Exit;
+
   { On informe, on n'empeche pas : quelqu'un peut tres bien installer l'outil
     aujourd'hui et le reste demain. }
   if MsgBox('DTracker a besoin de deux choses qui ne sont pas fournies avec '
