@@ -41,6 +41,15 @@ enum EtatFlux {
   /// Des evenements arrivent.
   connecte,
 
+  /// Aucun pilote de capture n'est installe.
+  ///
+  /// Le seul etat que l'utilisateur puisse corriger lui-meme, et le seul qui
+  /// merite un lien : sans npcap, aucun programme ne peut lire le trafic.
+  sansPilote,
+
+  /// Le pilote est la, mais aucune carte n'est ecoutable.
+  sansCarte,
+
   /// La capture n'a pas pu demarrer.
   erreur,
 }
@@ -85,7 +94,28 @@ class Flux {
 
   EtatFlux get etat => _etat;
 
+  /// Reconnait ce que la diffusion dit d'elle-meme.
+  ///
+  /// Elle prefixe ses diagnostics d'un mot convenu — `npcap-absent`,
+  /// `aucune-carte` — precisement pour que ce ne soit pas une phrase a
+  /// analyser. L'etat qui en decoule survit a la fin du processus : c'est
+  /// justement parce qu'il s'est arrete qu'on a quelque chose a dire.
+  void _lit(String ligne) {
+    if (ligne.contains('npcap-absent')) {
+      _fige = EtatFlux.sansPilote;
+      _pose(EtatFlux.sansPilote);
+    } else if (ligne.contains('aucune-carte')) {
+      _fige = EtatFlux.sansCarte;
+      _pose(EtatFlux.sansCarte);
+    }
+  }
+
+  /// Un etat que rien ne doit ecraser : la diffusion s'est arretee en disant
+  /// pourquoi, et la reconnexion qui suit n'a rien de plus a apprendre.
+  EtatFlux? _fige;
+
   void _pose(EtatFlux etat) {
+    if (_fige != null && etat != _fige) return;
     if (_etat == etat) return;
     _etat = etat;
     _etats.add(etat);
@@ -125,7 +155,10 @@ class Flux {
       // relaie telle quelle, sans quoi une capture qui echoue reste muette.
       _processus!.stderr
           .transform(utf8.decoder)
-          .listen((ligne) => stderr.write('[capture] $ligne'));
+          .listen((ligne) {
+            stderr.write('[capture] $ligne');
+            _lit(ligne);
+          });
       // La sortie standard ne sert a rien en mode websocket, mais un tube que
       // personne ne vide finit par se remplir : le processus fils se bloque
       // alors en ecriture, et le notre attend a la fermeture un flux qui ne

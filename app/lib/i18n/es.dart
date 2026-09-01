@@ -373,7 +373,7 @@ class TextesEs extends Textes {
   String diagRienEntendu(String carte) => 'La captura funciona y responde, pero aún no ha oído nada.\nEscuchando en $carte.\n\nNormal si ningún personaje está conectado. Si el juego funciona,\nla tarjeta escuchada no lleva su tráfico: ponla en\n«Todas las interfaces», en Ajustes.';
 
   @override
-  String get diagNeRepondPas => 'La difusión no responde.\nLa captura está arrancando, o Python no ha podido lanzarla.';
+  String get diagNeRepondPas => 'La difusión aún no responde.\n\nEstá arrancando — unos segundos — o se ha detenido por el camino.\nEl enlace se restablece solo en cuanto responda.';
 
   @override
   String get diagNaPasDemarre => 'La captura no ha podido arrancar.\nFalta el controlador npcap.';
@@ -478,5 +478,23 @@ class TextesEs extends Textes {
 
   @override
   String rapport(int reussis, int total) => '$reussis/$total';
+
+  @override
+  String invitePasCompte(String nom) => '$nom no está entre los personajes seguidos.\nSu experiencia y su botín no cuentan en la sesión.';
+
+  @override
+  String get reduire => 'Minimizar la ventana';
+
+  @override
+  String get fluxSansPilote => 'falta npcap';
+
+  @override
+  String get fluxSansCarte => 'Ninguna tarjeta que escuchar';
+
+  @override
+  String get diagSansPilote => 'El controlador npcap no está instalado.\n\nLeer el tráfico de red ocurre en el núcleo de Windows: hace falta un controlador,\ny ningún programa puede prescindir de él. npcap es gratuito y pesa un\nmegabyte; solo se instala una vez.\n\n→ npcap.com';
+
+  @override
+  String diagSansCarte(String carte) => 'El controlador está, pero ninguna tarjeta de red es escuchable.\nAjuste actual: $carte.\n\nElige «Todas las interfaces» en Ajustes → Captura.';
 
 }

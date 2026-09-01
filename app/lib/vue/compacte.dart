@@ -314,6 +314,8 @@ class _VueCompacteState extends State<VueCompacte> {
       EtatFlux.attente => (T.fluxInjoignable, schemaSombre.destructive),
       EtatFlux.erreur => (T.fluxIndisponible, schemaSombre.destructive),
       EtatFlux.arrete => (T.fluxDeconnecte, schemaSombre.destructive),
+      EtatFlux.sansPilote => (T.fluxSansPilote, schemaSombre.destructive),
+      EtatFlux.sansCarte => (T.fluxSansCarte, schemaSombre.destructive),
     };
     return Row(
       mainAxisSize: MainAxisSize.min,

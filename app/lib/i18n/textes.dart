@@ -85,6 +85,7 @@ abstract class Textes {
   String get reset;
   String get resetInfobulle;
   String get quitter;
+  String get reduire;
   String get sessions;
   String get reglages;
   String get vueCompacte;
@@ -156,6 +157,7 @@ abstract class Textes {
   String get gagnants;
   String get perdants;
   String get adversaireInconnu;
+  String invitePasCompte(String nom);
   String get personneNaGagne;
   String nbCombats(int n);
 
@@ -217,6 +219,10 @@ abstract class Textes {
   String get fluxInjoignable;
   String get fluxIndisponible;
   String get fluxDeconnecte;
+  String get fluxSansPilote;
+  String get fluxSansCarte;
+  String get diagSansPilote;
+  String diagSansCarte(String carte);
   String diagEcouteSur(String carte);
   String diagRienEntendu(String carte);
   String get diagNeRepondPas;

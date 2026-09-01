@@ -98,9 +98,27 @@ def main(argv=None) -> int:
         # Dire sur quoi on ecoute : une interface muette ne se distingue
         # autrement pas d'un jeu a l'arret, et c'est precisement ce qui rendait
         # un mauvais choix d'interface indechiffrable.
-        from dofus_stats.capture.live_source import LiveSource
+        from dofus_stats.capture.live_source import (
+            LiveSource, dumpcap_present)
+        from dofus_stats.capture import npcap_source
+
+        # Le pilote d'abord : sans lui, rien ne peut etre lu, et c'est la
+        # seule chose que l'utilisateur ait a faire. Le dire par ce mot-la —
+        # `npcap-absent` — permet a l'application de le reconnaitre et de
+        # proposer le telechargement, plutot que de relayer une phrase.
+        if not npcap_source.disponible() and not dumpcap_present():
+            print("# npcap-absent : aucun pilote de capture installe",
+                  file=sys.stderr)
+            return 3
+
         cartes = LiveSource(args.live, port=args.game_port).interfaces()
-        print(f"# ecoute sur {len(cartes)} interface(s)", file=sys.stderr)
+        if not cartes:
+            print("# aucune-carte : le pilote est la, mais aucune interface "
+                  "n'est ecoutable", file=sys.stderr)
+            return 4
+        print(f"# ecoute sur {len(cartes)} interface(s)"
+              f" — {'npcap' if npcap_source.disponible() else 'dumpcap'}",
+              file=sys.stderr)
 
     prices = _load_prices(args.prices)
     item_types = _load_item_types(args.item_types)

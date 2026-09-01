@@ -373,7 +373,7 @@ class TextesEn extends Textes {
   String diagRienEntendu(String carte) => 'The capture is running and answering, but has heard nothing yet.\nListening on $carte.\n\nNormal if no character is connected. If the game is running,\nthe listened card does not carry its traffic: set it to\n"All interfaces", in Settings.';
 
   @override
-  String get diagNeRepondPas => 'The stream is not answering.\nThe capture is starting, or Python could not launch it.';
+  String get diagNeRepondPas => 'The stream is not answering yet.\n\nIt is starting up — a few seconds — or it stopped along the way.\nThe link re-establishes itself as soon as it answers.';
 
   @override
   String get diagNaPasDemarre => 'The capture could not start.\nThe npcap driver is missing.';
@@ -478,5 +478,23 @@ class TextesEn extends Textes {
 
   @override
   String rapport(int reussis, int total) => '$reussis/$total';
+
+  @override
+  String invitePasCompte(String nom) => '$nom is not one of the tracked characters.\nTheir experience and loot are not counted in the session.';
+
+  @override
+  String get reduire => 'Minimise the window';
+
+  @override
+  String get fluxSansPilote => 'npcap missing';
+
+  @override
+  String get fluxSansCarte => 'No card to listen on';
+
+  @override
+  String get diagSansPilote => 'The npcap driver is not installed.\n\nReading network traffic happens in the Windows kernel: it takes a driver,\nand no program can do without one. npcap is free and weighs a megabyte;\nit only needs installing once.\n\n→ npcap.com';
+
+  @override
+  String diagSansCarte(String carte) => 'The driver is there, but no network card can be listened on.\nCurrent setting: $carte.\n\nPick « All interfaces » in Settings → Capture.';
 
 }

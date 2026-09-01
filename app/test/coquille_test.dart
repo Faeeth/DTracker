@@ -27,6 +27,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dofus_tracker/source/emplacements.dart';
+import 'package:dofus_tracker/i18n/textes.dart';
 import 'package:shadcn_ui/shadcn_ui.dart' hide Cache;
 
 import 'archives_test.dart' show dossierTemporaire, sessionJouee;
@@ -40,6 +41,8 @@ Future<void> monte(
   required Config config,
   VoidCallback? onReglageChange,
   VoidCallback? onPause,
+  EtatFlux etat = EtatFlux.connecte,
+  String? diagnostic,
   // Rend au cas le moyen de reconstruire, comme le fait la fenetre quand on
   // met la session en pause : la coquille ne se rebatit pas d'elle-meme.
   void Function(StateSetter)? capteur,
@@ -86,14 +89,15 @@ Future<void> monte(
               ),
               classes: const {},
               secondes: secondes,
-              etat: EtatFlux.connecte,
-              diagnostic: 'La capture répond.',
+              etat: etat,
+              diagnostic: diagnostic ?? 'La capture répond.',
               eclatDe: (_) => 0,
               onPause: onPause ?? () {},
               onReset: () {},
               onRenomme: (_) {},
               onCompact: () {},
               onQuitte: () {},
+        onReduire: () {},
               onReglageChange: onReglageChange ?? () {},
               onBascule: (_) async {},
               interfaces: interfaces,
@@ -753,6 +757,47 @@ void main() {
     // le nom seul ne dit pas laquelle porte le trafic, l'adresse se retrouve
     // dans l'interface du routeur.
     expect(find.textContaining('C2-BF-BE-6F-03-98'), findsWidgets);
+
+    d.deleteSync(recursive: true);
+  });
+
+  testWidgets("sans pilote, le voyant le dit et mene a npcap", (tester) async {
+    final d = dossierTemporaire();
+    await monte(tester,
+        session: sessionJouee(),
+        archives: Archives(d.path),
+        config: Config(personnages: const ['Kaska-yopette']),
+        etat: EtatFlux.sansPilote,
+        diagnostic: T.diagSansPilote);
+
+    // Le libelle nomme ce qui manque, au lieu de « Capture indisponible » qui
+    // laissait chercher.
+    expect(find.text(T.fluxSansPilote), findsOneWidget);
+
+    // Et le voyant devient une porte : c'est le seul etat que l'utilisateur
+    // puisse corriger lui-meme.
+    final cliquable = find.ancestor(
+        of: find.text(T.fluxSansPilote), matching: find.byType(GestureDetector));
+    expect(cliquable, findsWidgets);
+
+    d.deleteSync(recursive: true);
+  });
+
+  testWidgets("connecte, le voyant n'est pas cliquable", (tester) async {
+    final d = dossierTemporaire();
+    await monte(tester,
+        session: sessionJouee(),
+        archives: Archives(d.path),
+        config: Config(personnages: const ['Kaska-yopette']));
+
+    expect(find.text(T.fluxConnecte), findsOneWidget);
+    // Rien a ouvrir : un voyant vert qui reagit au clic ferait croire a une
+    // action possible.
+    expect(
+        find.ancestor(
+            of: find.text(T.fluxConnecte),
+            matching: find.byType(GestureDetector)),
+        findsNothing);
 
     d.deleteSync(recursive: true);
   });

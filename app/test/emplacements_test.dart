@@ -100,4 +100,20 @@ void main() {
         reason: 'un test ne doit jamais ecrire dans %APPDATA%');
     expect(File('${ou.donnees}/pubspec.yaml').existsSync(), isTrue);
   });
+  test('depuis les sources, les ressources du jeu sont trouvees', () {
+    // Le cas qui a casse : le paquet Python porte le meme nom que le dossier
+    // qui le contient. Chercher « un dossier qui contient dofus_stats »
+    // trouvait donc `capture/`, puis y ajoutait `dofus_stats` — un cran trop
+    // bas. Resultat a l'ecran : plus un nom d'objet, plus une image, et rien
+    // pour le dire.
+    final ou = Emplacements.reconnait();
+    expect(ou.installe, isFalse);
+    expect(Directory(ou.ressources).existsSync(), isTrue,
+        reason: 'les donnees extraites du jeu doivent etre la : '
+            '${ou.ressources}');
+    // Et ce sont bien les bonnes : l'index des objets y vit.
+    expect(File('${ou.ressources}/items_noms.json').existsSync(), isTrue,
+        reason: 'l\'index des noms d\'objets manque a ${ou.ressources}');
+  });
+
 }

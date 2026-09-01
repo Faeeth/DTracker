@@ -395,6 +395,8 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       EtatFlux.attente => T.diagNeRepondPas,
       EtatFlux.erreur => T.diagNaPasDemarre,
       EtatFlux.arrete => T.diagAucuneCapture,
+      EtatFlux.sansPilote => T.diagSansPilote,
+      EtatFlux.sansCarte => T.diagSansCarte(carte),
     };
   }
 
@@ -435,6 +437,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       onRenomme: _renommeSession,
       onCompact: _changeDeVue,
       onQuitte: _quitte,
+      onReduire: windowManager.minimize,
       onReglageChange: _appliqueReglages,
       onBascule: _bascule,
     );

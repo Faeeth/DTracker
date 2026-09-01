@@ -373,7 +373,7 @@ class TextesPt extends Textes {
   String diagRienEntendu(String carte) => 'A captura funciona e responde, mas ainda não ouviu nada.\nA escutar em $carte.\n\nNormal se nenhum personagem estiver ligado. Se o jogo corre,\na placa escutada não transporta o seu tráfego: defina-a para\n«Todas as interfaces», nas Configurações.';
 
   @override
-  String get diagNeRepondPas => 'A difusão não responde.\nA captura está a arrancar, ou o Python não a conseguiu lançar.';
+  String get diagNeRepondPas => 'A difusão ainda não responde.\n\nEstá a arrancar — alguns segundos — ou parou pelo caminho.\nA ligação restabelece-se sozinha assim que responder.';
 
   @override
   String get diagNaPasDemarre => 'A captura não conseguiu arrancar.\nFalta o controlador npcap.';
@@ -478,5 +478,23 @@ class TextesPt extends Textes {
 
   @override
   String rapport(int reussis, int total) => '$reussis/$total';
+
+  @override
+  String invitePasCompte(String nom) => '$nom não faz parte dos personagens seguidos.\nA sua experiência e o seu espólio não contam na sessão.';
+
+  @override
+  String get reduire => 'Minimizar a janela';
+
+  @override
+  String get fluxSansPilote => 'npcap em falta';
+
+  @override
+  String get fluxSansCarte => 'Nenhuma placa para escutar';
+
+  @override
+  String get diagSansPilote => 'O controlador npcap não está instalado.\n\nLer o tráfego de rede acontece no núcleo do Windows: é preciso um controlador,\ne nenhum programa o dispensa. O npcap é gratuito e pesa um megabyte;\nsó se instala uma vez.\n\n→ npcap.com';
+
+  @override
+  String diagSansCarte(String carte) => 'O controlador está lá, mas nenhuma placa de rede é escutável.\nDefinição atual: $carte.\n\nEscolha «Todas as interfaces» em Configurações → Captura.';
 
 }

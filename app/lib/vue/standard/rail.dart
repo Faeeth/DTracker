@@ -19,6 +19,7 @@ import '../../theme.dart';
 import 'briques.dart';
 import 'navigation.dart';
 import '../../i18n/textes.dart';
+import '../../source/emplacements.dart';
 
 class Rail extends StatelessWidget {
   const Rail({
@@ -260,8 +261,10 @@ class Rail extends StatelessWidget {
       EtatFlux.attente => (T.fluxInjoignable, theme.colorScheme.destructive),
       EtatFlux.erreur => (T.fluxIndisponible, theme.colorScheme.destructive),
       EtatFlux.arrete => (T.fluxDeconnecte, theme.colorScheme.destructive),
+      EtatFlux.sansPilote => (T.fluxSansPilote, theme.colorScheme.destructive),
+      EtatFlux.sansCarte => (T.fluxSansCarte, theme.colorScheme.destructive),
     };
-    return Infobulle(
+    final voyant = Infobulle(
       builder: (_) => Text(diagnostic),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: Pas.s, vertical: Pas.s),
@@ -298,6 +301,16 @@ class Rail extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+    if (etat != EtatFlux.sansPilote) return voyant;
+    // Le seul etat que l'utilisateur puisse corriger lui-meme merite d'etre
+    // une porte : un clic ouvre la page du pilote.
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => ouvreAdresse(adresseNpcap),
+        child: voyant,
       ),
     );
   }

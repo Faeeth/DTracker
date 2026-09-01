@@ -507,4 +507,77 @@ void main() {
     expect(session.suivis[cle]!.kamasButin, 1000);
   });
 
+  test('les combattants hors liste ne comptent pas', () {
+    // Un combat mene avec un ami : ses personnages figurent au recapitulatif,
+    // le jeu les montre et on veut les revoir. Mais leur experience n'est pas
+    // la notre — la compter gonflait les totaux de la session, et avec eux
+    // les cadences.
+    final session = Session([qui]);
+    session.recoit({'ts': 1, 'type': 'FightStart', 'character': qui});
+    session.recoit(combat(10, [
+      participant(qui, xp: 1000, kamas: 50, loot: [
+        {'item_id': 2663, 'quantity': 2, 'unit_price': 100},
+      ]),
+      participant('Ami-iop', xp: 9000, kamas: 900, loot: [
+        {'item_id': 311, 'quantity': 40, 'unit_price': 500},
+      ]),
+    ]));
+
+    // Les totaux de la session ne voient que les notres.
+    expect(session.xpTotale, 1000);
+    expect(session.kamasTotaux, 50 + 200);
+    expect(session.suivis.containsKey(cleDe('Ami-iop')), isFalse);
+
+    // Le combat archive garde tout le monde — c'est ce que le jeu affichait.
+    final c = session.combats.single;
+    expect(c.participants.length, 2);
+    expect(c.participants.map((p) => p.nom), contains('Ami-iop'));
+
+    // Mais ses totaux a lui ne comptent que les notres : c'est ce qui
+    // s'affiche dans la liste des combats et en tete du detail.
+    expect(c.xp, 1000, reason: 'l\'experience de l\'ami n\'est pas la notre');
+    expect(c.kamas, 250);
+    expect(c.unites, 2);
+    expect(c.avecDesInvites, isTrue);
+
+    // Et chaque ligne sait ce qu'elle est, pour le dire a l'ecran.
+    final ami = c.participants.firstWhere((p) => p.nom == 'Ami-iop');
+    expect(ami.suivi, isFalse);
+    expect(c.participants.firstWhere((p) => p.nom == qui).suivi, isTrue);
+  });
+
+  test('une archive d\'avant la distinction compte comme avant', () {
+    // Les combats ecrits avant que la question ne se pose n'en portent pas
+    // trace : ils etaient les notres, et le relire ne doit pas les vider.
+    final combat = Combat.depuisJson({
+      'fin': 100.0,
+      'duree': 30.0,
+      'participants': [
+        {'nom': 'Kaska-yopette', 'xp': 500, 'kamas': 10},
+        {'nom': 'Kaska-nini', 'xp': 700, 'kamas': 20},
+      ],
+    });
+    expect(combat.xp, 1200);
+    expect(combat.avecDesInvites, isFalse);
+
+    // Ecrit puis relu, un invite le reste.
+    final avec = Combat.depuisJson(
+      Combat(fin: 1, duree: 1, participants: [
+        ParticipantCombat(
+          nom: 'Ami-iop',
+          niveau: 200,
+          xp: 9000,
+          xpTotal: 0,
+          xpSeuilBas: 0,
+          xpSeuilHaut: 0,
+          kamas: 900,
+          butin: const {},
+          suivi: false,
+        ),
+      ]).versJson(),
+    );
+    expect(avec.participants.single.suivi, isFalse);
+    expect(avec.xp, 0);
+  });
+
 }

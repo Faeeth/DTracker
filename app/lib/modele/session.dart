@@ -122,6 +122,7 @@ class ParticipantCombat {
     required this.kamas,
     required this.butin,
     this.gagnant = true,
+    this.suivi = true,
   });
 
   final String nom;
@@ -137,6 +138,17 @@ class ParticipantCombat {
   /// n'en portent pas, et leurs combats etaient gagnes dans leur immense
   /// majorite.
   final bool gagnant;
+  /// Ce personnage est-il l'un de ceux que l'outil suit ?
+  ///
+  /// Un combat mene avec des amis porte leurs personnages au recapitulatif :
+  /// c'est ce que le jeu montre, et c'est ce qu'on veut revoir. Mais leur
+  /// experience et leur butin ne sont pas les notres — les compter gonflait
+  /// les totaux de la session, et avec eux les cadences.
+  ///
+  /// Vrai par defaut : les archives ecrites avant cette distinction n'en
+  /// portent pas, et leurs combats etaient les notres.
+  final bool suivi;
+
   final int xp;
   final int xpTotal;
   final int xpSeuilBas;
@@ -167,6 +179,7 @@ class ParticipantCombat {
     'xp_seuil_haut': xpSeuilHaut,
     'kamas': kamas,
     if (!gagnant) 'perdu': true,
+    if (!suivi) 'invite': true,
     'butin': {
       for (final e in butin.entries)
         '${e.key}': {
@@ -186,6 +199,7 @@ class ParticipantCombat {
         xpSeuilHaut: (j['xp_seuil_haut'] as num?)?.toInt() ?? 0,
         kamas: (j['kamas'] as num?)?.toInt() ?? 0,
         gagnant: j['perdu'] != true,
+        suivi: j['invite'] != true,
         butin: {
           for (final e in (j['butin'] as Map<String, dynamic>? ?? {}).entries)
             if (int.tryParse(e.key) != null && e.value is Map)
@@ -273,9 +287,20 @@ class Combat {
     return null;
   }
 
-  int get xp => participants.fold(0, (somme, p) => somme + p.xp);
-  int get kamas => participants.fold(0, (somme, p) => somme + p.kamasTotal);
-  int get unites => participants.fold(0, (somme, p) => somme + p.unites);
+  /// Ce que **nos** personnages ont tire de ce combat.
+  ///
+  /// Les combattants hors liste sont ecartes : ils figurent au
+  /// recapitulatif — le jeu les montre, et on veut les revoir — mais leur
+  /// experience n'est pas la notre.
+  Iterable<ParticipantCombat> get notres =>
+      participants.where((p) => p.suivi);
+
+  int get xp => notres.fold(0, (somme, p) => somme + p.xp);
+  int get kamas => notres.fold(0, (somme, p) => somme + p.kamasTotal);
+  int get unites => notres.fold(0, (somme, p) => somme + p.unites);
+
+  /// Y a-t-il, dans ce combat, quelqu'un que l'outil ne suit pas ?
+  bool get avecDesInvites => participants.any((p) => !p.suivi);
 
   /// Les challenges du combat, objectifs de boss exclus.
   List<ChallengeFait> get challengesSeuls => [
@@ -1159,6 +1184,10 @@ class Session {
       // L'issue n'est portee que par les gagnants. Son absence, chez un
       // personnage qui a fui ou qui est tombe, est justement l'information.
       gagnant: (p['outcome'] as num?)?.toInt() == _issueGagnante,
+      // Suivi ou invite : la question se tranche maintenant, pendant que la
+      // liste est sous la main. Plus tard, l'archive relue ne saura plus qui
+      // etait des notres ce soir-la — la liste aura pu changer.
+      suivi: suivis.containsKey(cleDe('${p['name'] ?? ''}')),
       butin: butin,
     );
   }

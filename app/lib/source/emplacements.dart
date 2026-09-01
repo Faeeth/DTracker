@@ -21,6 +21,28 @@ import 'dart:io';
 /// Le nom du dossier de l'application dans les donnees de l'utilisateur.
 const marque = 'DTracker';
 
+/// Ou se prend le pilote de capture.
+const adresseNpcap = 'https://npcap.com/#download';
+
+/// Ouvre une adresse dans le navigateur du systeme.
+///
+/// Sans dependance : `url_launcher` apporterait un greffon natif pour ce que
+/// l'explorateur de Windows fait deja. L'echec est silencieux — on n'a rien
+/// de mieux a proposer que le lien, qui reste lisible dans l'infobulle.
+Future<void> ouvreAdresse(String adresse) async {
+  try {
+    if (Platform.isWindows) {
+      await Process.run('cmd', ['/c', 'start', '', adresse]);
+    } else if (Platform.isMacOS) {
+      await Process.run('open', [adresse]);
+    } else {
+      await Process.run('xdg-open', [adresse]);
+    }
+  } on Exception {
+    // Rien a faire de plus : l'adresse est ecrite a l'ecran.
+  }
+}
+
 /// Emplacements retenus pour cette execution.
 class Emplacements {
   const Emplacements({
@@ -64,23 +86,24 @@ class Emplacements {
   /// Reconnait la situation et rend les emplacements qui vont avec.
   static Emplacements reconnait() {
     final exe = Directory(Platform.resolvedExecutable).parent;
-    final sources = _enRemontant(
-      exe,
-      (d) => File('${d.path}/pubspec.yaml').existsSync(),
-    );
+    // Deux points de depart : l'executable, et le dossier courant. Le second
+    // sert au harnais de test, dont l'executable vit dans le SDK Flutter —
+    // lequel est plein de `pubspec.yaml` qui ne sont pas les notres.
+    final sources = _projet(exe) ?? _projet(Directory.current);
     if (sources != null) {
       // Depuis les sources : tout reste dans le projet, comme avant. On ne
       // veut pas d'un aller-retour vers `%APPDATA%` pendant la mise au point,
       // ni voir les sessions de test se meler aux vraies.
-      final lib =
-          _enRemontant(
-            exe,
-            (d) => Directory('${d.path}/dofus_stats').existsSync(),
-          ) ??
-          sources;
+      //
+      // La bibliotheque est reconnue au dossier `data` qui l'accompagne, et
+      // non au paquet Python : celui-ci porte le meme nom que son dossier
+      // parent, si bien qu'un depot range en `capture/dofus_stats` faisait
+      // chercher les ressources un cran trop bas — plus un nom d'objet, plus
+      // une image, et rien pour le dire.
+      final lib = _bibliotheque(exe) ?? _bibliotheque(Directory(sources));
       return Emplacements(
         donnees: sources,
-        programme: '$lib/dofus_stats',
+        programme: lib ?? sources,
         installe: false,
       );
     }
@@ -109,6 +132,52 @@ class Emplacements {
     // l'executable. Une installation par utilisateur y a droit.
     return Directory(Platform.resolvedExecutable).parent.path;
   }
+
+  /// Le dossier de la bibliotheque de capture, avec les donnees du jeu.
+  ///
+  /// Elle n'est pas au-dessus de l'application mais **a cote** : le depot
+  /// range `app/` et `capture/` cote a cote. On regarde donc, a chaque
+  /// niveau, le dossier lui-meme et ses candidats voisins.
+  ///
+  /// Le couple `data` + `dofus_stats` fait la preuve : le paquet Python seul
+  /// ne suffit pas, il porte le meme nom que le dossier qui le contient.
+  static String? _bibliotheque(Directory depart) {
+    bool porte(String chemin) =>
+        Directory('$chemin/data').existsSync() &&
+        Directory('$chemin/dofus_stats').existsSync();
+    var dossier = depart;
+    for (var i = 0; i < 8; i++) {
+      for (final candidat in [
+        dossier.path,
+        '${dossier.path}/capture',
+        '${dossier.path}/dofus_stats',
+      ]) {
+        if (porte(candidat)) return candidat;
+      }
+      final parent = dossier.parent;
+      if (parent.path == dossier.path) break;
+      dossier = parent;
+    }
+    return null;
+  }
+
+  /// Le dossier du projet, reconnu a son `pubspec.yaml` — celui-la et pas un
+  /// autre.
+  ///
+  /// Le seul marqueur qui ne trompe pas est le nom declare : le SDK Flutter
+  /// contient des dizaines de `pubspec.yaml`, et un test lance depuis le SDK
+  /// s'y serait cru chez lui.
+  static String? _projet(Directory depart) => _enRemontant(depart, (d) {
+        final fichier = File('${d.path}/pubspec.yaml');
+        if (!fichier.existsSync()) return false;
+        try {
+          return fichier
+              .readAsLinesSync()
+              .any((l) => l.trimRight() == 'name: dofus_tracker');
+        } on Exception {
+          return false;
+        }
+      });
 
   static String? _enRemontant(Directory depart, bool Function(Directory) test) {
     var dossier = depart;

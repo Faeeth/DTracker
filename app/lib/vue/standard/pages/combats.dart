@@ -661,18 +661,41 @@ class PageRecapitulatif extends StatelessWidget {
     final lots = <LotObjet>[
       for (final e in p.butin.entries) (e.key, e.value.$1, e.value.$2),
     ]..sort((a, b) => ((b.$3 ?? 0) * b.$2).compareTo((a.$3 ?? 0) * a.$2));
-    return [
-      Text(
-        p.nom,
-        overflow: TextOverflow.ellipsis,
-        style: theme.textTheme.small.copyWith(
-          fontSize: 13,
-          color: sien
-              ? theme.colorScheme.primary
-              : theme.colorScheme.foreground,
-          fontWeight: sien ? FontWeight.w600 : FontWeight.w500,
-        ),
+    final nom = Text(
+      p.nom,
+      overflow: TextOverflow.ellipsis,
+      style: theme.textTheme.small.copyWith(
+        fontSize: 13,
+        color: p.suivi
+            ? (sien
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.foreground)
+            // En demi-teinte : il a combattu avec nous, mais ses gains ne
+            // sont pas dans nos totaux, et la ligne doit le dire avant qu'on
+            // ne cherche pourquoi la somme ne tombe pas juste.
+            : theme.colorScheme.mutedForeground,
+        fontWeight: sien ? FontWeight.w600 : FontWeight.w500,
       ),
+    );
+    return [
+      if (p.suivi)
+        nom
+      else
+        Infobulle(
+          builder: (_) => Text(T.invitePasCompte(p.nom)),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(child: nom),
+              const SizedBox(width: Pas.xs + 1),
+              Icon(
+                LucideIcons.userMinus,
+                size: 12,
+                color: theme.colorScheme.mutedForeground,
+              ),
+            ],
+          ),
+        ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

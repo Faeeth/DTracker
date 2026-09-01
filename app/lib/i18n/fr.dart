@@ -373,7 +373,7 @@ class TextesFr extends Textes {
   String diagRienEntendu(String carte) => 'La capture tourne et répond, mais n\'a encore rien entendu.\nÉcoute sur $carte.\n\nNormal si aucun personnage n\'est connecté. Si le jeu tourne, c\'est\nque la carte écoutée ne porte pas son trafic : réglez-la sur\n« Toutes les interfaces », dans Réglages.';
 
   @override
-  String get diagNeRepondPas => 'La diffusion ne répond pas.\nLa capture démarre, ou Python n\'a pas pu la lancer.';
+  String get diagNeRepondPas => 'La diffusion ne répond pas encore.\n\nElle démarre — quelques secondes — ou elle s\'est arrêtée en chemin.\nLa liaison se rétablit d\'elle-même dès qu\'elle répond.';
 
   @override
   String get diagNaPasDemarre => 'La capture n\'a pas pu démarrer.\nLe pilote npcap manque à l\'appel.';
@@ -478,5 +478,23 @@ class TextesFr extends Textes {
 
   @override
   String rapport(int reussis, int total) => '$reussis/$total';
+
+  @override
+  String invitePasCompte(String nom) => '$nom ne fait pas partie des personnages suivis.\nSon expérience et son butin ne sont pas comptés dans la session.';
+
+  @override
+  String get reduire => 'Réduire la fenêtre';
+
+  @override
+  String get fluxSansPilote => 'npcap manquant';
+
+  @override
+  String get fluxSansCarte => 'Aucune carte à écouter';
+
+  @override
+  String get diagSansPilote => 'Le pilote npcap n\'est pas installé.\n\nLire le trafic réseau se fait dans le noyau de Windows : il y faut un pilote,\net aucun programme ne peut s\'en passer. npcap est gratuit et pèse un\nmégaoctet ; son installation ne se demande qu\'une fois.\n\n→ npcap.com';
+
+  @override
+  String diagSansCarte(String carte) => 'Le pilote est là, mais aucune carte réseau n\'est écoutable.\nRéglage courant : $carte.\n\nChoisissez « Toutes les interfaces » dans Réglages → Capture.';
 
 }

@@ -27,6 +27,7 @@ import 'pages/sessions.dart';
 import 'pages/suivi.dart';
 import 'rail.dart';
 import '../../source/emplacements.dart';
+import '../../i18n/textes.dart';
 
 class Coquille extends StatefulWidget {
   const Coquille({
@@ -46,6 +47,7 @@ class Coquille extends StatefulWidget {
     required this.onRenomme,
     required this.onCompact,
     required this.onQuitte,
+    required this.onReduire,
     required this.onReglageChange,
     required this.onBascule,
     this.interfaces,
@@ -67,6 +69,9 @@ class Coquille extends StatefulWidget {
   final void Function(String) onRenomme;
   final VoidCallback onCompact;
   final VoidCallback onQuitte;
+
+  /// Range la fenetre dans la barre des taches.
+  final VoidCallback onReduire;
   final VoidCallback onReglageChange;
   final Future<void> Function(Archive) onBascule;
 
@@ -178,6 +183,19 @@ class _CoquilleState extends State<Coquille> {
                   ],
                 ),
               ),
+              // Reduire plutot que fermer : l'outil accompagne une soiree
+              // entiere, et la fenetre gene entre deux combats. La fermer
+              // clot la session ; la reduire ne fait que la ranger.
+              Infobulle(
+                builder: (_) => Text(T.reduire),
+                child: ShadIconButton.ghost(
+                  icon: const Icon(LucideIcons.minus, size: 16),
+                  height: 32,
+                  width: 32,
+                  onPressed: widget.onReduire,
+                ),
+              ),
+              const SizedBox(width: Pas.xs),
               ShadIconButton.ghost(
                 icon: Icon(
                   LucideIcons.x,
