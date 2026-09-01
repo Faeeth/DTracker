@@ -1,7 +1,10 @@
 name: dofus_tracker
 description: "Suivi de session Dofus : surcouche translucide posee au-dessus du jeu."
 publish_to: 'none'
-version: 2.0.0
+# La version qui fait foi est celle du tag, passee au build par
+# `--dart-define`. Celle-ci reste alignee pour que le depot ne se contredise
+# pas, mais rien ne la lit a l'execution.
+version: 1.0.0
 
 environment:
   sdk: ^3.13.2
