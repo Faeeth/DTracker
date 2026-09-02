@@ -85,12 +85,26 @@ from .base import Context, Extractor
 #: marge a un serveur charge sans couvrir l'action suivante du joueur.
 COMMAND_WINDOW = 2.0
 
+#: Duree de vie d'une offre d'echange non consommee.
+#:
+#: Une fenetre d'echange reste ouverte le temps qu'il faut : on discute, on va
+#: chercher un objet, on ajoute une piece. Douze secondes se sont ecoulees
+#: entre le dernier depot et la validation dans la capture de reference, et
+#: rien n'interdit d'y passer dix minutes.
+#:
+#: L'offre expire donc d'elle-meme. Trop court, un echange lent redevient du
+#: butin ; trop long, un vrai ramassage du meme objet se fait ecarter a tort.
+#: Cinq minutes penchent du second cote, ce qui est le moindre mal : cet outil
+#: doit sous-estimer plutot que gonfler.
+TRADE_WINDOW = 300.0
+
 #: Commande du client -> provenance de ce qui entre dans la foulee.
 COMMANDS = {
     "kcr": "transfer",      # deplacement dans un coffre, un broyeur, un echange
     "kbj": "transfer",      # brisage : les runes remplacent les objets brises
     "mga": "achievement",   # recompenses d'un succes reclame
     "iuu": "use",           # objet utilise : pochette ouverte, potion bue
+    "kbm": "purchase",      # achat en hotel de vente
 }
 
 
@@ -101,18 +115,54 @@ class OriginExtractor(Extractor):
     l'appelant peut avoir besoin de defalquer.
     """
 
-    codes = frozenset(COMMANDS)
+    codes = frozenset(COMMANDS) | {"kfb"}
     priority = 5
 
     def handle(self, obs: Observed, ctx: Context) -> Iterable[Event]:
-        # Seulement dans le sens client -> serveur : c'est une commande, et la
-        # trace serveur du meme geste porte d'autres codes.
+        # L'echange fait exception : ce qui renseigne n'est pas une commande
+        # du client mais une annonce du serveur, et elle arrive bien avant
+        # l'objet.
+        if obs.env.code == "kfb":
+            return self._offre(obs, ctx)
+        # Sinon, seulement dans le sens client -> serveur : c'est une
+        # commande, et la trace serveur du meme geste porte d'autres codes.
         if obs.env.from_server:
             return ()
         ctx.commands[obs.who] = (obs.env.ts, COMMANDS[obs.env.code])
         if obs.env.code != "iuu":
             return ()
         return self._consomme(obs, ctx)
+
+    @staticmethod
+    def _offre(obs: Observed, ctx: Context) -> Iterable[Event]:
+        """`kfb  1: {5: {1: <type>, 3: <quantite>, 4: <uid>}}  2: 1`
+
+        Le depot d'un objet dans une fenetre d'echange, annonce **aux deux**
+        parties. Le champ 2 ne figure que sur la copie envoyee a l'autre :
+        c'est donc lui qui dit « voici ce que ton partenaire propose », et
+        c'est cela seul qui entrera dans l'inventaire a la validation.
+
+        L'identifiant unique porte est celui du **donneur** ; l'objet en
+        recevra un autre en changeant de sac. On ne retient donc que le type
+        et la quantite, qui suffisent a rapprocher.
+        """
+        top = obs.env.top
+        if top is None or not obs.env.from_server:
+            return ()
+        if not any(f.number == 2 and f.wire == 0 and f.value == 1
+                   for f in top.fields):
+            return ()
+        for _, f in wire.walk(top.fields):
+            if not f.is_message:
+                continue
+            sub = {c.number: c.value for c in f.value if c.wire == 0}
+            # Le champ 4 est l'identifiant unique : c'est lui qui distingue le
+            # bloc de l'objet des sous-messages d'effets qui l'accompagnent.
+            if sub.get(4) is None or sub.get(1) is None:
+                continue
+            ctx.trade_offered(obs.who, obs.env.ts, sub[1], sub.get(3, 1))
+            break
+        return ()
 
     @staticmethod
     def _consomme(obs: Observed, ctx: Context) -> Iterable[Event]:

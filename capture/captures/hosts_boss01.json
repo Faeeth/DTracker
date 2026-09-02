@@ -1,0 +1,34 @@
+﻿[
+    {
+        "pid":  25860,
+        "title":  "Kaska-panda - Pandawa - 3.6.10.11 - Release",
+        "localAddr":  "192.168.1.111",
+        "localPort":  55443,
+        "remoteAddr":  "54.195.36.37",
+        "remotePort":  5555
+    },
+    {
+        "pid":  21892,
+        "title":  "Kaska-sadi - Sadida - 3.6.10.11 - Release",
+        "localAddr":  "192.168.1.111",
+        "localPort":  55442,
+        "remoteAddr":  "54.195.36.37",
+        "remotePort":  5555
+    },
+    {
+        "pid":  9940,
+        "title":  "Kaska-nini - Eniripsa - 3.6.10.11 - Release",
+        "localAddr":  "192.168.1.111",
+        "localPort":  55404,
+        "remoteAddr":  "54.195.36.37",
+        "remotePort":  5555
+    },
+    {
+        "pid":  11840,
+        "title":  "Kaska-yopette - Iop - 3.6.10.11 - Release",
+        "localAddr":  "192.168.1.111",
+        "localPort":  55387,
+        "remoteAddr":  "54.195.36.37",
+        "remotePort":  5555
+    }
+]

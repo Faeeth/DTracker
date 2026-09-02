@@ -455,6 +455,26 @@ void main() {
     expect(session.suivis[cle]!.kamasButin, 300,
         reason: 'ce qui sort d\'un consommable n\'est pas un butin');
     expect(session.suivis[cle]!.butin.containsKey(1731), isFalse);
+
+    // Ce qu\'un ami dépose dans la fenêtre d\'échange. Il entre par le même
+    // message qu\'un ramassage, et le personnage qui reçoit n\'envoie aucune
+    // commande — c\'est l\'autre qui a donné.
+    session.recoit({
+      ...objet(40, 14471, 11, prix: 28018),
+      'origin': 'trade',
+    });
+    expect(session.suivis[cle]!.kamasButin, 300,
+        reason: 'un objet échangé ne fait que changer de poche');
+    expect(session.suivis[cle]!.butin.containsKey(14471), isFalse);
+
+    // Un achat en hôtel de vente : il coûte des kamas, il n\'en rapporte pas.
+    session.recoit({
+      ...objet(50, 748, 16, prix: 5505),
+      'origin': 'purchase',
+    });
+    expect(session.suivis[cle]!.kamasButin, 300,
+        reason: 'un objet acheté n\'est pas un gain de la session');
+    expect(session.suivis[cle]!.butin.containsKey(748), isFalse);
   });
 
   test('le bandeau compte les combats, pas les participations', () {

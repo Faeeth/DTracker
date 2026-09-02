@@ -5,10 +5,16 @@ __pycache__/
 /build/
 /dist/
 
-# Les captures : lourdes (dizaines de mega-octets) et elles portent des
-# adresses reseau. Elles restent en local ; les tests de non-regression les
-# sautent proprement quand elles manquent.
-/captures/
+# Les captures de reference, elles, sont versionnees : ce sont les artefacts
+# du projet. Les codes de messages sont obfusques et changeront au prochain
+# correctif du jeu ; ces enregistrements sont la seule chose qui permette de
+# rejouer une scene et de refaire le raisonnement.
+#
+# Elles ont ete passees a `tools/reduis.py`, qui ne garde que le port du jeu.
+# Les originaux pris a l'epoque de dumpcap portaient tout le trafic de la
+# machine — cinquante megaoctets pour cent-soixante-seize trames utiles sur
+# `brisage01`, et avec eux les sites visites ce soir-la. Ils restent en local.
+/captures/originaux/
 
 # Extrait du client du jeu : ce sont les fichiers d'Ankama, ils ne se
 # redistribuent pas. `extract_data.py` et `extract_images.py` les refont.

@@ -46,12 +46,26 @@ def verifie(condition: bool, libelle: str) -> None:
     resultats.append((bool(condition), libelle))
 
 
+def capture(nom: str) -> str | None:
+    """Le fichier d'une capture, quelle que soit son extension.
+
+    dumpcap ecrivait du pcapng, `tools/enregistre.py` ecrit du pcap. Ne
+    chercher que la premiere faisait sauter un cas sans rien dire — c'est
+    arrive, et le compte de verifications ne bougeait pas d'un pouce.
+    """
+    for extension in (".pcapng", ".pcap"):
+        chemin = os.path.join(CAPTURES, nom + extension)
+        if os.path.exists(chemin):
+            return chemin
+    return None
+
+
 def lire(nom: str, hosts: str, **kwargs):
-    chemin = os.path.join(CAPTURES, nom + ".pcapng")
-    hchemin = os.path.join(CAPTURES, hosts + ".json")
-    if not os.path.exists(chemin):
+    chemin = capture(nom)
+    if chemin is None:
         return None
-    return list(Reader.from_pcap(chemin, hosts=hchemin, **kwargs).events())
+    return list(Reader.from_pcap(chemin, hosts=os.path.join(
+        CAPTURES, hosts + ".json"), **kwargs).events())
 
 
 def test_combat_deux_personnages() -> None:
@@ -223,7 +237,7 @@ def test_classes() -> None:
     Les huit personnages du donjon portent leur classe dans leur pseudo, ce qui
     donne une verification sans equivoque.
     """
-    chemin = os.path.join(CAPTURES, "donjon01.pcapng")
+    chemin = capture("donjon01")
     if not os.path.exists(chemin):
         return
     lecteur = Reader.from_pcap(chemin,
@@ -253,7 +267,7 @@ def test_classes() -> None:
 
 def lecteur_evenements(nom: str, hosts: str):
     """Rejoue une capture et rend ses evenements, ou rien si elle manque."""
-    chemin = os.path.join(CAPTURES, nom + ".pcapng")
+    chemin = capture(nom)
     if not os.path.exists(chemin):
         return []
     return list(Reader.from_pcap(
@@ -265,7 +279,7 @@ def test_recolte() -> None:
     source = lire("farm02", "hosts_now")
     if source is None:
         return
-    lecteur = Reader.from_pcap(os.path.join(CAPTURES, "farm02.pcapng"),
+    lecteur = Reader.from_pcap(capture("farm02"),
                                hosts=os.path.join(CAPTURES, "hosts_now.json"))
     for _ in lecteur.events():
         pass
@@ -278,11 +292,103 @@ def test_recolte() -> None:
             "recolte01 : objet 303 valorise a 72 kamas")
 
 
+def test_echange_et_achat() -> None:
+    """Ce qui change de mains n'est pas un gain.
+
+    Capture du 02/09, faite pour l'occasion : un echange de Kaska-nini vers
+    Kaska-yopette — treize objets et des kamas — puis, en hotel de vente, deux
+    lots repris a la vente et trois achats de Casque de Wobot.
+
+    Trois provenances distinctes, et rien de ramasse : la capture ne doit
+    produire aucun `pickup`. C'est le verrou le plus severe possible ici, et
+    il tient parce que la scene a ete jouee pour cela.
+
+    Chacune s'etablit differemment. L'achat se lit a la commande qui le
+    precede, `kbm`, comme le brisage ou le retrait de coffre. La reprise a la
+    vente passe par `kcr`, deja connu. L'echange, lui, echappait a ce
+    mecanisme : celui qui **recoit** n'envoie aucune commande, c'est l'autre
+    qui a donne. Ce sont les `kfb` — le depot dans la fenetre, annonce aux
+    deux parties — qui l'annoncent, douze secondes avant que l'objet n'entre.
+    """
+    evenements = lire("echange_hdv01", "hosts_echange_hdv01")
+    if evenements is None:
+        return
+    gains = [e for e in evenements if isinstance(e, ItemGained)]
+    verifie(len(gains) == 18, "echange_hdv01 : dix-huit mouvements")
+    par_origine: dict[str, int] = {}
+    for g in gains:
+        par_origine[g.origin] = par_origine.get(g.origin, 0) + 1
+    verifie(par_origine.get("pickup", 0) == 0,
+            "echange_hdv01 : rien n'a ete ramasse")
+    verifie(par_origine.get("trade") == 13,
+            "echange_hdv01 : les treize objets de l'echange")
+    verifie(par_origine.get("purchase") == 3,
+            "echange_hdv01 : les trois achats")
+    verifie(par_origine.get("transfer") == 2,
+            "echange_hdv01 : les deux lots repris a la vente")
+
+    # Les achats sont bien ceux du joueur : un lot de dix, puis deux unites.
+    achats = [g for g in gains if g.origin == "purchase"]
+    verifie(all(g.item_id == 14471 for g in achats),
+            "echange_hdv01 : trois Casque de Wobot")
+    verifie([g.quantity for g in achats] == [10, 1, 1],
+            "echange_hdv01 : dix, puis un, puis un")
+
+
+def test_coffre_havre_sac() -> None:
+    """Le coffre d'un havre-sac ne passe pas par l'inventaire.
+
+    Capture du 02/09. Il a sa propre famille de messages — `itf`, `itv`,
+    `iuy`, `iwa` — et n'emet ni `iua` ni `ivj` : rien n'en sort, donc rien
+    n'est a ecarter. Verifie ici pour que cela reste vrai, et parce que
+    l'hypothese inverse etait la premiere venue a l'esprit.
+    """
+    evenements = lire("coffre_havre01", "hosts_coffre_havre01")
+    if evenements is None:
+        return
+    verifie(not [e for e in evenements if isinstance(e, ItemGained)],
+            "coffre_havre01 : aucun mouvement d'inventaire")
+
+
+def test_banque_et_connexion() -> None:
+    """Deux scenes qui auraient pu gonfler les totaux, et ne le font pas.
+
+    **La banque.** Capture du 02/09 : deux Fragments d'anomalie repris, et
+    quelques piles deposees. Le retrait suit le chemin deja documente —
+    `kcr`, puis `itc`, puis `iua` sous un identifiant neuf — et ressort donc
+    en `transfer`. Le depot passe soit par `kcr` a l'endroit, soit par `kdd`,
+    et repond alors par `itv` et `iuy` : une famille de messages que
+    l'inventaire ne lit pas, et qui ne peut donc rien compter.
+
+    Le coffre d'un havre-sac emprunte cette seconde famille de bout en bout,
+    la banque la premiere : deux mecanismes distincts pour un meme geste, ce
+    qui justifiait de les verifier separement plutot que de supposer.
+
+    **La connexion.** L'inventaire d'un personnage qui se connecte arrive en
+    un seul `ivx`, que l'extracteur d'inventaire ne lit pas non plus. Rien
+    n'en sort — ce qui importe, car lancer l'outil puis connecter ses
+    personnages est l'ordre habituel.
+    """
+    evenements = lire("banque01", "hosts_banque01")
+    if evenements is not None:
+        gains = [e for e in evenements if isinstance(e, ItemGained)]
+        verifie(len(gains) == 1, "banque01 : un seul mouvement")
+        verifie(all(g.origin == "transfer" for g in gains),
+                "banque01 : un retrait de banque n'est pas un gain")
+        verifie(gains and gains[0].quantity == 2,
+                "banque01 : les deux unites reprises")
+
+    evenements = lire("connexion01", "hosts_connexion01")
+    if evenements is not None:
+        verifie(not [e for e in evenements if isinstance(e, ItemGained)],
+                "connexion01 : se connecter ne rapporte rien")
+
+
 def test_integrite_du_decodage() -> None:
     """Aucune capture ne doit produire d'erreur de parsing ni de trou."""
     for nom, hosts in [("farm02", "hosts_now"), ("combat4p", "hosts_combat4p"),
                        ("phases02", "hosts_phases02"), ("erosion01", "hosts_erosion01")]:
-        chemin = os.path.join(CAPTURES, nom + ".pcapng")
+        chemin = capture(nom)
         if not os.path.exists(chemin):
             continue
         r = Reader.from_pcap(chemin, hosts=os.path.join(CAPTURES, hosts + ".json"))
@@ -755,6 +861,8 @@ def main() -> int:
                test_duree_de_combat, test_adversaires,
                test_combat_perdu,
                test_transferts, test_consommables,
+               test_echange_et_achat, test_coffre_havre_sac,
+               test_banque_et_connexion,
                test_integrite_du_decodage]:
         fn()
     echecs = [libelle for ok, libelle in resultats if not ok]

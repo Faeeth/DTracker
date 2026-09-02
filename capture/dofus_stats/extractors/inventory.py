@@ -23,7 +23,7 @@ from __future__ import annotations
 from typing import Iterable
 
 from ..events import ItemGained
-from .origin import COMMAND_WINDOW
+from .origin import COMMAND_WINDOW, TRADE_WINDOW
 from ..protocol import wire
 from ..session import Observed
 from .base import Context, Extractor
@@ -84,6 +84,12 @@ class InventoryExtractor(Extractor):
     def _event(obs, ctx, item_id, gain, total, uid) -> ItemGained:
         price = ctx.price_of(item_id) if item_id is not None else None
         origin = ctx.origin_of(obs.who, obs.env.ts, COMMAND_WINDOW)
+        # Ce que le partenaire avait pose dans la fenetre d'echange. Le
+        # rapprochement se fait ici et non par une commande du client : celui
+        # qui recoit n'en envoie aucune, c'est l'autre qui a donne.
+        if origin == "pickup" and ctx.take_trade_offer(
+                obs.who, obs.env.ts, item_id, TRADE_WINDOW):
+            origin = "trade"
         # L'objet utilise decroit d'une unite, et le serveur l'annonce par le
         # meme message que le contenu obtenu. Les deux se distinguent a leur
         # identifiant : celui-la est l'objet que le client vient de nommer.

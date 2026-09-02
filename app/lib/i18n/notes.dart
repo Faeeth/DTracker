@@ -73,6 +73,40 @@ NotesVersion? aAnnoncer({
 }
 
 const _notes = <String, Map<Langue, NotesVersion>>{
+  '1.0.6': {
+    Langue.fr: NotesVersion(
+      correctifs: [
+        'Les objets reçus dans un échange étaient comptés comme du butin de '
+            'la session. Ils ne le sont plus.',
+        'Les achats en hôtel de vente non plus : ils coûtent des kamas, ils '
+            'n\'en rapportent pas.',
+      ],
+    ),
+    Langue.en: NotesVersion(
+      correctifs: [
+        'Items received in a trade were counted as session loot. They no '
+            'longer are.',
+        'Neither are auction house purchases: they cost kamas, they do not '
+            'earn any.',
+      ],
+    ),
+    Langue.es: NotesVersion(
+      correctifs: [
+        'Los objetos recibidos en un intercambio contaban como botín de la '
+            'sesión. Ya no cuentan.',
+        'Tampoco las compras en la casa de ventas: cuestan kamas, no los '
+            'generan.',
+      ],
+    ),
+    Langue.pt: NotesVersion(
+      correctifs: [
+        'Os objetos recebidos numa troca contavam como espólio da sessão. '
+            'Deixam de contar.',
+        'As compras na casa de vendas também não: custam kamas, não os '
+            'rendem.',
+      ],
+    ),
+  },
   '1.0.5': {
     Langue.fr: NotesVersion(
       nouveautes: [

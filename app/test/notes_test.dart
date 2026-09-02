@@ -129,8 +129,15 @@ void main() {
         reason: libelle,
       );
     }
-    // Et son contenu, pas seulement ses intitules.
-    expect(find.text(notes.ajustements.first), findsOneWidget);
+    // Et son contenu, pas seulement ses intitules. La rubrique regardee est
+    // la premiere qui porte quelque chose : toutes les versions n'ont pas de
+    // nouveaute a annoncer, et certaines n'ont que des correctifs.
+    final lignes = [
+      ...notes.nouveautes,
+      ...notes.correctifs,
+      ...notes.ajustements,
+    ];
+    expect(find.text(lignes.first), findsOneWidget);
 
     await tester.tap(find.text('Continuer'));
     await tester.pumpAndSettle();

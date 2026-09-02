@@ -4,7 +4,7 @@ publish_to: 'none'
 # La version qui fait foi est celle du tag, passee au build par
 # `--dart-define`. Celle-ci reste alignee pour que le depot ne se contredise
 # pas, mais rien ne la lit a l'execution.
-version: 1.0.5
+version: 1.0.6
 
 environment:
   sdk: ^3.13.2

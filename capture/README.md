@@ -290,13 +290,17 @@ refuse de tourner.
 python tests/test_regression.py
 ```
 
-66 verifications sur onze captures, chacune reprenant une valeur confrontee a
-ce que le jeu affichait. Sur quinze captures et pres de cinquante mille
-messages : **aucune erreur de parsing, aucun trou dans le flux**.
+Cent-soixante-dix-huit verifications sur une vingtaine de captures, chacune
+reprenant une valeur confrontee a ce que le jeu affichait. Sur l'ensemble du
+corpus : **aucune erreur de parsing, aucun trou dans le flux**. S'y ajoutent le
+tri des interfaces — carte par carte, celles d'une vraie machine —, le rejet
+des paquets vus deux fois et la duree annoncee par le serveur.
 
-Cent-quatorze verifications, dont le tri des interfaces — carte par carte,
-celles d'une vraie machine —, le rejet des paquets vus deux fois et la duree
-annoncee par le serveur.
+Les captures sont **versionnees avec le code**, dans `captures/`. Ce sont les
+artefacts du projet : les codes de messages sont obfusques et changeront au
+prochain correctif du jeu, et ces enregistrements sont la seule chose qui
+permette de rejouer une scene et de refaire le raisonnement. Elles ne portent
+que le port du jeu — voir `tools/reduis.py`.
 
 Ce verrou n'est pas decoratif. Quatre correspondances se sont revelees fausses
 en cours de route, chacune decouverte par un test que le joueur a provoque :
@@ -327,6 +331,78 @@ avec une seconde de retard — le temps que les noms arrivent — un chronometre
 local a souvent deja ete arrete par la sortie de combat.
 
 Ces cas figurent dans les tests pour qu'ils ne reviennent pas sans etre vus.
+
+### D'ou vient un objet qui entre dans l'inventaire
+
+Le serveur annonce de la meme facon un objet ramasse, un objet repris dans un
+coffre, les runes d'un brisage, les recompenses d'un succes, le contenu d'une
+pochette ouverte, un achat en hotel de vente et ce qu'un autre joueur vient de
+donner : `iua` ou `ivj`, l'objet entre. **Rien dans ces messages ne dit d'ou il
+vient**, et un seul de ces sept cas est un gain.
+
+Ce qui les separe est ce qui precede. Sept provenances, etablies capture par
+capture, chacune jouee en jeu pour l'occasion :
+
+| Marqueur | Sens | Provenance | Delai observe |
+|---|---|---|---|
+| `kcr` | C→S | coffre, banque, depot dans un echange, reprise a la vente | 20 ms |
+| `kbj` | C→S | brisage : les runes remplacent les objets brises | 25 ms |
+| `mga` | C→S | recompenses d'un succes reclame | — |
+| `iuu` | C→S | objet utilise : pochette ouverte, potion bue | 25 ms |
+| `kbm` | C→S | achat en hotel de vente | 30 ms |
+| `kfb` | S→C | depot du partenaire dans une fenetre d'echange | 12 s |
+| — | | ramassage, recolte : tout le reste | |
+
+Les six premieres sont des commandes du client, lues dans les deux secondes
+qui precedent. La septieme fait exception et meritait son propre mecanisme :
+dans un echange, **celui qui recoit n'envoie aucune commande** — c'est l'autre
+qui a donne. Le serveur annonce chaque depot aux deux parties par `kfb`, et la
+copie envoyee a celui qui ne depose pas porte un champ de plus. C'est elle qui
+dit « voici ce que ton partenaire propose ». L'objet n'entrera que douze
+secondes plus tard, a la validation : l'offre est donc retenue comme un etat,
+consommee au rapprochement, et perimee au bout de cinq minutes.
+
+Quatre autres pistes ont ete verifiees et se sont revelees inoffensives, ce qui
+valait d'etre etabli plutot que suppose :
+
+- le **coffre d'un havre-sac** a sa propre famille de messages — `itf`, `itv`,
+  `iuy`, `iwa` — et n'emet ni `iua` ni `ivj` ;
+- la **banque** emprunte la premiere famille pour retirer et la seconde pour
+  deposer : deux mecanismes pour un meme geste ;
+- l'inventaire d'un personnage **qui se connecte** arrive en un seul `ivx`, que
+  l'extracteur d'inventaire ne lit pas ;
+- un `iuy` de depot peut porter quatre cent cinquante-neuf unites sous la meme
+  forme qu'un `iua`. Lire ce code par megarde ferait entrer une pile entiere
+  d'un coup — le test le verrouille.
+
+## Identifier un message
+
+Trois outils, dans l'ordre ou ils servent. Aucun n'emet quoi que ce soit sur le
+reseau.
+
+```bash
+python tools/enregistre.py captures/echange01 --secondes 120
+python tools/chronologie.py captures/echange01 --de 15 --a 32
+python tools/reduis.py captures/echange01.pcapng
+```
+
+`enregistre.py` ecrit une capture rejouable et la photo des connexions a cote.
+Enregistrer plutot qu'ecouter au vol, parce qu'identifier un message demande de
+relire la meme scene des dizaines de fois en changeant d'hypothese a chaque
+passage — et qu'une action en jeu ne se rejoue jamais a l'identique. La photo
+est prise au debut **et a la fin** : enregistrer une connexion de personnage,
+c'est commencer sans client a photographier.
+
+`chronologie.py` recense les codes, borne une fenetre de temps, ou ne garde que
+les messages citant un identifiant donne. C'est lui qui a trouve `kfb` et
+`kbm` : on joue la scene en sachant l'heure, on borne, et on lit la sequence
+complete — commande, reponse, consequences. L'ordre est souvent toute
+l'information.
+
+`reduis.py` ne garde d'une capture que le port du jeu. Les enregistrements pris
+a l'epoque de dumpcap portaient tout le trafic de la machine : sur `brisage01`,
+cent-soixante-seize trames utiles sur trente-et-un mille, et cinquante
+megaoctets de tout le reste — les sites visites ce soir-la compris.
 
 ## Nommer les flux
 

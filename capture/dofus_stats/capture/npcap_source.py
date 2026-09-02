@@ -284,6 +284,16 @@ class NpcapSource:
         finally:
             self.close()
 
+    def arrete(self) -> None:
+        """Demande l'arret sans fermer les poignees.
+
+        Ce que `close` ne peut pas faire depuis un autre fil : il libere des
+        poignees que la boucle de lecture est peut-etre en train d'utiliser.
+        Ici on pose un drapeau, la boucle sort d'elle-meme — au plus tard
+        apres l'attente de `pcap_next_ex` — et ferme ce qu'elle a ouvert.
+        """
+        self._arrete = True
+
     def close(self) -> None:
         self._arrete = True
         dll = bibliotheque()

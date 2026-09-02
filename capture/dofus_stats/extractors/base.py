@@ -39,10 +39,10 @@ class Context:
         # Ce que le serveur dit ensuite de cet identifiant-la est la
         # decroissance de l'objet consomme, pas un gain.
         self.consumed: dict[str, tuple[float, int]] = {}
-        # personnage -> (instant, identifiant unique) du dernier objet utilise.
-        # Ce que le serveur dit ensuite de cet identifiant-la est la
-        # decroissance de l'objet consomme, pas un gain.
-        self.consumed: dict[str, tuple[float, int]] = {}
+        # personnage -> [(instant, type d'objet, quantite)] deposes par son
+        # partenaire dans la fenetre d'echange ouverte. Ce qui entrera dans
+        # son inventaire a la validation est deja la, annonce piece par piece.
+        self.trades: dict[str, list[tuple[float, int | None, int]]] = {}
         # personnage -> identifiant de combattant (negatif) -> (monstre, grade)
         #
         # Par personnage, et non en commun : chaque client numerote les
@@ -72,6 +72,36 @@ class Context:
             return "pickup"
         depuis, provenance = connu
         return provenance if 0 <= ts - depuis <= window else "pickup"
+
+    def trade_offered(self, who: str, ts: float, item_id: int | None,
+                      quantity: int) -> None:
+        """Le partenaire vient de deposer cet objet dans la fenetre."""
+        self.trades.setdefault(who, []).append((ts, item_id, quantity))
+
+    def take_trade_offer(self, who: str, ts: float, item_id: int | None,
+                         window: float) -> bool:
+        """Cet objet entrant repond-il a une offre en attente ?
+
+        La consomme si oui : une offre vaut pour une entree et une seule, sans
+        quoi le premier echange de la soiree ecarterait toutes les recoltes
+        suivantes du meme objet.
+        """
+        offres = self.trades.get(who)
+        if not offres:
+            return False
+        # Les offres perimees s'en vont. Rien n'annonce de facon sure la
+        # fermeture de la fenetre — un echange annule ne laisse aucune trace
+        # dans l'inventaire, puisque rien n'en est sorti — et une offre
+        # oubliee finirait par ecarter un vrai ramassage.
+        offres[:] = [o for o in offres if 0 <= ts - o[0] <= window]
+        for rang, (_, propose, _) in enumerate(offres):
+            # A defaut de savoir ce qui entre, on prend la plus ancienne :
+            # pendant un echange en cours, un objet qu'on ne sait pas nommer
+            # vient bien plus vraisemblablement de la fenetre que du sol.
+            if item_id is None or propose == item_id:
+                del offres[rang]
+                return True
+        return False
 
     def consumed_uid(self, who: str, ts: float, window: float) -> int | None:
         """L'objet que ce personnage vient d'utiliser, s'il y a moins de
