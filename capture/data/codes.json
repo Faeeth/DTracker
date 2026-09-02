@@ -1,0 +1,6861 @@
+{
+ "hie": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: 2",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 80
+ },
+ "hii": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: 2",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 80
+ },
+ "hil": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 913174429986 5: 90",
+  "formes": [
+   "2:num 5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 20
+ },
+ "him": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 191105026 2: 210",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 46,
+  "taille_min": 45,
+  "vus": 20
+ },
+ "hiq": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 900 2: 90 3: 913174429986",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 39,
+  "taille_min": 39,
+  "vus": 16
+ },
+ "hir": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 191105026",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 43,
+  "taille_min": 43,
+  "vus": 20
+ },
+ "hit": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 90",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 4
+ },
+ "hix": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 32
+ },
+ "hja": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 1",
+  "formes": [
+   "3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 4
+ },
+ "hjc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:07:00",
+  "exemple": "1: 5 3: 191105026",
+  "formes": [
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 44,
+  "vus": 14
+ },
+ "hjj": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:38",
+  "exemple": "2: 192416776 3: {   1: 1   2: 230   5: 73400320   6: 182 } 3: {   1: 40   2: 380   5: 88085249   6: 490 } 3: {   1: 30   2: 390   5: 88212481   6: 170",
+  "formes": [
+   "2:num 3{} 3{} 3{} 3{} 3{} 3{} 3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 324,
+  "taille_min": 206,
+  "vus": 10
+ },
+ "hjl": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 2: 90",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 16
+ },
+ "hlm": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 24
+ },
+ "hms": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:20:38",
+  "exemple": "1: {   1: 1   3: 3506   4: 2 } 1: {   1: 1   3: 18646   4: 2 } 1: {   1: 1   3: 373   4: 2 } 1: {   1: 1   4: 2 } 1: {   1: 1   3: 413   4: 2 } 1: {  ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 234,
+  "taille_min": 219,
+  "vus": 4
+ },
+ "hnd": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   2: 1   3: 3   4: 12   5: 12787 } 2: 913174626594",
+  "formes": [
+   "1{} 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 46,
+  "taille_min": 45,
+  "vus": 656
+ },
+ "hng": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:07",
+  "exemple": "2: 12796 3: 1",
+  "formes": [
+   "2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 33,
+  "taille_min": 32,
+  "vus": 4
+ },
+ "hnk": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 12 2: 1 3: 12787 5: 913174626594",
+  "formes": [
+   "1:num 2:num 3:num 5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 42,
+  "taille_min": 41,
+  "vus": 449
+ },
+ "hoc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:03:13",
+  "exemple": "2: -36 4: 1",
+  "formes": [
+   "2:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 4
+ },
+ "hph": {
+  "captures": [
+   "erosion01.pcapng"
+  ],
+  "exemple": "1: 913174495522 2: 1 3: 216",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 50,
+  "taille_min": 50,
+  "vus": 2
+ },
+ "hpm": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 100 2: 100 3: 1000",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 33,
+  "vus": 64
+ },
+ "hpr": {
+  "captures": [
+   "combat4p.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 53",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 29,
+  "vus": 112
+ },
+ "hpu": {
+  "captures": [
+   "erosion01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 24 2: 1",
+  "formes": [
+   "1:num 2:num",
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 42,
+  "taille_min": 40,
+  "vus": 8
+ },
+ "hpv": {
+  "captures": [
+   "erosion01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 2: 24 3: 1 4: 913174495522",
+  "formes": [
+   "1:num 2:num 3:num 4:num",
+   "1:num 2:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 45,
+  "taille_min": 44,
+  "vus": 5
+ },
+ "hpy": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 0xfe02e202   2: 4   3: {     3: 913174429986     4: 1     5: {       1: {         1: {           1: 60           2: \"Kaska-yopette\"         }         ",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 155,
+  "taille_min": 98,
+  "vus": 321
+ },
+ "hqa": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: -20000",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "requete_attaque_groupe",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 49,
+  "taille_min": 49,
+  "vus": 101
+ },
+ "hqc": {
+  "captures": [
+   "erosion01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 2: 913174495522 3: 24",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 44,
+  "taille_min": 43,
+  "vus": 5
+ },
+ "hqq": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "hqx": {
+  "captures": [
+   "donjon01.pcapng"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "hrc": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 1   2: {     1: {       1: 1     }     1: {       1: 5     }     1: 0x     1: {       1: 2     }     1: {       1: 4     }     1: {       1: 3     }  ",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 66,
+  "taille_min": 66,
+  "vus": 4
+ },
+ "hrl": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 4
+ },
+ "hsn": {
+  "captures": [
+   "donjon01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 32,
+  "taille_min": 27,
+  "vus": 432
+ },
+ "hue": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "huh": {
+  "captures": [
+   "challenge01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 32,
+  "taille_min": 27,
+  "vus": 249
+ },
+ "hur": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:26:10",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 28,
+  "taille_min": 28,
+  "vus": 2
+ },
+ "hus": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 1   2: 1 } 1: {   1: 2   2: 0 } 1: {   1: 3   2: 0 } 1: {   1: 4   2: 0 } 1: {   1: 5   2: 0 } 1: {   1: 6   2: 0 }",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 74,
+  "taille_min": 74,
+  "vus": 4
+ },
+ "huu": {
+  "captures": [
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "huz": {
+  "captures": [
+   "donjon01.pcapng"
+  ],
+  "exemple": "2: 0x",
+  "formes": [
+   "2:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 3
+ },
+ "idu": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   2: {     1: {       2: 5527     }     1: {       2: 5528     }     1: {       2: 5529       4: 1     }     2: 1513   }   3: 897 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 93,
+  "taille_min": 44,
+  "vus": 152
+ },
+ "idv": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:12:08",
+  "exemple": "1: 899 2: 5536",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 44,
+  "taille_min": 44,
+  "vus": 1
+ },
+ "ieb": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 897 2: 5527",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 33,
+  "vus": 60
+ },
+ "iec": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:08:57",
+  "exemple": "1: 898 3: -1",
+  "formes": [
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 52,
+  "taille_min": 44,
+  "vus": 17
+ },
+ "ied": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 675",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 30,
+  "vus": 24
+ },
+ "ief": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:08:57",
+  "exemple": "1: 898",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 30,
+  "vus": 16
+ },
+ "ieo": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 897",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 41,
+  "vus": 152
+ },
+ "ifg": {
+  "captures": [
+   "challenge01.pcapng",
+   "farm02.pcapng"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "ifz": {
+  "captures": [
+   "challenge01.pcapng",
+   "farm02.pcapng"
+  ],
+  "exemple": "1: {   1: {     1: {       1: 0x9bf39e0fc7cf8f169dbe9019c7cf8f26c7cf8f2ec7cf8f36ffffff3f80808040       3: 1       5: \"5\"       6: {         10: 1103409440213608",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1175,
+  "taille_min": 1160,
+  "vus": 4
+ },
+ "ijk": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:19:57",
+  "exemple": "1: 2",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 1
+ },
+ "ijm": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 370
+ },
+ "ijq": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 369
+ },
+ "ika": {
+  "captures": [
+   "farm01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174626594",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 112
+ },
+ "ikb": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 11
+ },
+ "ikt": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:22:00",
+  "exemple": "1: 913174102306",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 16
+ },
+ "ikv": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 3: {   1: 163582464   2: -13   4: 702   5: -41 } 4: 382",
+  "formes": [
+   "1:num 3{} 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 69,
+  "taille_min": 47,
+  "vus": 2154
+ },
+ "ilc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:22:00",
+  "exemple": "1: 913174102306",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 16
+ },
+ "iln": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 438
+ },
+ "ilw": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 5517 2: {   1: {     2: \"Kaska-yopette\"     3: 56     4: {       2: {         1: {           2: {             1: 1           }           4: 0x           5: 2",
+  "formes": [
+   "1:num 2{}"
+  ],
+  "nom": "entite_personnage",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 180,
+  "taille_min": 114,
+  "vus": 2608
+ },
+ "ime": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:21:58",
+  "exemple": "1: {   4: {     1: \"Kaska-Osa\"   } } 3: 1",
+  "formes": [
+   "1{} 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 56,
+  "taille_min": 55,
+  "vus": 4
+ },
+ "imf": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:21:58",
+  "exemple": "2: 7987 3: {   1: {     1: 0x8ebf860e93b2e41084fbe51fbf889021c9bcb42cc1d0a832ffffff3f80808040     2: 3     3: 1     5: \"0\"     6: 0x15f40f9304f4018801",
+  "formes": [
+   "2:num 3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 122,
+  "taille_min": 120,
+  "vus": 16
+ },
+ "imh": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 438
+ },
+ "imk": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 25,
+  "vus": 60
+ },
+ "imo": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 21
+ },
+ "imp": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 5517",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 32,
+  "vus": 356
+ },
+ "imv": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 913174561058",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 88
+ },
+ "inb": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 21
+ },
+ "inc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:14:28",
+  "exemple": "2: 7987 3: 913174102306",
+  "formes": [
+   "2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 37,
+  "taille_min": 37,
+  "vus": 32
+ },
+ "ink": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:22:00",
+  "exemple": "1: 7987 2: {   1: {     2: \"Kaska-Osa\"     3: 61     4: {       2: {         1: {           2: {             1: 1           }           4: {          ",
+  "formes": [
+   "1:num 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 180,
+  "taille_min": 177,
+  "vus": 16
+ },
+ "ino": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 2: {   1: 5   3: 103   4: 531   6: 536 } 4: 7987",
+  "formes": [
+   "1:num 2{} 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 50,
+  "taille_min": 44,
+  "vus": 17734
+ },
+ "ioc": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "4: 153881600 5: -20000",
+  "formes": [
+   "4:num 5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 42,
+  "vus": 99
+ },
+ "iof": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:48:42",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 1
+ },
+ "iom": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   2: {     2: 0xf40d     4: -20000   }   3: 189530112 } 1: {   2: {     2: 0xce0f     4: -20000   }   3: 189531146 } 1: {   2: {     2: 0xd00f     4: -2000",
+  "formes": [
+   "1{} 1{} 1{}",
+   "1{} 1{}",
+   "1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "groupes_monstres",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 337,
+  "taille_min": 25,
+  "vus": 699
+ },
+ "ios": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 20830 2: {   1: 24979 } 2: {   1: 24980   3: {     1: 1074   } }",
+  "formes": [
+   "1:num 2{} 2{}",
+   "1:num 2{} 2{} 2{}",
+   "1:num 2{}",
+   "1:num 2{} 3:str",
+   "1:num",
+   "1:num 2{} 2{} 3:str",
+   "1:num 2{} 2{} 2{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 57,
+  "taille_min": 30,
+  "vus": 203
+ },
+ "iov": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 3 2: 153881600 3: -20000",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 56,
+  "taille_min": 55,
+  "vus": 100
+ },
+ "ioy": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 24980",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 42,
+  "taille_min": 41,
+  "vus": 193
+ },
+ "irl": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:12",
+  "exemple": "1: {   3: 65   4: 1   5: 1 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 46,
+  "taille_min": 46,
+  "vus": 21
+ },
+ "irq": {
+  "captures": [
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 28   2: 3060   3: 17   4: 2720   5: 2788 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 42,
+  "taille_min": 39,
+  "vus": 118
+ },
+ "isd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:13",
+  "exemple": "1: {   3: 1   4: 1 } 1: {   3: 2   4: 1 } 1: {   3: 11   4: 1 } 1: {   3: 13   4: 1 } 1: {   3: 15   4: 1 } 1: {   3: 16   4: 1 } 1: {   3: 24   4: 1 ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 196,
+  "taille_min": 158,
+  "vus": 21
+ },
+ "isn": {
+  "captures": [
+   "combat_verif.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng"
+  ],
+  "exemple": "1: {   2: 811972952354 }",
+  "formes": [
+   "1{}",
+   "1{} 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 42,
+  "taille_min": 36,
+  "vus": 160
+ },
+ "isz": {
+  "captures": [
+   "esquive01.pcapng",
+   "farm01.pcapng"
+  ],
+  "exemple": "1: {   2: 28   4: {     2: {       1: 100     }     4: 109   }   4: {     2: {       1: 100     }     4: 27   }   4: {     1: {       1: {         2: 8         ",
+  "formes": [
+   "1{} 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 94,
+  "taille_min": 42,
+  "vus": 10
+ },
+ "itc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:18:57",
+  "exemple": "1: 59375664",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 32,
+  "vus": 1
+ },
+ "itd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:37",
+  "exemple": "1: {   1: 63   5: {     1: 16831     2: {       6: {         1: 1730         3: 10       }       11: 209     }     3: 8     4: 76707703   } }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 56,
+  "taille_min": 43,
+  "vus": 7
+ },
+ "itf": {
+  "captures": [
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 63   5: {     1: 8545     3: 1     4: 41553504   } }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 44,
+  "taille_min": 43,
+  "vus": 15
+ },
+ "itg": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:20:38",
+  "exemple": "1: {   6: {     2: 13106   } } 1: {   2: 1   6: {     2: 13123   } } 1: {   2: 2   6: {     2: 13125   } } 1: {   2: 35   6: {     2: 3506   } } 1: { ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 222,
+  "taille_min": 207,
+  "vus": 4
+ },
+ "itn": {
+  "captures": [
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 289 2: 6",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 32,
+  "vus": 106
+ },
+ "itr": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "3: 2",
+  "formes": [
+   "3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 8
+ },
+ "itv": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:33",
+  "exemple": "1: 0xc4d4bd24eccfbd24c1f99e24dbeafd21e9ccfd218ae1ea21d7fce921cffce921c6fce921c0fce921c6ce9f21d0ac8c21... (+332o)",
+  "formes": [
+   "1:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 413,
+  "taille_min": 33,
+  "vus": 31
+ },
+ "iua": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "succes01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "3: {   1: 63   5: {     1: 407     3: 1     4: 53220041   } }",
+  "formes": [
+   "3{}",
+   "1:num 3{}"
+  ],
+  "nom": "objet_ajoute",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 93,
+  "taille_min": 43,
+  "vus": 545
+ },
+ "iuj": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:34:37",
+  "exemple": "1: {   1: 63   5: {     1: 10207     2: {       4: 6884       11: 814     }     2: {       4: 7309       11: 814     }     2: {       4: 7310       11",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 817,
+  "taille_min": 801,
+  "vus": 12
+ },
+ "iuk": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: 1 2: 59376094 3: 63",
+  "formes": [
+   "1:num 2:num 3:num",
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 47,
+  "taille_min": 45,
+  "vus": 57
+ },
+ "ium": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 41553504",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 32,
+  "vus": 351
+ },
+ "iun": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 2153 3: 4044",
+  "formes": [
+   "1:num 3:num"
+  ],
+  "nom": "pods",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 33,
+  "taille_min": 32,
+  "vus": 2136
+ },
+ "iuu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:21:20",
+  "exemple": "3: 70942298",
+  "formes": [
+   "3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 43,
+  "taille_min": 43,
+  "vus": 7
+ },
+ "iuv": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:58:36",
+  "exemple": "1: 22 3: 1",
+  "formes": [
+   "1:num 3:num",
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 44,
+  "taille_min": 42,
+  "vus": 14
+ },
+ "iuy": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:33",
+  "exemple": "1: {   1: 63   5: {     1: 377     3: 6     4: 76695129   } } 1: {   1: 63   5: {     1: 300     3: 6     4: 76695130   } } 1: {   1: 63   5: {     1:",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{}",
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1475,
+  "taille_min": 43,
+  "vus": 32
+ },
+ "ivf": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1415",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "solde_kamas",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 30,
+  "vus": 125
+ },
+ "ivi": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 16384   2: 15868 } 2: {   1: 16385   2: 265 } 2: {   1: 16386   2: 17435 } 2: {   1: 16387   2: 219 } 2: {   1: 16388   2: 18793 } 2: {   1: 16389   2",
+  "formes": [
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}"
+  ],
+  "nom": "table_prix_moyens",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 88497,
+  "taille_min": 88438,
+  "vus": 26
+ },
+ "ivj": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "3: {   2: 41975422   3: 3 }",
+  "formes": [
+   "3{}",
+   "2{} 3{}",
+   "1:num 3{}"
+  ],
+  "nom": "objet_quantite_maj",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 42,
+  "taille_min": 36,
+  "vus": 1731
+ },
+ "ivk": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:20:38",
+  "exemple": "2: {   2: 3   6: {     2: 413   } } 3: 1",
+  "formes": [
+   "2{} 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 39,
+  "taille_min": 36,
+  "vus": 30
+ },
+ "ivl": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:30",
+  "exemple": "1: {   1: 0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30... (+445o)   2: 1   3: 23   4: 24   5: 76",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 563,
+  "taille_min": 563,
+  "vus": 5
+ },
+ "ivo": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:27",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 1
+ },
+ "ivp": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 26
+ },
+ "ivq": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: 59376094 2: 63",
+  "formes": [
+   "1:num 2:num",
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 32,
+  "vus": 80
+ },
+ "ivr": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:58:40",
+  "exemple": "1: 1 2: 3",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 31,
+  "vus": 9
+ },
+ "ivx": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "1: 120705 3: {   1: 63   5: {     1: 10784     2: {       4: 1       11: 125     }     2: {       4: 1       11: 174     }     2: {       11: 981     }     3: 1",
+  "formes": [
+   "1:num 3{} 3{} 3{} 3{} 3{} 3{} 3{}"
+  ],
+  "nom": "inventaire_complet",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 2169,
+  "taille_min": 1871,
+  "vus": 24
+ },
+ "iwa": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:19:02",
+  "exemple": "2: 0xbadfcf24",
+  "formes": [
+   "2:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 33,
+  "taille_min": 33,
+  "vus": 7
+ },
+ "iwb": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:26",
+  "exemple": "1: {   1: 63   5: {     1: 16829     2: {       6: {         1: 1973         3: 10       }       11: 209     }     3: 8     4: 59375661   } } 1: {   1",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 2067,
+  "taille_min": 25,
+  "vus": 4
+ },
+ "iwc": {
+  "captures": [
+   "erosion01.pcapng"
+  ],
+  "exemple": "1: 1 2: 1782 3: 7",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 4
+ },
+ "iwd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: {   4: 1   11: 111 } 1: {   4: 8   11: 213 } 1: {   4: 15   11: 124 } 1: {   4: 25   11: 119 } 1: {   4: 35   11: 126 } 1: {   4: 35   11: 125 } 1:",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 2:num",
+   "2:num",
+   "1{} 1{} 1{} 1{} 1{} 1{} 2:num 3:oct",
+   "1{} 1{} 1{} 1{} 2:num 3:oct",
+   "1{} 1{} 1{} 2:num 3:oct",
+   "2:num 3:oct",
+   "1{} 1{} 1{} 1{} 2:num 3{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 95,
+  "taille_min": 29,
+  "vus": 80
+ },
+ "iwf": {
+  "captures": [
+   "combat4p.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "succes02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   2: 431   3: 513265 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 35,
+  "vus": 1425
+ },
+ "iwi": {
+  "captures": [
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 513441 3: 45",
+  "formes": [
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 33,
+  "taille_min": 33,
+  "vus": 110
+ },
+ "iwm": {
+  "captures": [
+   "combat4p.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "succes02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "3: {   2: 0   3: {     1: 19536     2: 50   }   5: 513265   6: 42 }",
+  "formes": [
+   "3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 48,
+  "taille_min": 42,
+  "vus": 1425
+ },
+ "iwn": {
+  "captures": [
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 515692 4: 184 5: 878937768226",
+  "formes": [
+   "1:num 2:num 4:num 5:num",
+   "2:num 3:num 4:num 5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 42,
+  "vus": 784
+ },
+ "iwo": {
+  "captures": [
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "recolte01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 13018 2: 513441",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 46,
+  "taille_min": 45,
+  "vus": 203
+ },
+ "iwq": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 489335 3: 12522",
+  "formes": [
+   "2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 11
+ },
+ "izz": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   4: 1   5: 1   8: {     1: \"Bude\"     2: \"6331\"   }   9: 1   12: 1 } 2: 9489 3: 0xa1861c",
+  "formes": [
+   "1{} 2:num 3:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 120,
+  "taille_min": 58,
+  "vus": 971
+ },
+ "jaz": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:37",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 22
+ },
+ "jbf": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:37",
+  "exemple": "1: {   1: 1 } 1: {   1: 1   2: 1 }",
+  "formes": [
+   "1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 37,
+  "taille_min": 37,
+  "vus": 11
+ },
+ "jbn": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:37",
+  "exemple": "2: 913174429986",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 45,
+  "vus": 12
+ },
+ "jbu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:38",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 11
+ },
+ "jci": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "2: {   3: 1   6: 0x01   10: 44950 }",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 38,
+  "vus": 6
+ },
+ "jco": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:46:00",
+  "exemple": "2: {   2: \"guild.rank.1.name\"   3: {     3: 0x0102050607080d0e0f1718191a1d1e1f202122232425262728292a2b   }   4: {     2: 116   }   5: 1 } 2: {   2: \"C",
+  "formes": [
+   "2{} 2{} 2{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 197,
+  "taille_min": 197,
+  "vus": 2
+ },
+ "jcs": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:46:00",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "jei": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "1: {   1: {     2: {       1: \"c4da100e-6ab7-4d65-85ab-1653422c0152\"       3: 42       4: {         2: 0x         4: 42       }     }     2: {       1",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1045,
+  "taille_min": 1041,
+  "vus": 3
+ },
+ "jen": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:20:24",
+  "exemple": "1: 487",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 30,
+  "vus": 4
+ },
+ "jeu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jew": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:39",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "jez": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:39",
+  "exemple": "1: \"2026-09-01T05:00:00Z\"",
+  "formes": [
+   "1:str"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 60,
+  "taille_min": 60,
+  "vus": 2
+ },
+ "jff": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "2: {   1: {     1: 1     2: 400     3: 250     4: 5   } }",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 52,
+  "taille_min": 52,
+  "vus": 9
+ },
+ "jfp": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 9
+ },
+ "jfr": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:17",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jfs": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jfv": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jfw": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:17",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jfz": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "1: 0x",
+  "formes": [
+   "1:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 3
+ },
+ "jga": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:15:33",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "jgq": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:39",
+  "exemple": "3: {   1: {     1: 0x0304     2: 0x020304   } }",
+  "formes": [
+   "3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 51,
+  "taille_min": 51,
+  "vus": 2
+ },
+ "jgr": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:16:39",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "jgu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: {   1: {     2: \"Kaska-Feca\"     3: 56     5: {       1: 1       2: 4       3: 2       4: 1787936968197       6: 1       7: {         1: 496       ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 526,
+  "taille_min": 526,
+  "vus": 6
+ },
+ "jhd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:40:50",
+  "exemple": "1: 913175019810",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 34,
+  "taille_min": 34,
+  "vus": 16
+ },
+ "jhh": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: \"2026-08-28T17:07:40.618519Z\" 3: 1 9: 50 10: 8",
+  "formes": [
+   "1:str 3:num 9:num 10:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 62,
+  "taille_min": 62,
+  "vus": 6
+ },
+ "jii": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 12
+ },
+ "jiy": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "2: 4",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 18
+ },
+ "jla": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: 5",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 6
+ },
+ "jlh": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:46:02",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 7
+ },
+ "jlk": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 6
+ },
+ "jlx": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: 8",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 6
+ },
+ "jmf": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "2: 8",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 6
+ },
+ "jml": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:45:57",
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 12
+ },
+ "jqe": {
+  "captures": [
+   "challenge01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 173",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 125
+ },
+ "jqi": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2625
+ },
+ "jqk": {
+  "captures": [
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 189792257",
+  "formes": [
+   "2:num",
+   "2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 42,
+  "vus": 801
+ },
+ "jqt": {
+  "captures": [
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 11 2: -10",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 25,
+  "vus": 32
+ },
+ "jqz": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 25,
+  "vus": 481
+ },
+ "jrh": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 189530113",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 43,
+  "taille_min": 42,
+  "vus": 1297
+ },
+ "jrk": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 702 3: {   1: -13   2: -41 } 4: 163582468",
+  "formes": [
+   "2:num 3{} 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 59,
+  "taille_min": 41,
+  "vus": 368
+ },
+ "jru": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 163582468",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 31,
+  "vus": 1667
+ },
+ "jrw": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 163582464 2: 0x8fa301808301fe8201",
+  "formes": [
+   "1:num 2:oct",
+   "1:num 2{}",
+   "1:num 2:str"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 161,
+  "taille_min": 47,
+  "vus": 3571
+ },
+ "jsd": {
+  "captures": [
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 375172759842 3: 2",
+  "formes": [
+   "2:num 3:num",
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 33,
+  "vus": 1588
+ },
+ "jsj": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes02.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 0xf102e202 2: 7 5: -20000",
+  "formes": [
+   "1:oct 2:num 5:num",
+   "1{} 2:num 5:num",
+   "1:str 2:num 5:num",
+   "1:oct 2:num 5:num 6:num",
+   "1{} 2:num 5:num 6:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 109,
+  "taille_min": 39,
+  "vus": 22365
+ },
+ "jsn": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "stats01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: {     1: 354     2: 7   }   2: {     1: {       4: {         1: 1         2: {           1: {             1: 498             2: 40             3: {   ",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 521,
+  "taille_min": 67,
+  "vus": 3955
+ },
+ "jsq": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2625
+ },
+ "jss": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 189530113 5: {   1: {     1: 324     2: 1   }   2: {     1: {       5: {         1: \"Kaska-yopette\"         3: {           1: {             2: 2             ",
+  "formes": [
+   "2:num 5{} 5{} 5{} 5{} 5{} 5{} 5{}",
+   "2:num 5{} 5{} 5{} 5{} 5{} 6:num",
+   "2:num 5{} 5{} 6:num 12{} 14:num",
+   "2:num 5{} 5{} 5{} 6:num 12{} 14:num",
+   "2:num 5{} 5{} 5{} 5{} 5{} 6:num 11{}",
+   "2:num 5{} 5{} 5{} 5{} 5{} 5{} 6:num",
+   "2:num 5{} 5{} 5{} 6:num 11{} 11{} 14:num",
+   "2:num 5{} 5{} 5{} 6:num 11{} 11{} 11{}"
+  ],
+  "nom": "joueurs_sur_map",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 8104,
+  "taille_min": 227,
+  "vus": 1307
+ },
+ "jti": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 6",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 42,
+  "taille_min": 42,
+  "vus": 4997
+ },
+ "jtn": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 913174429986   2: 269610   3: 1 }",
+  "formes": [
+   "1{}",
+   "1{} 1{}",
+   "1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 117,
+  "taille_min": 25,
+  "vus": 27876
+ },
+ "jto": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 2: 8",
+  "formes": [
+   "1:num 2:num",
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 34,
+  "vus": 94476
+ },
+ "jwe": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 913174429986 7: {   2: 913174429986   4: {     4: 913174429986   }   4: {     4: 913174495522   }   4: {     4: 913174561058   }   4: {     4: 913174626594  ",
+  "formes": [
+   "3:num 7{} 14:num",
+   "3:num 14:num 20{}",
+   "3:num 14:num 40{}",
+   "3:num 4{} 14:num",
+   "3:num 14:num 18{}",
+   "3:num 14:num 27{}",
+   "3:num 14:num 35{}",
+   "1{} 3:num 14:num"
+  ],
+  "nom": "action_de_combat",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 585,
+  "taille_min": 42,
+  "vus": 83348
+ },
+ "jwh": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 312 4: 25860",
+  "formes": [
+   "1:num 4:num",
+   "1:num"
+  ],
+  "nom": "lancer_de_sort",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 41,
+  "vus": 1547
+ },
+ "jwi": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 6 2: 913174429986 3: 8",
+  "formes": [
+   "1:num 2:num 3:num",
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 36,
+  "vus": 94476
+ },
+ "jwq": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1662,
+  "taille_min": 25,
+  "vus": 368
+ },
+ "jwz": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "ping_client",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 7205
+ },
+ "jxa": {
+  "captures": [
+   "debut01.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "notification_exclusion",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 18
+ },
+ "jxb": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: {     1: 298     2: 1     4: 0   }   2: {     2: {       1: 0       2: {         3: 2         5: {           1: 1           2: {             2: 6     ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{}"
+  ],
+  "nom": "caracteristiques",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 8340,
+  "taille_min": 1054,
+  "vus": 346
+ },
+ "jxc": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 373   2: 1 } 4: 913174561058",
+  "formes": [
+   "1{} 4:num",
+   "4:num",
+   "1{} 2{} 4:num",
+   "1{} 1{} 4:num",
+   "1{} 1{} 2{} 4:num",
+   "2{} 4:num",
+   "1{} 1{} 1{} 1{} 2{} 4:num",
+   "1{} 1{} 2{} 2{} 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 92,
+  "taille_min": 34,
+  "vus": 10229
+ },
+ "jxg": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: {     1: 272     2: 7     4: 0   }   2: {     2: {       1: 913174692130       2: {         3: 2         5: {           1: 1           2: {           ",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 582,
+  "taille_min": 371,
+  "vus": 8738
+ },
+ "jxh": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 913174495522",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "fin_de_tour",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 34,
+  "vus": 7213
+ },
+ "jxl": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:23:53",
+  "exemple": "1: {   1: {     1: 428     2: 5     4: 0   }   2: {     3: {       2: 3       3: 4398     }   }   3: 913174626594 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 102,
+  "taille_min": 54,
+  "vus": 55
+ },
+ "jxm": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: {     2: 913174429986     3: 1     4: 1     6: {       2: -1     }     7: \"I\"     8: 269609     10: 2131     12: {       2: -1       3: -1     }     1",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "effet_applique",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 128,
+  "taille_min": 85,
+  "vus": 40414
+ },
+ "jxn": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 913174495522",
+  "formes": [
+   "1:num 2:num",
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 34,
+  "vus": 1110
+ },
+ "jxo": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 913174561058   2: {     1: {       2: 0x       4: 913174561058     }     2: 0x     3: 0x     4: 0x     5: 0x     6: 0x     8: 0x     9: 0x     10: 0x ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 2:oct",
+   "1{} 1{} 1{} 1{} 2{}",
+   "1{} 1{} 2{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{} 2:oct",
+   "1{} 1{} 1{} 2{}",
+   "1{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 939,
+  "taille_min": 106,
+  "vus": 338
+ },
+ "jxs": {
+  "captures": [
+   "erosion01.pcapng"
+  ],
+  "exemple": "1: 913174429986 2: 16",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "jxu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:19:57",
+  "exemple": "1: {   1: -17   2: 375664   3: 1 } 1: {   1: -16   2: 214483   3: 1 } 1: {   1: -16   2: 214451   3: 1 } 1: {   1: -16   2: 214482   3: 1 } 1: {   1: ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1754,
+  "taille_min": 1754,
+  "vus": 1
+ },
+ "jxw": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174495522 3: {   3: 2   5: {     1: 23     2: 0x   } }",
+  "formes": [
+   "1:num 3{}"
+  ],
+  "nom": "caracteristique_en_combat",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 80,
+  "taille_min": 44,
+  "vus": 55667
+ },
+ "jxy": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "requete_fin_de_tour",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 718
+ },
+ "jxz": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num",
+   "1:num 2:num"
+  ],
+  "nom": "numero_de_tour",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 29,
+  "vus": 826
+ },
+ "jya": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174495522 2: 34",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 41,
+  "taille_min": 36,
+  "vus": 19213
+ },
+ "jyg": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   2: {     1: 1     2: {       1: {         2: 1         4: 407       }       5: 103     }   }   3: {     1: 913174495522     2: {       1: {         2: { ",
+  "formes": [
+   "2{} 2{} 2{} 2{} 2{} 4:num 8:num",
+   "2{} 2{} 2{} 2{} 2{} 2{} 4:num 8:num",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 4:num 8:num",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 4:num",
+   "2{} 2{} 2{} 4:num 6:num 8:num",
+   "2{} 2{} 4:num 6:num 8:num"
+  ],
+  "nom": "resultat_fin_combat",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1356,
+  "taille_min": 80,
+  "vus": 338
+ },
+ "jyj": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 821
+ },
+ "jyt": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 133 2: 913174495522",
+  "formes": [
+   "1:num 2:num",
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 34,
+  "vus": 7927
+ },
+ "jyv": {
+  "captures": [
+   "donjon01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 87 2: 36 3: 913174429986",
+  "formes": [
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 38,
+  "vus": 108
+ },
+ "jyy": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 913174561058 4: 913174561058 6: {   1: 1   3: 3506   4: 2 } 6: {   1: 1   3: 18646   4: 2 } 6: {   1: 1   3: 373   4: 2 } 6: {   1: 1   4: 2 } 6: {   1: 1   ",
+  "formes": [
+   "3:num 4:num 6{} 6{} 6{} 6{} 6{} 6{}",
+   "3:num 4:num 6{} 6{} 6{} 6{} 6{} 7{}",
+   "3:num 4:num 6{} 7{}",
+   "3:num 4:num 6{} 6{} 7{} 7{}",
+   "3:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 456,
+  "taille_min": 45,
+  "vus": 639
+ },
+ "jzc": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174495522 2: 300 8: 1",
+  "formes": [
+   "1:num 2:num 8:num",
+   "1:num 2:num 7:num 8:num",
+   "1:num 2:num 4:num 7:num 8:num",
+   "1:num 2:num 4:num 8:num",
+   "1:num 2:num 4:num 6:num 7:num 8:num"
+  ],
+  "nom": "pong_serveur",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 47,
+  "taille_min": 39,
+  "vus": 8273
+ },
+ "jzu": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   3: {     2: -5   } } 2: {   3: {     2: 913174692130   } } 2: {   3: {     2: 913174429986   } }",
+  "formes": [
+   "2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{}"
+  ],
+  "nom": "ordre_de_jeu",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 364,
+  "taille_min": 38,
+  "vus": 7602
+ },
+ "jzw": {
+  "captures": [
+   "boss01.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 159 2: 1 4: -1",
+  "formes": [
+   "1:num 2:num 4:num",
+   "1:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 36,
+  "vus": 5426
+ },
+ "jzx": {
+  "captures": [
+   "erosion01.pcapng"
+  ],
+  "exemple": "1: 2",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 2
+ },
+ "jzy": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913175019810 2: 299",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "placement_combattant",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 52,
+  "taille_min": 47,
+  "vus": 430
+ },
+ "jzz": {
+  "captures": [
+   "erosion01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 6
+ },
+ "kaa": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 1 4: 1 5: 445 6: 4",
+  "formes": [
+   "3:num 4:num 5:num 6:num",
+   "2:num 3:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 33,
+  "vus": 367
+ },
+ "kab": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:19:57",
+  "exemple": "3: {   1: 1   4: 1   6: 4 }",
+  "formes": [
+   "3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 35,
+  "taille_min": 35,
+  "vus": 1
+ },
+ "kae": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   3: 913174429986   4: 1   5: {     1: {       1: {         1: 60         2: \"Kaska-yopette\"       }       2: 913174429986     }   } } 2: 159",
+  "formes": [
+   "1{} 2:num"
+  ],
+  "nom": "entite_combattant",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 400,
+  "taille_min": 42,
+  "vus": 5482
+ },
+ "kah": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174429986 3: 1",
+  "formes": [
+   "1:num 3:num",
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 34,
+  "vus": 1679
+ },
+ "kai": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 345
+ },
+ "kal": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:19:56",
+  "exemple": "2: 913175150882",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 45,
+  "vus": 1
+ },
+ "kam": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 4 3: -20000 4: 0x9f17f2039a017ff2039a017ff203 5: 159 6: 913174429986",
+  "formes": [
+   "1:num 2:num 3:num 4:oct 5:num 6:num",
+   "2:num 3:num 4:str 5:num 6:num",
+   "2:num 3:num 4:oct 5:num 6:num",
+   "3:num 5:num 6:num",
+   "2:num 3:num 4{} 5:num 6:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 70,
+  "taille_min": 43,
+  "vus": 368
+ },
+ "kaq": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 334
+ },
+ "kar": {
+  "captures": [
+   "boss01.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: -1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 34,
+  "vus": 3890
+ },
+ "kau": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 1 4: 1 5: 159",
+  "formes": [
+   "3:num 4:num 5:num",
+   "3:num 5:num",
+   "5:num",
+   "1:num 3:num 4:num 5:num",
+   "1:num 3:num 5:num",
+   "1:num 5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 35,
+  "taille_min": 29,
+  "vus": 1915
+ },
+ "kay": {
+  "captures": [
+   "xp5min.pcapng"
+  ],
+  "exemple": "1: 913174429986 2: 20",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "interaction_sur_personnage",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 47,
+  "taille_min": 47,
+  "vus": 8
+ },
+ "kaz": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 10
+ },
+ "kba": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 0xa0029002b902c902e4029e02ab02bc02c602d702   2: 0xd801f201f601b702be02f502fe029c0380028203 }",
+  "formes": [
+   "1{}",
+   "1{} 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 85,
+  "taille_min": 65,
+  "vus": 367
+ },
+ "kbb": {
+  "captures": [
+   "boss01.pcapng",
+   "farm01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 329   2: 1   3: 913174429986 } 1: {   1: 288   2: 7   3: 913174626594 }",
+  "formes": [
+   "1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 55,
+  "taille_min": 54,
+  "vus": 160
+ },
+ "kbg": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1294 3: 1 4: 1318 5: 201 6: 913174495522 7: 913174626594 8: 253",
+  "formes": [
+   "2:num 3:num 4:num 5:num 6:num 7:num 8:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 55,
+  "taille_min": 54,
+  "vus": 34
+ },
+ "kci": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:26",
+  "exemple": "1: 2147483647 3: 16",
+  "formes": [
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 35,
+  "taille_min": 31,
+  "vus": 4
+ },
+ "kcr": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 41856380",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 54,
+  "taille_min": 45,
+  "vus": 79
+ },
+ "kcu": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:19:11",
+  "exemple": "3: 2644",
+  "formes": [
+   "3:num",
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 30,
+  "vus": 9
+ },
+ "kcz": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:19:02",
+  "exemple": "2: 0xbadfcf24",
+  "formes": [
+   "2:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 44,
+  "taille_min": 44,
+  "vus": 7
+ },
+ "kdd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:21:55",
+  "exemple": "1: 0xf587a81c",
+  "formes": [
+   "1:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 424,
+  "taille_min": 44,
+  "vus": 86
+ },
+ "kdr": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "2: {   4: {     1: 8545     3: 1     4: 41553504   } } 3: 2",
+  "formes": [
+   "2{} 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 43,
+  "vus": 8
+ },
+ "kee": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:17:27",
+  "exemple": "1: -21775",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 49,
+  "taille_min": 49,
+  "vus": 1
+ },
+ "kep": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1 2: 2",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 42,
+  "taille_min": 42,
+  "vus": 49
+ },
+ "keq": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1294 3: 200",
+  "formes": [
+   "1:num 3:num",
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 35,
+  "taille_min": 32,
+  "vus": 52
+ },
+ "keu": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 913174626594",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 45,
+  "vus": 15
+ },
+ "kew": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "2: 8545",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 41,
+  "vus": 8
+ },
+ "kfb": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 63   5: {     1: 16524     3: 3     4: 41497004   } } 3: 0 (f32=0)",
+  "formes": [
+   "1{} 3:num",
+   "1{} 2:num",
+   "1{}",
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1446,
+  "taille_min": 43,
+  "vus": 261
+ },
+ "kfs": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "1: 41497005",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 32,
+  "vus": 16
+ },
+ "kfz": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174495522 2: 913174626594 4: 1",
+  "formes": [
+   "1:num 2:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 43,
+  "vus": 34
+ },
+ "kgi": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 19
+ },
+ "kgq": {
+  "captures": [
+   "farm01.pcapng"
+  ],
+  "exemple": "1: 171",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 30,
+  "vus": 8
+ },
+ "kgt": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 1 4: 913174495522",
+  "formes": [
+   "3:num 4:num",
+   "4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 34,
+  "vus": 82
+ },
+ "kgx": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:18:42",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 1
+ },
+ "khd": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "3: 11",
+  "formes": [
+   "3:num",
+   "1:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 29,
+  "vus": 46
+ },
+ "khi": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 26",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 22
+ },
+ "kjw": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:37:37",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "kkr": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:37:37",
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 4
+ },
+ "kla": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 48
+ },
+ "kld": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 113
+ },
+ "kmb": {
+  "captures": [
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 0x8ce7ae0fffffff1792accc1881b8be27cc98b12aaaf3fa35   2: 28   3: 1   5: \"7\"   6: 0xff0af02afd03b2218827b421ba2787309628 } 2: 913298882850",
+  "formes": [
+   "1{} 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 160,
+  "taille_min": 41,
+  "vus": 300
+ },
+ "kme": {
+  "captures": [
+   "erosion01.pcapng"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "kmh": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 272",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 41,
+  "vus": 14
+ },
+ "kmj": {
+  "captures": [
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174626594 2: 272",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 37,
+  "taille_min": 37,
+  "vus": 180
+ },
+ "kmk": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 288   2: 7   3: 913174429986 }",
+  "formes": [
+   "2{}",
+   "2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 286,
+  "taille_min": 40,
+  "vus": 11222
+ },
+ "kml": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "fin_contexte",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 726
+ },
+ "kmp": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "contexte_de_jeu",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 25,
+  "vus": 726
+ },
+ "kmu": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "stats01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: -20000",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 38,
+  "taille_min": 33,
+  "vus": 7194
+ },
+ "kmv": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 163582468",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 43,
+  "taille_min": 42,
+  "vus": 1667
+ },
+ "kmw": {
+  "captures": [
+   "debut01.pcapng",
+   "erosion01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174561058",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "exclusion_combattant",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 45,
+  "taille_min": 45,
+  "vus": 19
+ },
+ "knm": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 39
+ },
+ "kno": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 39
+ },
+ "kny": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 39
+ },
+ "koi": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 39
+ },
+ "koj": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 39
+ },
+ "kqg": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:02:53",
+  "exemple": "1: {   1: 115831356   2: -1   5: {     1: {       1: 1     }     4: 2     5: 61     6: {       1: {         3: {           1: 453           2: 8      ",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 787,
+  "taille_min": 787,
+  "vus": 39
+ },
+ "kqh": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm02.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 913174561058 3: \"Kaska-sadi\" 4: 61",
+  "formes": [
+   "2:num 3:str 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 49,
+  "taille_min": 47,
+  "vus": 50
+ },
+ "kqo": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 3366
+ },
+ "kqy": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 3363
+ },
+ "krl": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: \"149507993233511095977558181156847353792527533118843437129412252418537496309697712859911537146950158110552339538435583438214317720911289259568571996661825315",
+  "formes": [
+   "2:str"
+  ],
+  "nom": "echange_cryptographique",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 268,
+  "taille_min": 264,
+  "vus": 87
+ },
+ "kro": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: \"751765819378936206457765776612823362496574519264530177496690124458770098317488694642561451461785765319541367298950724827999451635630871456097785895389245440",
+  "formes": [
+   "1:str"
+  ],
+  "nom": "echange_cryptographique",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 267,
+  "taille_min": 264,
+  "vus": 87
+ },
+ "krp": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 87
+ },
+ "kru": {
+  "captures": [
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: \"57477265275334783286692693485393036109747007428515695334870946851681937276458\"",
+  "formes": [
+   "1:str"
+  ],
+  "nom": "echange_cryptographique",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 107,
+  "taille_min": 25,
+  "vus": 87
+ },
+ "kti": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:09:14",
+  "exemple": "3: \"2026-08-30T20:08:48+02:00\" 4: \"Kaska-Feca\" 5: 913174692130 6: 52308666 7: \"DEMUTE MOI\" 8: 0x 9: 10",
+  "formes": [
+   "3:str 4:str 5:num 6:num 7:str 8:oct 9:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 94,
+  "taille_min": 94,
+  "vus": 1
+ },
+ "ktx": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:37:40",
+  "exemple": "1: {   1: 2 } 2: 913175019810 4: 115831383",
+  "formes": [
+   "1{} 2:num 4:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 43,
+  "taille_min": 43,
+  "vus": 8
+ },
+ "ktz": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 5",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 356
+ },
+ "kua": {
+  "captures": [
+   "donjon01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 61",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 21
+ },
+ "kub": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 12450000   4: 38   7: 11655000   8: 11873491   9: {     2: 2     3: {       3: 500     }     5: 60   }   10: 170657   11: {     4: {       2: 350     ",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "infos_personnage",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 964,
+  "taille_min": 856,
+  "vus": 1316
+ },
+ "kuf": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 674",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "experience_gagnee",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 29,
+  "vus": 449
+ },
+ "kuh": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:58:24",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "kum": {
+  "captures": [
+   "boss01.pcapng",
+   "donjon01.pcapng",
+   "veille"
+  ],
+  "exemple": "6: 294",
+  "formes": [
+   "6:num",
+   "1:num",
+   "2:num",
+   "5:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 33,
+  "taille_min": 32,
+  "vus": 30
+ },
+ "kuq": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 536 2: 64 4: 536",
+  "formes": [
+   "1:num 2:num 4:num"
+  ],
+  "nom": "points_de_vie",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 35,
+  "vus": 368
+ },
+ "kwh": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 60   2: 20   4: 60   5: 2 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "challenge_confirme",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 136,
+  "taille_min": 37,
+  "vus": 360
+ },
+ "kwi": {
+  "captures": [
+   "combat4p.pcapng",
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 969",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 171
+ },
+ "kwj": {
+  "captures": [
+   "challenge01.pcapng",
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 20",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 35
+ },
+ "kwk": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 495
+ },
+ "kwl": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 20 2: 1",
+  "formes": [
+   "1:num 2:num",
+   "1:num"
+  ],
+  "nom": "resultat_challenge",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 29,
+  "vus": 625
+ },
+ "kwm": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 50   2: 32   3: {     2: 422     3: -39   }   4: 50   5: 2 }",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 135,
+  "taille_min": 49,
+  "vus": 170
+ },
+ "kwn": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 25,
+  "vus": 373
+ },
+ "kwo": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 36,
+  "vus": 373
+ },
+ "kwr": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 88
+ },
+ "kwu": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   1: 60   2: 20   4: 60   5: 2 }",
+  "formes": [
+   "2{}",
+   "2{} 2{}",
+   "2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{}"
+  ],
+  "nom": "challenges_actifs",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 146,
+  "taille_min": 37,
+  "vus": 342
+ },
+ "kwv": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 20",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "challenge_choisi",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 418
+ },
+ "kww": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 60   2: 20   4: 60   5: 2 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 136,
+  "taille_min": 33,
+  "vus": 637
+ },
+ "kwx": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 15 2: {   1: 60   2: 20   4: 60   5: 2 } 2: {   1: 85   2: 8   4: 85   5: 2 }",
+  "formes": [
+   "1:num 2{} 2{}"
+  ],
+  "nom": "challenges_proposes",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 245,
+  "taille_min": 49,
+  "vus": 385
+ },
+ "kxa": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 2",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 29,
+  "vus": 714
+ },
+ "kxb": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 373
+ },
+ "kxh": {
+  "captures": [
+   "farm02.pcapng"
+  ],
+  "exemple": "2: 913174429986",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "kzl": {
+  "captures": [
+   "farm02.pcapng"
+  ],
+  "exemple": "1: {   3: {     1: {       3: 2     }     3: {       1: 44950       2: {         1: 453         2: 8         3: 16777215       }       3: \"Kaskarface\"     }    ",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 202,
+  "taille_min": 202,
+  "vus": 2
+ },
+ "lad": {
+  "captures": [
+   "farm02.pcapng"
+  ],
+  "exemple": "2: {   1: 0x020001   3: \"2026-08-30T11:06:10.400247475Z\"   4: {     2: 178202655     3: 8     4: 913174429986     6: 1     7: 54     8: {       1: 0x9bf39e0fc7c",
+  "formes": [
+   "2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 220,
+  "taille_min": 220,
+  "vus": 2
+ },
+ "lag": {
+  "captures": [
+   "farm02.pcapng"
+  ],
+  "exemple": "3: 913174429986",
+  "formes": [
+   "3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "lqc": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes02.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 16",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 40,
+  "taille_min": 40,
+  "vus": 339
+ },
+ "lqf": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes02.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 28",
+  "formes": [
+   "2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 32,
+  "taille_min": 31,
+  "vus": 339
+ },
+ "lqg": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes02.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 339
+ },
+ "lqn": {
+  "captures": [
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 188 4: \"Kaska-nini\" 4: \"37\"",
+  "formes": [
+   "2:num 4:str 4:str",
+   "2:num 4:str 4:str 4:str 4:str",
+   "2:num",
+   "2:num 4:str",
+   "1:num 2:num 4:str",
+   "1:num 2:num"
+  ],
+  "nom": "message_texte_parametre",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 50,
+  "taille_min": 29,
+  "vus": 854
+ },
+ "lqt": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "recolte01.pcapng",
+   "stats01.pcapng",
+   "succes01.pcapng",
+   "succes02.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 339
+ },
+ "lqu": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 120 2: 1788107254563",
+  "formes": [
+   "1:num 2:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 1667
+ },
+ "lrd": {
+  "captures": [
+   "phases01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 3
+ },
+ "lru": {
+  "captures": [
+   "phases01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: \"5f581c50-cf62-4745-bac6-ac2b8192b71c\"",
+  "formes": [
+   "1:str"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 65,
+  "taille_min": 65,
+  "vus": 3
+ },
+ "ltd": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:59:54",
+  "exemple": "1: {   2: {     1: 1     4: 1   }   3: 1 } 1: {   1: 1   2: {     1: 1     4: 2   }   3: 1 } 1: {   1: 2   2: {     1: 1     4: 3   }   3: 1 } 1: {   ",
+  "formes": [
+   "1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 72,
+  "taille_min": 71,
+  "vus": 3
+ },
+ "lux": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "18:59:54",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 28,
+  "taille_min": 27,
+  "vus": 3
+ },
+ "lva": {
+  "captures": [
+   "boss01.pcapng",
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "debut01.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases01.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "succes_verif2.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [
+   "1:oct"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 31,
+  "taille_min": 25,
+  "vus": 2470
+ },
+ "lvb": {
+  "captures": [
+   "donjon01.pcapng",
+   "farm01.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 47",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 29,
+  "taille_min": 25,
+  "vus": 297
+ },
+ "lxc": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "1: \"63b9287b-01e0-42ad-a732-2cf773960fae\" 2: {   1: 0x9bf39e0fc7cf8f169dbe9019c7cf8f26c7cf8f2ec7cf8f36ffffff3f80808040   2: 3   3: 1   5: \"+\"   6: 0x4",
+  "formes": [
+   "1:str 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 120,
+  "taille_min": 113,
+  "vus": 80
+ },
+ "lym": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "19:56:24",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 80
+ },
+ "lzg": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:26:03",
+  "exemple": "1: 56",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 30,
+  "taille_min": 29,
+  "vus": 12
+ },
+ "lzh": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:11:53",
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 2
+ },
+ "lzi": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:23:18",
+  "exemple": "1: 56 3: 1788114171657",
+  "formes": [
+   "1:num 3:num",
+   "1:num 2:num 3:num"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 39,
+  "taille_min": 36,
+  "vus": 16
+ },
+ "lzl": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "20:11:53",
+  "exemple": "1: {   1: 59   2: 1 } 1: {   1: 15   2: 1025 } 1: {   1: 68   2: 2 } 1: {   1: 47   2: 1026 } 1: {   1: 41   2: 3 } 1: {   1: 44   2: 1027 } 1: {   1:",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 2111,
+  "taille_min": 2093,
+  "vus": 2
+ },
+ "lzp": {
+  "captures": [
+   "challenge01.pcapng",
+   "combat01.pcapng",
+   "combat4p.pcapng",
+   "combat_verif.pcapng",
+   "donjon01.pcapng",
+   "erosion01.pcapng",
+   "esquive01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "phases02.pcapng",
+   "pods01.pcapng",
+   "xp5min.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "signal_fin_combat",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 347
+ },
+ "mag": {
+  "captures": [
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 25,
+  "taille_min": 25,
+  "vus": 4
+ },
+ "mba": {
+  "captures": [
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 4
+ },
+ "mcv": {
+  "captures": [
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "2: {   2: {     1: 7     2: 34     3: 16777215     5: 1714647   }   3: \"A B C No LGTB and DEI policies\"   4: \"608204d1-e64b-4b22-8066-95539d6a308c\"   5: \"RIGHT\"",
+  "formes": [
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 8656,
+  "taille_min": 8654,
+  "vus": 4
+ },
+ "mde": {
+  "captures": [
+   "pods01.pcapng",
+   "veille"
+  ],
+  "exemple": "4: 2 8: 200 9: 50 10: 40",
+  "formes": [
+   "4:num 8:num 9:num 10:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 47,
+  "taille_min": 47,
+  "vus": 4
+ },
+ "mdm": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:22:20",
+  "exemple": "1: \"2026-08-24T00:00:00Z\" 2: \"2026-08-30T23:59:59Z\"",
+  "formes": [
+   "1:str 2:str"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 82,
+  "taille_min": 82,
+  "vus": 1
+ },
+ "mdq": {
+  "captures": [
+   "veille"
+  ],
+  "decouvert": "21:22:20",
+  "exemple": "2: {   1: \"041a0721-ee4f-4a6d-bfaa-d8113a55422b\"   2: 250   3: \"2026-08-31T06:01:03.382942611Z\"   4: \"2026-08-29T23:58:54.370041065Z\" } 3: {   1: \"202",
+  "formes": [
+   "2{} 3{} 3{} 3{} 3{} 3{} 3{} 3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 1444,
+  "taille_min": 1444,
+  "vus": 1
+ },
+ "mfe": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 9
+ },
+ "mff": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng"
+  ],
+  "exemple": "1: 146",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 9
+ },
+ "mfo": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng"
+  ],
+  "exemple": "2: {   2: 558   3: {     1: 1376     2: 1     4: 0   }   3: {     1: 1377     2: 1     4: 0   }   3: {     1: 1378     2: 1     4: 0   }   3: {     1: 1379     ",
+  "formes": [
+   "2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{} 2{} 2{} 2{} 2{}",
+   "2{} 2{} 2{} 2{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 2547,
+  "taille_min": 145,
+  "vus": 9
+ },
+ "mfp": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 9
+ },
+ "mfs": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "veille"
+  ],
+  "exemple": "2: 1 4: 120",
+  "formes": [
+   "2:num 4:num"
+  ],
+  "nom": "succes_valide",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 32,
+  "taille_min": 31,
+  "vus": 92
+ },
+ "mfu": {
+  "captures": [
+   "combat01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   1: 55   2: 913174626594   3: 6149 }",
+  "formes": [
+   "1{}"
+  ],
+  "nom": "succes_disponible",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 41,
+  "taille_min": 40,
+  "vus": 116
+ },
+ "mfx": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "",
+  "formes": [],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 36,
+  "taille_min": 36,
+  "vus": 9
+ },
+ "mga": {
+  "captures": [
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes01.pcapng",
+   "succes_verif.pcapng",
+   "succes_verif2.pcapng",
+   "veille"
+  ],
+  "exemple": "1: -1",
+  "formes": [
+   "1:num"
+  ],
+  "nom": "succes_reclamer_requete",
+  "sens": [
+   "C->S"
+  ],
+  "taille_max": 49,
+  "taille_min": 49,
+  "vus": 46
+ },
+ "mgb": {
+  "captures": [
+   "boss01.pcapng",
+   "farm02.pcapng",
+   "xp5min.pcapng",
+   "veille"
+  ],
+  "exemple": "1: {   2: 1053   3: {     1: 3205     2: 1000     4: 685   } } 1: {   2: 221   3: {     1: 799     2: 1     4: 0   }   3: {     1: 800     2: 1     4: 0   }   3",
+  "formes": [
+   "1{} 1{} 1{} 1{} 1{} 1{}",
+   "1{} 1{} 1{}",
+   "1{} 1{} 1{} 1{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 369,
+  "taille_min": 206,
+  "vus": 9
+ },
+ "mgc": {
+  "captures": [
+   "combat01.pcapng",
+   "farm01.pcapng",
+   "farm02.pcapng",
+   "succes_verif2.pcapng",
+   "boss01.pcapng",
+   "veille"
+  ],
+  "exemple": "1: 913174495522 2: \"Kaska-nini\" 3: {   1: 55   2: 913174495522   3: 6149 }",
+  "formes": [
+   "1:num 2:str 3{}"
+  ],
+  "nom": "",
+  "sens": [
+   "S->C"
+  ],
+  "taille_max": 65,
+  "taille_min": 55,
+  "vus": 199
+ }
+}

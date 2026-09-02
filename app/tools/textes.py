@@ -156,7 +156,6 @@ d'office, et le pluriel et les nombres formates selon la locale. Plus de
 ceremonie, mais c'est ce qui tient quand une deuxieme langue arrive vraiment.
 """
 
-io.open('D:/claude/dofus_tracker_flutter/TEXTES.md', 'w',
-        encoding='utf-8', newline='\n').write(
+io.open(SORTIE, 'w', encoding='utf-8', newline='\n').write(
     entete + '\n'.join(sortie) + pied)
 print(f'{total} chaines relevees')

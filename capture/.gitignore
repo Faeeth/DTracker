@@ -18,4 +18,11 @@ __pycache__/
 
 # Extrait du client du jeu : ce sont les fichiers d'Ankama, ils ne se
 # redistribuent pas. `extract_data.py` et `extract_images.py` les refont.
-/data/
+/data/*
+
+# Deux exceptions, et ce ne sont pas des fichiers d'Ankama : l'inventaire des
+# codes de messages rencontres, et le nom qu'on leur a donne. C'est le travail
+# du projet, et la seule chose qui survivra a l'obfuscation quand les codes
+# changeront au prochain correctif du jeu.
+!/data/codes.json
+!/data/messages.json

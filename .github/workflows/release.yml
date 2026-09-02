@@ -117,6 +117,10 @@ jobs:
           name: DTracker-${{ steps.version.outputs.v }}
           path: dist/*
 
+      # La release est ouverte en brouillon, sans corps : les notes de version
+      # sont ecrites a la main avant publication. Recopier INSTALLATION.md
+      # donnait sept releases au texte identique, dont aucune ne disait ce
+      # qu'elle apportait.
       - name: Publier
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
@@ -124,5 +128,4 @@ jobs:
           files: |
             dist/DTracker-${{ steps.version.outputs.v }}.zip
             dist/DTracker-${{ steps.version.outputs.v }}-installateur.exe
-          body_path: INSTALLATION.md
           draft: true

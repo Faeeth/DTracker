@@ -1,6 +1,6 @@
 # dofus-stats — lecture passive du trafic Dofus 3 (Unity)
 
-Version **1.0.0**
+Version **1.0.6**
 
 Bibliotheque de deserialisation du protocole reseau de Dofus 3.6.10.11. Elle
 observe le trafic et rend des evenements de jeu typés : fins de combat, succes,
@@ -29,9 +29,13 @@ manquent, ce qui a impose de les etablir par confrontation avec le jeu.
 
 ## Installation
 
-La bibliotheque n'a **aucune dependance Python**. Elle necessite Wireshark, pour
-`dumpcap`. Sur le poste de developpement, la capture fonctionne **sans droits
-administrateur**.
+La bibliotheque n'a **aucune dependance Python**. L'ecoute en direct demande
+[npcap](https://npcap.com/#download), dont elle appelle la bibliotheque
+`wpcap.dll` directement : ni Wireshark ni `dumpcap` ne sont requis. La lecture
+d'un fichier de capture ne demande rien du tout.
+
+La capture fonctionne **sans droits administrateur** des lors que npcap a ete
+installe avec l'option correspondante, qui est celle par defaut.
 
 Les deux outils d'extraction hors ligne (`extract_data.py`, `extract_images.py`)
 demandent en revanche `pip install UnityPy`. Rien de tout cela ne tourne pendant
@@ -61,10 +65,10 @@ le Wi-Fi ou un VPN, et cela change quand on debranche un cable. Une carte mal
 choisie ne se signale pas — l'ecoute reste simplement muette, ce qui ressemble
 a une panne du jeu.
 
-Windows n'a pas de pseudo-interface `any`, celle-la est propre a Linux. Mais
-`dumpcap` accepte plusieurs `-i` dans un seul flux pcapng, chaque paquet
-portant l'indice de sa carte, et le lecteur les demele deja. Sur Linux, la
-vraie pseudo-interface est utilisee telle quelle.
+Windows n'a pas de pseudo-interface `any`, celle-la est propre a Linux. npcap
+permet en revanche d'ouvrir plusieurs cartes a la fois, chacune avec sa propre
+poignee et son propre type de liaison ; elles sont interrogees a tour de role.
+Sur Linux, la vraie pseudo-interface est utilisee telle quelle.
 
 ```python
 Reader.from_live()             # toutes les cartes physiques
@@ -75,7 +79,7 @@ Reader.from_live(r"\Device\NPF_{7AE2...}")   # par son nom, stable
 
 « Toutes » ne veut pas dire n'importe laquelle : seules les vraies cartes
 **Ethernet et Wi-Fi**. Le jeu ne passe ni par un adaptateur VPN, ni par le
-Bluetooth, ni par la boucle locale, et chacune couterait un dumpcap pour rien.
+Bluetooth, ni par la boucle locale, et chacune couterait une poignee pour rien.
 
 Le type que Windows declare ne suffit pas a faire le tri : un adaptateur TAP
 d'OpenVPN se presente comme **filaire**, exactement comme une vraie carte
@@ -217,7 +221,7 @@ lisible.
 ## Architecture
 
 ```
-capture/     source de trames : fichier .pcapng ou dumpcap en direct
+capture/     source de trames : fichier .pcap ou npcap en direct
 net/         dissection eth/ip/tcp, reassemblage par flux, identification des clients
 protocol/    deframing varint, decodeur protobuf generique, enveloppe Ankama
 extractors/  un extracteur par type d'information ; c'est ici qu'on etend
@@ -227,9 +231,11 @@ stream.py    transports NDJSON et WebSocket
 reader.py    API : Reader.from_pcap / from_live -> events()
 ```
 
-Le direct et le differe empruntent le meme chemin : `dumpcap` ecrit du pcapng
-sur un tube, relu par le meme lecteur que pour un fichier. Le parsing s'itere
-donc hors ligne, sans relancer le jeu.
+Le direct et le differe empruntent le meme chemin. Seule la source de trames
+change : la carte reseau d'un cote, un fichier de l'autre, et tout ce qui suit
+est identique. Une scene enregistree se rejoue donc autant de fois qu'il le
+faut, sans relancer le jeu — c'est ce qui rend l'identification d'un message
+possible.
 
 ## Libelles et images
 
