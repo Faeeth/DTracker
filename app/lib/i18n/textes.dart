@@ -110,6 +110,14 @@ abstract class Textes {
   String majTelechargement(int pourcent);
   String get majLancement;
   String get majRate;
+  // ------------------------------------------- nouveautes de la version
+  String notesTitre(String version);
+  String get notesSousTitre;
+  String get notesNouveautes;
+  String get notesCorrectifs;
+  String get notesAjustements;
+  String get notesContinuer;
+
   String get reduire;
   String get sessions;
   String get reglages;
@@ -179,6 +187,8 @@ abstract class Textes {
   // ---------------------------------------------------------------- combats
   String get aucunCombat;
   String get aucunCombatDetail;
+  String get victoire;
+  String get defaite;
   String get gagnants;
   String get perdants;
   String get adversaireInconnu;

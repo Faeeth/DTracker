@@ -45,9 +45,10 @@ Le meme combat est annonce a chacun des clients presents. On ne retient que la
 premiere annonce vue pour un combat donne, sans quoi un combat a quatre
 personnages serait compte quatre fois.
 
-Les perdants figurent dans la meme liste, mais sans recompense ni identite :
-seul leur identifiant de combattant est la, et il est negatif. Ce qu'ils sont
-se lit ailleurs — voir `roster.py`.
+Les combattants d'en face figurent dans la meme liste, mais sans recompense ni
+identite : seul leur identifiant de combattant est la, et il est negatif. Ce
+qu'ils sont se lit ailleurs — voir `roster.py`. Sur un combat perdu, ce sont eux
+qui portent l'issue gagnante.
 
 Le nom des participants n'est pas dans ce message : il arrive quelques
 millisecondes plus tard, avec `ilw`. L'evenement est donc retenu brievement, le
@@ -57,13 +58,12 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from ..events import (FightEnd, FightOpponent, FightParticipant,
+from ..events import (WINNER, FightEnd, FightOpponent, FightParticipant,
                       ItemStack)
 from ..protocol.wire import Field
 from ..session import Observed
 from .base import Context, Extractor
 
-WINNER = 2               # valeur du champ 4 chez les gagnants
 DEDUP_WINDOW = 3.0       # secondes
 HOLD_DELAY = 1.0         # retenue avant emission, le temps que les noms arrivent
 
@@ -120,12 +120,19 @@ class FightEndExtractor(Extractor):
 
 def _opponents(fields: list[Field], ctx: Context, who: str,
                participants: list[FightParticipant]) -> list[FightOpponent]:
-    """Les entrees du recapitulatif qui n'ont pas gagne.
+    """Les combattants d'en face, quelle que soit l'issue.
 
-    Elles se reconnaissent a l'absence du champ 4 : les gagnants portent 2, les
-    perdants ne portent rien. Un personnage qui abandonne est donc dans ce
-    lot ; on ne garde que les identifiants negatifs, qui sont ceux d'en face. On les resout tout de suite, pendant que la table
-    du combat est encore celle-ci — le combat suivant la videra.
+    Ils se reconnaissent a leur identifiant : negatif chez ceux d'en face,
+    positif chez les personnages. C'est le seul critere, et il tient dans les
+    deux sens — un combat perdu est un combat ou **ils** portent l'issue
+    gagnante, et les ecarter pour cela laissait la defaite sans adversaires.
+
+    Un personnage qui abandonne n'est donc pas des leurs : il perd le combat
+    sans devenir pour autant un adversaire, et son identifiant n'a rien a
+    faire dans la table des monstres.
+
+    On les resout tout de suite, pendant que la table du combat est encore
+    celle-ci — le combat suivant la videra.
     """
     # Les tables a consulter : celle du client qui rapporte, et celles de ses
     # compagnons de combat.
@@ -147,7 +154,7 @@ def _opponents(fields: list[Field], ctx: Context, who: str,
         if nom and nom not in temoins:
             temoins.append(nom)
 
-    perdants = []
+    en_face = []
     for f in fields:
         if f.number != 2 or not f.is_message:
             continue
@@ -159,19 +166,17 @@ def _opponents(fields: list[Field], ctx: Context, who: str,
                 for h in g.value:
                     if h.number == 1 and not h.is_message:
                         ident = _signed(h.value)
-        # Un identifiant positif est un personnage : les combattants
-        # d'en face sont numerotes en negatif, et le sont dans toutes les
-        # captures. Un joueur qui abandonne perd le combat sans devenir pour
-        # autant un adversaire — il figurait en « adversaire inconnu », son
-        # identifiant n'ayant rien a faire dans la table des monstres.
-        if ident is None or ident >= 0 or issue == WINNER:
+        # Un identifiant positif est un personnage : les combattants d'en
+        # face sont numerotes en negatif, et le sont dans toutes les captures.
+        if ident is None or ident >= 0:
             continue
         connu = _resolve(ctx, temoins, ident)
-        perdants.append(FightOpponent(
+        en_face.append(FightOpponent(
             ident,
             monster_id=connu[0] if connu else None,
-            grade=connu[1] if connu else None))
-    return perdants
+            grade=connu[1] if connu else None,
+            outcome=issue))
+    return en_face
 
 
 def _resolve(ctx: Context, temoins: list[str],
@@ -234,10 +239,23 @@ def _drop_group(fields: list[Field], part: FightParticipant) -> None:
 
 
 def _identity(fields: list[Field], part: FightParticipant) -> bool:
+    """L'entree decrit-elle un personnage ?
+
+    A l'identifiant, et a lui seul. L'experience gagnee semblait le marqueur
+    naturel — un personnage en gagne, un monstre non — mais le wire format
+    protobuf n'emet pas les valeurs nulles : un combat perdu ne rapporte rien,
+    donc ne porte pas ce champ, donc n'etait pas reconnu. Le recapitulatif
+    tout entier tombait alors, et le combat disparaissait de la liste.
+
+    L'identifiant, lui, est toujours la. Il est positif chez les personnages
+    et negatif chez les combattants d'en face : c'est ce qui garde les
+    monstres hors des participants, ou ils fausseraient tous les totaux.
+    """
     found = False
     for f in fields:
         if f.number == 1 and f.wire == 0:
             part.character_id = f.value
+            found = _signed(f.value) > 0
         elif f.number == 2 and f.is_message:
             for c in f.value:
                 if c.number == 2 and c.wire == 0:
@@ -251,7 +269,6 @@ def _identity(fields: list[Field], part: FightParticipant) -> bool:
                                 continue
                             if h.number == 1:
                                 part.xp = h.value
-                                found = True
                             elif h.number == 2:
                                 part.xp_next = h.value
                             elif h.number == 5:

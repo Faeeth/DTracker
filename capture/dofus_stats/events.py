@@ -8,6 +8,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+#: Valeur de l'issue chez un gagnant, dans le recapitulatif de fin de combat.
+#:
+#: Les autres n'en portent aucune : le wire format protobuf n'emet pas les
+#: valeurs nulles, et c'est cette absence meme qui dit la defaite.
+WINNER = 2
+
 
 @dataclass
 class Event:
@@ -73,10 +79,19 @@ class FightOpponent:
     dernier ne porte que `fighter_id`. Ils restent nuls quand le combat a
     commence avant l'ecoute — on connait alors le nombre d'adversaires, pas
     leur espece.
+
+    `outcome` vaut 2 quand ce combattant a gagne, et rien sinon. Il est donc
+    nul dans le cas ordinaire, ou c'est nous qui l'emportons — et renseigne
+    exactement quand le combat a ete perdu.
     """
     fighter_id: int
     monster_id: int | None = None
     grade: int | None = None
+    outcome: int | None = None
+
+    @property
+    def won(self) -> bool:
+        return self.outcome == WINNER
 
 
 @dataclass
@@ -290,11 +305,14 @@ class FightEnd(Event):
     """Fin de combat, avec le detail par participant."""
     participants: list[FightParticipant] = field(default_factory=list)
 
-    #: Les perdants — les monstres, le plus souvent.
+    #: Les combattants d'en face — les monstres, le plus souvent.
     #:
     #: Ils ne figurent pas dans `participants` : le recapitulatif ne leur
-    #: donne ni experience ni butin, et les melanger aux gagnants fausserait
+    #: donne ni experience ni butin, et les melanger aux notres fausserait
     #: tous les totaux.
+    #:
+    #: Ils sont la quelle que soit l'issue. Sur un combat perdu, c'est eux qui
+    #: portent l'issue gagnante — voir `FightOpponent.won`.
     opponents: list[FightOpponent] = field(default_factory=list)
 
     #: Duree du combat en secondes, telle que le serveur l'annonce.

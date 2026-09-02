@@ -32,6 +32,8 @@ import '../source/maj.dart';
 import '../source/extraction.dart';
 import 'standard/pages/premiere_fois.dart';
 import 'standard/maj_dialogue.dart';
+import '../i18n/notes.dart';
+import 'standard/notes_dialogue.dart';
 
 class Surcouche extends StatefulWidget {
   const Surcouche({
@@ -90,7 +92,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       if (mounted) setState(() => _etat = etat);
     });
     widget.flux.demarre();
-    _chercheUneMiseAJour();
+    _accueille();
 
     _horloge = Timer.periodic(const Duration(seconds: 1), (_) {
       // Le compteur se lit sur la session plutot que de s'incrementer : elle
@@ -124,6 +126,37 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
         setState(() {});
       }
     });
+  }
+
+  /// Ce qui se dit au demarrage, dans l'ordre : d'abord ce qu'on vient de
+  /// recevoir, ensuite ce qui existe de plus neuf.
+  ///
+  /// L'ordre compte. Annoncer une mise a jour par-dessus les nouveautes de
+  /// celle qu'on vient d'installer aurait de quoi desorienter, et les deux
+  /// fenetres se seraient ouvertes en meme temps.
+  Future<void> _accueille() async {
+    await _montreLesNouveautes();
+    await _chercheUneMiseAJour();
+  }
+
+  /// La fenetre des nouveautes, au premier lancement d'une version.
+  ///
+  /// Le numero annonce est retenu dans les reglages et ecrit tout de suite :
+  /// une fermeture brutale ne doit pas faire rouvrir la fenetre au lancement
+  /// suivant. Il est retenu meme quand il n'y a rien a montrer, sans quoi la
+  /// premiere version a porter des notes les ferait toutes remonter d'un coup.
+  Future<void> _montreLesNouveautes() async {
+    final notes = aAnnoncer(
+      version: versionApp,
+      vue: config.versionVue,
+      premiereInstallation: _debutSansDonnees,
+    );
+    if (config.versionVue != versionApp) {
+      config.versionVue = versionApp;
+      await config.enregistre(widget.racine);
+    }
+    if (notes == null || !mounted) return;
+    await montreLesNouveautes(context, versionApp, notes);
   }
 
   /// Demande a GitHub s'il y a mieux, et le propose une seule fois.

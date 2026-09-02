@@ -1,4 +1,5 @@
-/// Verrous sur la colonne des challenges dans la liste des combats.
+/// Verrous sur les colonnes de la liste des combats : les challenges,
+/// et l\'issue.
 library;
 
 import 'package:dofus_tracker/modele/session.dart';
@@ -22,23 +23,26 @@ ChallengeFait defi(int id, {required bool reussi}) => ChallengeFait(
   combattants: const [qui],
 );
 
-Combat combatAvec(double fin, List<ChallengeFait> challenges) => Combat(
-  fin: fin,
-  duree: 60,
-  challenges: challenges,
-  participants: [
-    ParticipantCombat(
-      nom: qui,
-      niveau: 60,
-      xp: 100,
-      xpTotal: 0,
-      xpSeuilBas: 0,
-      xpSeuilHaut: 0,
-      kamas: 10,
-      butin: const {},
-    ),
-  ],
-);
+Combat combatAvec(double fin, List<ChallengeFait> challenges,
+        {bool gagne = true}) =>
+    Combat(
+      fin: fin,
+      duree: 60,
+      challenges: challenges,
+      participants: [
+        ParticipantCombat(
+          nom: qui,
+          niveau: 60,
+          xp: 100,
+          xpTotal: 0,
+          xpSeuilBas: 0,
+          xpSeuilHaut: 0,
+          kamas: 10,
+          gagnant: gagne,
+          butin: const {},
+        ),
+      ],
+    );
 
 Future<void> monte(WidgetTester tester, List<Combat> combats) async {
   await tester.binding.setSurfaceSize(const Size(1000, 600));
@@ -81,6 +85,47 @@ Iterable<Color?> pastilles(WidgetTester tester) => tester
     .map((d) => d.color);
 
 void main() {
+  testWidgets('l\'issue ouvre la ligne', (tester) async {
+    await monte(tester, [
+      combatAvec(1700000000, const []),
+      combatAvec(1700000100, const [], gagne: false),
+    ]);
+
+    // Une coupe et un crane : le mot est au survol, la couleur suffit de
+    // loin, et la colonne n'a pas d'intitule — on reconnait l'icone.
+    expect(find.byIcon(LucideIcons.trophy), findsOneWidget);
+    expect(find.byIcon(LucideIcons.skull), findsOneWidget);
+    // Elle ouvre la ligne, avant meme l'heure : c'est la premiere chose qu'on
+    // veut savoir d'un combat. On la situe par rapport a l'en-tete voisin,
+    // faute d'en avoir un a soi.
+    final fin = tester.getRect(find.text('FIN DU COMBAT'));
+    expect(tester.getRect(find.byIcon(LucideIcons.trophy)).left,
+        lessThan(fin.left));
+  });
+
+  testWidgets('trier sur l\'issue remonte les defaites', (tester) async {
+    await monte(tester, [
+      combatAvec(1700000000, const []),
+      combatAvec(1700000100, const [], gagne: false),
+      combatAvec(1700000200, const []),
+    ]);
+
+    // L'en-tete est vide : on le vise par la colonne qu'il coiffe — l'abscisse
+    // de l'icone, l'ordonnee de la rangee d'en-tete. C'est le prix d'une
+    // colonne sans nom, et c'est aussi ce qui verifie que sa surface
+    // cliquable existe : une rangee serree autour d'un libelle absent n'en
+    // laissait aucune.
+    final entete = tester.getRect(find.text('FIN DU COMBAT'));
+    final avant = tester.getRect(find.byIcon(LucideIcons.skull));
+    await tester.tapAt(Offset(avant.center.dx, entete.center.dy));
+    await tester.pump();
+    // La defaite est ce qu'on cherche dans une liste de combats : une
+    // victoire n'a rien a expliquer.
+    final crane = tester.getRect(find.byIcon(LucideIcons.skull));
+    final coupe = tester.getRect(find.byIcon(LucideIcons.trophy).first);
+    expect(crane.top, lessThan(coupe.top));
+  });
+
   testWidgets('la colonne se tient entre la duree et l\'experience', (
     tester,
   ) async {

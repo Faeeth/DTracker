@@ -71,6 +71,7 @@ class Config {
     this.verrouille = false,
     this.succesComptes = true,
     this.langue = 'fr',
+    this.versionVue = '',
   });
 
   List<String> personnages;
@@ -100,6 +101,14 @@ class Config {
   /// Code ISO de la langue de l'interface : `fr`, `en`, `es`, `pt`.
   String langue;
 
+  /// Le numero de version dont les nouveautes ont deja ete annoncees.
+  ///
+  /// C'est ce qui fait que la fenetre des nouveautes s'ouvre une fois et pas
+  /// deux. Vide au tout premier lancement, ce qui la montre : quelqu'un qui
+  /// installe l'outil apprend au passage ce qu'il vient de recevoir, et
+  /// quelqu'un qui l'avait deja voit enfin ce qu'il a manque.
+  String versionVue;
+
   /// La vue compacte est-elle clouee sur place ?
   ///
   /// Deverrouillee, toute la fenetre se saisit a la souris — c'est pratique
@@ -128,6 +137,7 @@ class Config {
     'locked': verrouille,
     'count_achievements': succesComptes,
     'language': langue,
+    'seen_version': versionVue,
   };
 
   /// Ramene les valeurs dans leurs bornes, un fichier edite a la main pouvant
@@ -180,6 +190,7 @@ class Config {
       verrouille: donnees['locked'] as bool? ?? false,
       succesComptes: donnees['count_achievements'] as bool? ?? true,
       langue: '${donnees['language'] ?? 'fr'}',
+      versionVue: '${donnees['seen_version'] ?? ''}',
     )..borne();
     config._origine = Map.of(config.versJson());
     return config;

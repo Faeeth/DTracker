@@ -488,11 +488,17 @@ def test_adversaires() -> None:
         vus = [(o.monster_id, o.grade) for o in fins[0].opponents]
         verifie(sorted(vus) == sorted(premier),
                 f"{nom} : adversaires du premier combat")
-        # Les perdants restent hors des participants : ils n'ont ni experience
-        # ni butin, et les compter fausserait tous les totaux.
+        # Les combattants d'en face restent hors des participants : ils n'ont
+        # ni experience ni butin, et les compter fausserait tous les totaux.
         verifie(all(p.character_id and p.character_id > 0
                     for p in fins[0].participants),
-                f"{nom} : les perdants ne sont pas des participants")
+                f"{nom} : ceux d'en face ne sont pas des participants")
+        # Et ils n'ont pas gagne, sur ces trois captures qui sont autant de
+        # victoires. C'est le verrou du sens : on ne les retient plus a
+        # l'absence d'issue mais au signe de leur identifiant, et il fallait
+        # s'assurer qu'aucun ne se mette a paraitre vainqueur au passage.
+        verifie(not any(o.won for o in fins[0].opponents),
+                f"{nom} : un combat gagne n'a pas d'adversaire vainqueur")
 
     # Un combat engage avant l'ecoute n'a pas ete place devant nous : on
     # compte alors les adversaires sans savoir les nommer, et on le dit
@@ -540,6 +546,47 @@ def test_consommables() -> None:
     # c'est juste, ce qui n'a pas ete compte n'a pas a etre repris.
     verifie(all(e.item_id is None for e in ouverts),
             "consommable01 : pochettes inconnues, rien a defalquer")
+
+
+def test_combat_perdu() -> None:
+    """Un combat qui ne rapporte rien reste un combat.
+
+    Capture `erosion01` : un duel entre deux personnages, donc sans
+    experience, sans kamas et sans butin. Le recapitulatif est bien la, et
+    porte l'issue chez le vainqueur seul.
+
+    Il ne ressortait pas. On reconnaissait un participant a son experience
+    gagnee, et le wire format protobuf n'emet pas les valeurs nulles : aucune
+    entree ne portait ce champ, aucun participant n'etait retenu, et le
+    recapitulatif tout entier tombait. Tout combat perdu disparaissait ainsi
+    de la liste — celui-ci le montre parce qu'un duel ne rapporte rien a
+    personne, mais un simple echec en face de monstres donnait la meme chose.
+
+    On reconnait desormais un personnage a son identifiant, qui est toujours
+    la et que son signe distingue de celui d'un monstre.
+    """
+    evenements = lire("erosion01", "hosts_erosion01")
+    if evenements is None:
+        return
+    fins = [e for e in evenements if isinstance(e, FightEnd)]
+    verifie(len(fins) == 1, "erosion01 : le duel ressort")
+    if not fins:
+        return
+    par_nom = {p.name: p for p in fins[0].participants}
+    verifie(set(par_nom) == {"Kaska-nini", "Kaska-yopette"},
+            "erosion01 : les deux duellistes sont la")
+    # L'issue est ce qui les separe : deux chez le vainqueur, rien chez
+    # l'autre. C'est de quoi les ranger sous « gagnants » et « perdants ».
+    verifie([p.outcome for p in fins[0].participants].count(2) == 1,
+            "erosion01 : un seul vainqueur")
+    verifie(sum(1 for p in fins[0].participants if p.outcome is None) == 1,
+            "erosion01 : un seul perdant")
+    verifie(fins[0].total_xp == 0 and fins[0].total_kamas == 0,
+            "erosion01 : un duel ne rapporte rien")
+    # Et le perdant garde son niveau : c'est ce qui remplit sa ligne, faute
+    # d'experience a y mettre.
+    verifie(all(p.level for p in fins[0].participants),
+            "erosion01 : les niveaux sont connus")
 
 
 def test_transferts() -> None:
@@ -706,6 +753,7 @@ def main() -> int:
                test_liste_des_interfaces, test_sans_wireshark,
                test_doublons_de_capture,
                test_duree_de_combat, test_adversaires,
+               test_combat_perdu,
                test_transferts, test_consommables,
                test_integrite_du_decodage]:
         fn()

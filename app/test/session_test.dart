@@ -274,6 +274,63 @@ void main() {
     expect(relu.adversaires.last.monstre, isNull);
   });
 
+  test('un combat entierement perdu figure dans la liste', () {
+    // La forme la plus depouillee : personne ne gagne, donc aucune
+    // experience, aucun kama, aucun objet. C'est exactement ce que la
+    // bibliotheque laissait tomber — elle reconnaissait un participant a son
+    // experience, et le protocole n'emet pas les zeros.
+    final s = enCombat();
+    s.recoit(combat(100, [participant(qui, xp: 0, kamas: 0, issue: null)]));
+
+    expect(s.combats.length, 1, reason: 'un combat perdu reste un combat');
+    final c = s.combats.single;
+    expect(c.gagnants, isEmpty);
+    expect(c.perdants.single.nom, qui);
+    expect(c.xp, 0);
+    // Il compte dans le total des combats du personnage : c'est du temps
+    // passe, et le taux horaire serait flatte de l'ignorer.
+    expect(s.suivis[cle]!.combats, 1);
+  });
+
+  test('un combat perdu retient les vainqueurs d\'en face', () {
+    // Ils etaient ecartes pour la raison meme qui les designe : on ne
+    // retenait ceux d'en face qu'a l'absence d'issue gagnante, et un combat
+    // perdu est justement celui ou ils la portent. La defaite se rouvrait
+    // donc sans adversaires.
+    final s = enCombat();
+    s.recoit({
+      'ts': 100.0,
+      'type': 'FightEnd',
+      'duration': 12.0,
+      'participants': [participant(qui, xp: 0, kamas: 0, issue: null)],
+      'opponents': [
+        {'fighter_id': -1, 'monster_id': 78, 'grade': 2, 'outcome': 2},
+      ],
+    });
+
+    final c = s.combats.single;
+    expect(c.victoire, isFalse);
+    expect(c.adversairesGagnants.single.monstre, 78);
+    expect(c.adversairesPerdants, isEmpty);
+
+    // Et cela survit a l'archivage.
+    final relu = Combat.depuisJson(c.versJson());
+    expect(relu.victoire, isFalse);
+    expect(relu.adversairesGagnants.single.monstre, 78);
+  });
+
+  test('la classe du personnage est archivee avec le combat', () {
+    // Elle ne circule qu'au passage sur une carte : l'archive relue des mois
+    // plus tard ne pourra plus la demander a personne.
+    final s = enCombat();
+    s.recoit({'ts': 2.0, 'type': 'CharacterInfo', 'name': qui, 'breed': 10});
+    s.recoit(combat(100, [participant(qui, xp: 50)]));
+
+    final c = s.combats.single;
+    expect(c.participants.single.classe, 10);
+    expect(Combat.depuisJson(c.versJson()).participants.single.classe, 10);
+  });
+
   test('un abandon n\'est pas une victoire', () {
     final s = enCombat();
     s.recoit(combat(100, [

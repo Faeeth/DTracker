@@ -30,12 +30,32 @@ class ResMonstres extends Ressources {
 
   @override
   String? imageMonstre(int id) => 'images/monster/2x/$id.png';
+
+  // Les vraies cherchent `Head_<classe>0` dans les fichiers du client.
+  @override
+  String? imageClasse(int? classe) =>
+      classe == null ? null : 'images/breed/$classe.png';
 }
 
-ParticipantCombat joueur(String nom, {bool gagnant = true}) =>
+/// Le portrait d'une classe donnee, quel que soit l'etat du fichier : ce qu'on
+/// verifie est la presence de l'image dans l'arbre, pas sa decompression.
+Finder portrait(int classe) => find.byWidgetPredicate((w) {
+  if (w is! Image || w.image is! FileImage) return false;
+  final bouts = (w.image as FileImage).file.uri.pathSegments;
+  return bouts.length >= 2 &&
+      bouts[bouts.length - 2] == 'breed' &&
+      bouts.last == '$classe.png';
+});
+
+/// Le voile d'un demi que pose `_enRetrait`, et lui seul.
+final voile = find.byWidgetPredicate(
+    (w) => w is Opacity && (w.opacity - 0.5).abs() < 0.001);
+
+ParticipantCombat joueur(String nom, {bool gagnant = true, int? classe}) =>
     ParticipantCombat(
       nom: nom,
       niveau: 60,
+      classe: classe,
       xp: gagnant ? 2789 : 0,
       xpTotal: 0,
       xpSeuilBas: 0,
@@ -157,6 +177,69 @@ void main() {
     // Deux perdants : le monstre et lui.
     expect(find.text('2'), findsOneWidget);
   });
+  testWidgets('un combat perdu met ceux d\'en face en haut', (tester) async {
+    // Le bloc du haut portait nos personnages et celui du bas les monstres,
+    // ce qui ne tenait qu'aussi longtemps qu'on gagnait : un combat perdu
+    // rangeait les vainqueurs en second, sous le titre « perdants ».
+    await monte(
+      tester,
+      Combat(
+        fin: 1700000000,
+        duree: 42,
+        participants: [joueur('Kaska-yopette', gagnant: false)],
+        adversaires: const [Adversaire(monstre: 78, grade: 2, gagnant: true)],
+      ),
+    );
+
+    final gagnants = tester.getRect(find.text('GAGNANTS'));
+    final perdants = tester.getRect(find.text('PERDANTS'));
+    final monstre = tester.getRect(find.text('Rose Démoniaque'));
+    final notre = tester.getRect(find.text('Kaska-yopette'));
+
+    expect(monstre.top, greaterThan(gagnants.top),
+        reason: 'le vainqueur est sous « gagnants »');
+    expect(monstre.top, lessThan(perdants.top));
+    expect(notre.top, greaterThan(perdants.top),
+        reason: 'le notre est sous « perdants »');
+    // Et il garde son tableau : c'est la qu'on lit son niveau et sa classe,
+    // les seules choses qu'un combat perdu laisse a lire.
+    expect(find.text('PERSONNAGE'), findsOneWidget);
+    expect(find.text('60'), findsOneWidget);
+  });
+
+  testWidgets('le portrait de classe accompagne chaque personnage', (
+    tester,
+  ) async {
+    await monte(
+      tester,
+      combatAvec(
+        const [],
+        participants: [
+          joueur('Kaska-yopette', classe: 10),
+          ParticipantCombat(
+            nom: 'Ami-iop',
+            niveau: 200,
+            classe: 20,
+            xp: 9000,
+            xpTotal: 0,
+            xpSeuilBas: 0,
+            xpSeuilHaut: 0,
+            kamas: 900,
+            butin: const {},
+            suivi: false,
+          ),
+        ],
+      ),
+    );
+
+    expect(portrait(10), findsOneWidget);
+    expect(portrait(20), findsOneWidget);
+    // Celui de l'invite est en retrait comme le reste de sa ligne ; le notre
+    // reste franc.
+    expect(find.ancestor(of: portrait(20), matching: voile), findsOneWidget);
+    expect(find.ancestor(of: portrait(10), matching: voile), findsNothing);
+  });
+
   testWidgets("la ligne d'un invite passe entiere en retrait", (tester) async {
     // Le pseudo seul ne suffisait pas : l'experience, les kamas et les objets
     // restaient aussi francs que ceux des notres, et l'oeil additionnait des

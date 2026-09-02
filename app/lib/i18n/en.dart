@@ -195,6 +195,12 @@ class TextesEn extends Textes {
   String get aucunCombatDetail => 'The list fills up at the end of each fight.';
 
   @override
+  String get victoire => 'Victory';
+
+  @override
+  String get defaite => 'Defeat';
+
+  @override
   String get gagnants => 'WINNERS';
 
   @override
@@ -480,7 +486,26 @@ class TextesEn extends Textes {
   String rapport(int reussis, int total) => '$reussis/$total';
 
   @override
-  String invitePasCompte(String nom) => '$nom is not one of the tracked characters.\nTheir experience and loot are not counted in the session.';
+  String invitePasCompte(String nom) => '$nom was not one of the tracked characters for this fight.\nTheir experience and loot are not counted in the session.';
+
+  // ------------------------------------------ nouveautes de la version
+  @override
+  String notesTitre(String version) => 'DTracker $version';
+
+  @override
+  String get notesSousTitre => 'Here\'s what changed.';
+
+  @override
+  String get notesNouveautes => 'New';
+
+  @override
+  String get notesCorrectifs => 'Fixes';
+
+  @override
+  String get notesAjustements => 'Tweaks';
+
+  @override
+  String get notesContinuer => 'Continue';
 
   @override
   String get reduire => 'Minimise the window';

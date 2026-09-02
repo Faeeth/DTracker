@@ -123,10 +123,20 @@ class ParticipantCombat {
     required this.butin,
     this.gagnant = true,
     this.suivi = true,
+    this.classe,
   });
 
   final String nom;
   final int? niveau;
+
+  /// Sa classe, dans la numerotation `breeds` du client.
+  ///
+  /// Notee au moment de l'archivage : la classe ne circule qu'au passage sur
+  /// une carte, et l'archive relue des mois plus tard ne pourra plus la
+  /// demander a personne. Nulle pour un personnage croise sans l'avoir vu
+  /// hors combat — la case reste alors vide plutot que de porter un portrait
+  /// au hasard.
+  final int? classe;
 
   /// A-t-il gagne ce combat ?
   ///
@@ -173,6 +183,7 @@ class ParticipantCombat {
   Map<String, dynamic> versJson() => {
     'nom': nom,
     if (niveau != null) 'niveau': niveau,
+    if (classe != null) 'classe': classe,
     'xp': xp,
     'xp_total': xpTotal,
     'xp_seuil_bas': xpSeuilBas,
@@ -193,6 +204,7 @@ class ParticipantCombat {
       ParticipantCombat(
         nom: '${j['nom'] ?? ''}',
         niveau: (j['niveau'] as num?)?.toInt(),
+        classe: (j['classe'] as num?)?.toInt(),
         xp: (j['xp'] as num?)?.toInt() ?? 0,
         xpTotal: (j['xp_total'] as num?)?.toInt() ?? 0,
         xpSeuilBas: (j['xp_seuil_bas'] as num?)?.toInt() ?? 0,
@@ -218,21 +230,31 @@ class ParticipantCombat {
 /// numero ne prend un sens qu'avec les annonces de placement. On sait alors
 /// combien ils etaient, pas ce qu'ils etaient — et on le dit.
 class Adversaire {
-  const Adversaire({this.monstre, this.grade});
+  const Adversaire({this.monstre, this.grade, this.gagnant = false});
 
   final int? monstre;
   final int? grade;
+
+  /// A-t-il gagne ?
+  ///
+  /// Faux dans le cas ordinaire — le combat que l'on remporte — et vrai
+  /// exactement quand on l'a perdu. Faux par defaut, ce qui est juste pour les
+  /// archives anterieures : on ne retenait alors les combattants d'en face
+  /// qu'a la condition d'avoir gagne.
+  final bool gagnant;
 
   bool get connu => monstre != null;
 
   Map<String, dynamic> versJson() => {
     if (monstre != null) 'monstre': monstre,
     if (grade != null) 'grade': grade,
+    if (gagnant) 'gagne': true,
   };
 
   static Adversaire depuisJson(Map<String, dynamic> j) => Adversaire(
     monstre: (j['monstre'] as num?)?.toInt(),
     grade: (j['grade'] as num?)?.toInt(),
+    gagnant: j['gagne'] == true,
   );
 }
 
@@ -270,10 +292,13 @@ class Combat {
   /// de tete.
   final List<ChallengeFait> challenges;
 
-  /// Les perdants — les monstres, le plus souvent.
+  /// Les combattants d'en face — les monstres, le plus souvent.
   ///
   /// Ils sont a part des participants : le jeu ne leur donne ni experience ni
   /// butin, et les melanger fausserait tous les totaux.
+  ///
+  /// Ils sont la quelle que soit l'issue : sur un combat perdu, ce sont eux
+  /// les vainqueurs.
   final List<Adversaire> adversaires;
 
   DateTime get quand =>
@@ -330,6 +355,30 @@ class Combat {
     for (final p in participants)
       if (!p.gagnant) p,
   ];
+
+  /// Les combattants d'en face, ranges par la meme question.
+  ///
+  /// Un combat perdu est un combat ou ce sont eux qui l'emportent : les deux
+  /// listes existent donc bel et bien, et l'une des deux est vide.
+  List<Adversaire> get adversairesGagnants => [
+    for (final a in adversaires)
+      if (a.gagnant) a,
+  ];
+  List<Adversaire> get adversairesPerdants => [
+    for (final a in adversaires)
+      if (!a.gagnant) a,
+  ];
+
+  /// L'avons-nous gagne ?
+  ///
+  /// L'issue des **notres**, non celle du recapitulatif : un combat ou l'ami
+  /// reste debout pendant que nos personnages tombent n'est pas une victoire
+  /// pour nous. Faute d'en avoir un seul dans ce combat, on se rabat sur le
+  /// recapitulatif entier, qui est alors tout ce qu'on a.
+  bool get victoire {
+    final miens = notres.isEmpty ? participants : notres;
+    return miens.any((p) => p.gagnant);
+  }
 
   Map<String, dynamic> versJson() => {
     'fin': fin,
@@ -1142,6 +1191,9 @@ class Session {
                 Adversaire(
                   monstre: (o['monster_id'] as num?)?.toInt(),
                   grade: (o['grade'] as num?)?.toInt(),
+                  // Sur un combat perdu, c'est eux qui portent l'issue.
+                  gagnant:
+                      (o['outcome'] as num?)?.toInt() == _issueGagnante,
                 ),
           ],
         ),
@@ -1163,6 +1215,7 @@ class Session {
   static const _issueGagnante = 2;
 
   ParticipantCombat _participantArchive(Map p) {
+    final nom = '${p['name'] ?? ''}';
     final butin = <int, (int, int?)>{};
     for (final lot in p['loot'] as List? ?? []) {
       if (lot is! Map) continue;
@@ -1174,8 +1227,12 @@ class Session {
       butin[itemId] = ((connu?.$1 ?? 0) + quantite, prixUnitaire ?? connu?.$2);
     }
     return ParticipantCombat(
-      nom: '${p['name'] ?? ''}',
+      nom: nom,
       niveau: (p['level'] as num?)?.toInt(),
+      // La classe est notee maintenant, pendant qu'on la connait : elle ne
+      // circule qu'au passage sur une carte, et l'archive relue plus tard ne
+      // pourra plus la demander a personne.
+      classe: classesApprises[nom] ?? suivis[cleDe(nom)]?.classe,
       xp: (p['xp'] as num?)?.toInt() ?? 0,
       xpTotal: (p['xp_total'] as num?)?.toInt() ?? 0,
       xpSeuilBas: (p['xp_floor'] as num?)?.toInt() ?? 0,
@@ -1187,7 +1244,7 @@ class Session {
       // Suivi ou invite : la question se tranche maintenant, pendant que la
       // liste est sous la main. Plus tard, l'archive relue ne saura plus qui
       // etait des notres ce soir-la — la liste aura pu changer.
-      suivi: suivis.containsKey(cleDe('${p['name'] ?? ''}')),
+      suivi: suivis.containsKey(cleDe(nom)),
       butin: butin,
     );
   }

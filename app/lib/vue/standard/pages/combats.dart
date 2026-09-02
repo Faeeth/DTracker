@@ -19,7 +19,7 @@ import 'objets.dart';
 import '../../../i18n/textes.dart';
 
 /// Sur quoi la liste est triee.
-enum Tri { fin, duree, challenges, xp, kamas, objets }
+enum Tri { issue, fin, duree, challenges, xp, kamas, objets }
 
 class PageCombats extends StatefulWidget {
   const PageCombats({
@@ -60,6 +60,15 @@ class _PageCombatsState extends State<PageCombats> {
 
   // Un getter et non une constante : les libelles changent avec la langue.
   static List<(Colonne, Tri)> get _colonnes => [
+    // En tete, etroite, et sans intitule : une coupe et un crane se
+    // reconnaissent sans qu'on les annonce, et le nom de la colonne prenait
+    // trois fois la largeur de ce qu'elle montre. L'en-tete reste cliquable
+    // et porte alors la fleche du tri, qui suffit a dire ce qu'elle fait.
+    //
+    // Soixante-quatre et non quarante : la cellule se reserve seize pixels de
+    // marge de chaque cote, si bien qu'une colonne de quarante n'en laissait
+    // que douze — moins que l'icone qu'elle doit montrer.
+    (const Colonne('', 64), Tri.issue),
     (Colonne(T.colFinDuCombat, 0), Tri.fin),
     (Colonne(T.colDuree, 110), Tri.duree),
     (Colonne(T.colChallenges, 116), Tri.challenges),
@@ -80,6 +89,9 @@ class _PageCombatsState extends State<PageCombats> {
   int _valeur(Combat c, Tri tri) {
     final p = _part(c);
     return switch (tri) {
+      // Les defaites d'abord en ordre decroissant : ce sont elles qu'on
+      // cherche, une victoire n'ayant rien a expliquer.
+      Tri.issue => c.victoire ? 0 : 1,
       Tri.fin => (c.fin * 1000).round(),
       Tri.duree => c.duree.round(),
       // Les reussis d'abord, le total ensuite : entre 1/1 et 1/2, le premier
@@ -142,11 +154,11 @@ class _PageCombatsState extends State<PageCombats> {
                 header: [
                   for (var i = 0; i < _colonnes.length; i++)
                     ShadTableCell.header(
-                      alignment: _colonnes[i].$1.alignement,
                       child: _entete(
                         theme,
                         _colonnes[i].$1.libelle,
                         _colonnes[i].$2,
+                        _colonnes[i].$1.alignement,
                       ),
                     ),
                 ],
@@ -171,39 +183,74 @@ class _PageCombatsState extends State<PageCombats> {
 
   /// Une colonne cliquable. Elle porte sa fleche quand elle mene le tri : sans
   /// elle, on ne sait pas ce qu'on regarde.
-  Widget _entete(ShadThemeData theme, String libelle, Tri tri) {
+  ///
+  /// Le clic porte sur toute la cellule, non sur le libelle. Une rangee serree
+  /// autour de son texte laissait la colonne d'issue, qui n'en a pas, sans la
+  /// moindre surface a viser — et de facon generale, viser un mot de dix
+  /// pixels de haut pour trier n'a jamais rien apporte.
+  Widget _entete(
+    ShadThemeData theme,
+    String libelle,
+    Tri tri,
+    Alignment alignement,
+  ) {
     final mene = _tri == tri;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => _trie(tri),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Le libelle plie plutot que de deborder : la fleche occupe des
-            // pixels qui ne lui etaient pas comptes.
-            Flexible(
-              child: Text(
-                libelle,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.muted.copyWith(
-                  fontSize: 10,
-                  letterSpacing: 0.9,
-                  fontWeight: FontWeight.w600,
-                  color: mene
-                      ? theme.colorScheme.foreground
-                      : theme.colorScheme.mutedForeground,
+        child: Align(
+          alignment: alignement,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Le libelle plie plutot que de deborder : la fleche occupe des
+              // pixels qui ne lui etaient pas comptes.
+              Flexible(
+                child: Text(
+                  libelle,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.muted.copyWith(
+                    fontSize: 10,
+                    letterSpacing: 0.9,
+                    fontWeight: FontWeight.w600,
+                    color: mene
+                        ? theme.colorScheme.foreground
+                        : theme.colorScheme.mutedForeground,
+                  ),
                 ),
               ),
-            ),
-            if (mene)
-              Icon(
-                _decroissant ? LucideIcons.chevronDown : LucideIcons.chevronUp,
-                size: 12,
-                color: theme.colorScheme.foreground,
-              ),
-          ],
+              if (mene)
+                Icon(
+                  _decroissant
+                      ? LucideIcons.chevronDown
+                      : LucideIcons.chevronUp,
+                  size: 12,
+                  color: theme.colorScheme.foreground,
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// L'issue du combat, en une icone.
+  ///
+  /// Celle de **nos** personnages — voir `Combat.victoire`. Le mot au survol :
+  /// une coupe et un crane se distinguent d'un coup d'oeil, mais rien ne dit
+  /// lequel est la bonne nouvelle a qui ne les a jamais vus.
+  Widget _issue(ShadThemeData theme, Combat c) {
+    final gagne = c.victoire;
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Infobulle(
+        builder: (_) => Text(gagne ? T.victoire : T.defaite),
+        child: Icon(
+          gagne ? LucideIcons.trophy : LucideIcons.skull,
+          size: 15,
+          color: gagne ? Palette.vert : theme.colorScheme.destructive,
         ),
       ),
     );
@@ -287,6 +334,7 @@ class _PageCombatsState extends State<PageCombats> {
     final d = c.quand;
     String n(int v) => v.toString().padLeft(2, '0');
     return [
+      ShadTableCell(child: _issue(theme, c)),
       ShadTableCell(
         child: Text(
           '${n(d.day)}/${n(d.month)}  '
@@ -428,44 +476,89 @@ class PageRecapitulatif extends StatelessWidget {
             ],
           ),
         ],
-        const SizedBox(height: Pas.m),
-        // Gagnants et perdants, comme la fenetre de fin de combat du jeu :
-        // le tableau de ceux qui ont gagne quelque chose, puis la rangee de
-        // ceux qui etaient en face.
-        Section(T.gagnants),
-        Expanded(
-          child: combat.gagnants.isEmpty
-              ? Vide(T.personneNaGagne, icone: LucideIcons.shieldOff)
-              : Tableau(
-                  colonnes: _colonnes,
-                  hauteurLigne: 52,
-                  lignes: [for (final p in combat.gagnants) _rang(context, p)],
-                ),
+        // Les vainqueurs en haut, quels qu'ils soient.
+        //
+        // Le bloc du haut portait nos personnages et celui du bas les
+        // monstres, ce qui ne tenait qu'aussi longtemps qu'on gagnait : un
+        // combat perdu rangeait les vainqueurs en second, sous le titre
+        // « perdants ». Les deux blocs suivent desormais la seule question qui
+        // les separe — qui l'a emporte — et chacun porte ce qui lui revient,
+        // un tableau pour les personnages, des vignettes pour ceux d'en face.
+        ..._bloc(
+          context,
+          titre: T.gagnants,
+          personnages: combat.gagnants,
+          enFace: combat.adversairesGagnants,
+          siVide: T.personneNaGagne,
         ),
-        if (combat.adversaires.isNotEmpty || combat.perdants.isNotEmpty) ...[
-          const SizedBox(height: Pas.m),
-          Section(
-            T.perdants,
-            aDroite: ShadBadge.secondary(
-              child: Text(
-                '${combat.adversaires.length + combat.perdants.length}',
-              ),
-            ),
-          ),
-          _perdants(context),
-        ],
+        ..._bloc(
+          context,
+          titre: T.perdants,
+          personnages: combat.perdants,
+          enFace: combat.adversairesPerdants,
+        ),
       ],
     );
   }
 
-  /// Les adversaires, groupes comme le jeu les groupe.
+  /// Un bloc d'issue : son titre, son compte, et ce qu'il contient.
+  ///
+  /// Rien du tout quand il est vide, sauf a porter un texte de remplacement —
+  /// c'est le cas du bloc des vainqueurs, ou le silence serait ambigu : on ne
+  /// saurait pas si personne n'a gagne ou si l'outil n'en sait rien.
+  ///
+  /// Le tableau prend la hauteur qui reste, les vignettes se contentent de la
+  /// leur. Quand les deux blocs portent des personnages — l'un a fui, les
+  /// autres ont gagne — les deux tableaux se partagent la place.
+  List<Widget> _bloc(
+    BuildContext context, {
+    required String titre,
+    required List<ParticipantCombat> personnages,
+    required List<Adversaire> enFace,
+    String? siVide,
+  }) {
+    final vide = personnages.isEmpty && enFace.isEmpty;
+    if (vide && siVide == null) return const [];
+    return [
+      const SizedBox(height: Pas.m),
+      Section(
+        titre,
+        aDroite: vide
+            ? null
+            : ShadBadge.secondary(
+                child: Text('${personnages.length + enFace.length}'),
+              ),
+      ),
+      // Sans `Expanded` : le message prend la hauteur de son texte et laisse
+      // la place au bloc d'en dessous, qui porte alors tout le monde.
+      if (vide)
+        Vide(siVide!, icone: LucideIcons.shieldOff)
+      else ...[
+        if (personnages.isNotEmpty)
+          Expanded(
+            child: Tableau(
+              colonnes: _colonnes,
+              hauteurLigne: 52,
+              lignes: [for (final p in personnages) _rang(context, p)],
+            ),
+          ),
+        if (enFace.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: personnages.isEmpty ? 0 : Pas.s),
+            child: _vignettes(context, enFace),
+          ),
+      ],
+    ];
+  }
+
+  /// Les combattants d'en face, groupes comme le jeu les groupe.
   ///
   /// Deux Krokilles identiques font une vignette portant « x2 » : quatre
   /// vignettes jumelles cote a cote se lisent mal, et le compte est ce qu'on
   /// veut savoir.
-  Widget _perdants(BuildContext context) {
+  Widget _vignettes(BuildContext context, List<Adversaire> enFace) {
     final compte = <(int?, int?), int>{};
-    for (final a in combat.adversaires) {
+    for (final a in enFace) {
       final cle = (a.monstre, a.grade);
       compte[cle] = (compte[cle] ?? 0) + 1;
     }
@@ -481,59 +574,18 @@ class PageRecapitulatif extends StatelessWidget {
       spacing: Pas.s,
       runSpacing: Pas.s,
       children: [
-        // Les personnages battus d'abord : c'est le sien qu'on cherche du
-        // regard quand on rouvre un combat qu'on a fui.
-        for (final p in combat.perdants) _joueurBattu(context, p),
         for (final lot in lots)
-          _perdant(context, lot.key.$1, lot.key.$2, lot.value),
+          _vignette(context, lot.key.$1, lot.key.$2, lot.value),
       ],
     );
   }
 
-  /// Un personnage qui a perdu ou abandonne.
-  ///
-  /// Il figure dans le recapitulatif comme les autres, avec zero experience et
-  /// zero kamas, et se rangeait sous « GAGNANTS » faute qu'on lise son issue.
-  Widget _joueurBattu(BuildContext context, ParticipantCombat p) {
-    final theme = ShadTheme.of(context);
-    return Container(
-      padding: const EdgeInsets.fromLTRB(Pas.m, Pas.s, Pas.m, Pas.s),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.muted,
-        borderRadius: theme.radius,
-        border: Border.all(
-          color: theme.colorScheme.destructive.withValues(alpha: 0.35),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            LucideIcons.userMinus,
-            size: 14,
-            color: theme.colorScheme.destructive,
-          ),
-          const SizedBox(width: Pas.s),
-          Text(
-            p.nom,
-            style: theme.textTheme.small.copyWith(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          if (p.niveau != null) ...[
-            const SizedBox(width: Pas.s),
-            Text(
-              'Niv. ${p.niveau}',
-              style: theme.textTheme.muted.copyWith(fontSize: 12),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _perdant(BuildContext context, int? monstre, int? grade, int combien) {
+  Widget _vignette(
+    BuildContext context,
+    int? monstre,
+    int? grade,
+    int combien,
+  ) {
     final theme = ShadTheme.of(context);
     final chemin = monstre == null ? null : res.imageMonstre(monstre);
     final niveau = monstre == null ? null : res.niveauMonstre(monstre, grade);
@@ -667,9 +719,7 @@ class PageRecapitulatif extends StatelessWidget {
       style: theme.textTheme.small.copyWith(
         fontSize: 13,
         color: p.suivi
-            ? (sien
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.foreground)
+            ? (sien ? theme.colorScheme.primary : theme.colorScheme.foreground)
             // En demi-teinte : il a combattu avec nous, mais ses gains ne
             // sont pas dans nos totaux, et la ligne doit le dire avant qu'on
             // ne cherche pourquoi la somme ne tombe pas juste.
@@ -677,25 +727,34 @@ class PageRecapitulatif extends StatelessWidget {
         fontWeight: sien ? FontWeight.w600 : FontWeight.w500,
       ),
     );
+    final identite = p.suivi
+        ? nom
+        : Infobulle(
+            builder: (_) => Text(T.invitePasCompte(p.nom)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(child: nom),
+                const SizedBox(width: Pas.xs + 1),
+                Icon(
+                  LucideIcons.userMinus,
+                  size: 12,
+                  color: theme.colorScheme.mutedForeground,
+                ),
+              ],
+            ),
+          );
     return [
-      if (p.suivi)
-        nom
-      else
-        Infobulle(
-          builder: (_) => Text(T.invitePasCompte(p.nom)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(child: nom),
-              const SizedBox(width: Pas.xs + 1),
-              Icon(
-                LucideIcons.userMinus,
-                size: 12,
-                color: theme.colorScheme.mutedForeground,
-              ),
-            ],
-          ),
-        ),
+      Row(
+        children: [
+          // La case est reservee meme vide : la classe n'arrive qu'au passage
+          // sur une carte, et les pseudos ne doivent pas se decaler d'une
+          // ligne a l'autre selon que l'on connait celle-ci ou non.
+          _enRetrait(p, SizedBox(width: 26, height: 26, child: _portrait(p))),
+          const SizedBox(width: Pas.s),
+          Flexible(child: identite),
+        ],
+      ),
       _enRetrait(
         p,
         Column(
@@ -742,6 +801,23 @@ class PageRecapitulatif extends StatelessWidget {
         RangeeObjets(lots: lots, res: res, titrePopover: T.butinDe(p.nom)),
       ),
     ];
+  }
+
+  /// Le portrait de sa classe, s'il est connu.
+  ///
+  /// La classe est celle notee au moment du combat : l'archive la porte, et
+  /// c'est ce qui permet de rouvrir un combat d'hier avec les bons visages.
+  /// Elle manque pour un personnage croise sans l'avoir vu hors combat — la
+  /// case reste alors vide plutot que de montrer un portrait au hasard.
+  Widget? _portrait(ParticipantCombat p) {
+    final chemin = res.imageClasse(p.classe);
+    return chemin == null
+        ? null
+        : Image.file(
+            File(chemin),
+            filterQuality: FilterQuality.medium,
+            errorBuilder: (_, _, _) => const SizedBox.shrink(),
+          );
   }
 
   /// Ce qui n'entre pas dans les totaux se lit en retrait.

@@ -195,6 +195,12 @@ class TextesEs extends Textes {
   String get aucunCombatDetail => 'La lista se completa al final de cada combate.';
 
   @override
+  String get victoire => 'Victoria';
+
+  @override
+  String get defaite => 'Derrota';
+
+  @override
   String get gagnants => 'GANADORES';
 
   @override
@@ -480,7 +486,26 @@ class TextesEs extends Textes {
   String rapport(int reussis, int total) => '$reussis/$total';
 
   @override
-  String invitePasCompte(String nom) => '$nom no está entre los personajes seguidos.\nSu experiencia y su botín no cuentan en la sesión.';
+  String invitePasCompte(String nom) => '$nom no estaba entre los personajes seguidos en este combate.\nSu experiencia y su botín no cuentan en la sesión.';
+
+  // ------------------------------------------ nouveautes de la version
+  @override
+  String notesTitre(String version) => 'DTracker $version';
+
+  @override
+  String get notesSousTitre => 'Esto es lo que ha cambiado.';
+
+  @override
+  String get notesNouveautes => 'Novedades';
+
+  @override
+  String get notesCorrectifs => 'Correcciones';
+
+  @override
+  String get notesAjustements => 'Ajustes';
+
+  @override
+  String get notesContinuer => 'Continuar';
 
   @override
   String get reduire => 'Minimizar la ventana';

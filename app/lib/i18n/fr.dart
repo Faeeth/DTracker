@@ -195,6 +195,12 @@ class TextesFr extends Textes {
   String get aucunCombatDetail => 'La liste se remplit à la fin de chaque combat.';
 
   @override
+  String get victoire => 'Victoire';
+
+  @override
+  String get defaite => 'Défaite';
+
+  @override
   String get gagnants => 'GAGNANTS';
 
   @override
@@ -480,7 +486,26 @@ class TextesFr extends Textes {
   String rapport(int reussis, int total) => '$reussis/$total';
 
   @override
-  String invitePasCompte(String nom) => '$nom ne fait pas partie des personnages suivis.\nSon expérience et son butin ne sont pas comptés dans la session.';
+  String invitePasCompte(String nom) => '$nom ne fait pas partie des personnages suivis pour ce combat.\nSon expérience et son butin ne sont pas comptés dans la session.';
+
+  // ------------------------------------------ nouveautes de la version
+  @override
+  String notesTitre(String version) => 'DTracker $version';
+
+  @override
+  String get notesSousTitre => 'Voici ce qui a changé.';
+
+  @override
+  String get notesNouveautes => 'Nouveautés';
+
+  @override
+  String get notesCorrectifs => 'Correctifs';
+
+  @override
+  String get notesAjustements => 'Ajustements';
+
+  @override
+  String get notesContinuer => 'Continuer';
 
   @override
   String get reduire => 'Réduire la fenêtre';
