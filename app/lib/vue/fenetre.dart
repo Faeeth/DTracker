@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../config.dart';
+import '../source/organizer.dart';
 import '../modele/session.dart';
 import '../source/archives.dart';
 import '../source/cache.dart';
@@ -63,6 +64,14 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
   late final Timer _horloge;
   late final Timer _peinture;
   late final Timer _sauvegarde;
+
+  /// Les equipes et leurs raccourcis. Cree ici pour que les touches restent
+  /// actives quelle que soit la page regardee.
+  late final Organizer _organizer = Organizer(
+    config: widget.config,
+    pont: PontOrganizer(),
+    enregistre: () => widget.config.enregistre(widget.racine),
+  );
   StreamSubscription? _abonnement;
   StreamSubscription? _abonnementEtat;
 
@@ -92,6 +101,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       if (mounted) setState(() => _etat = etat);
     });
     widget.flux.demarre();
+    _organizer.demarre();
     _accueille();
 
     _horloge = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -496,6 +506,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       );
     }
     return Coquille(
+      organizer: _organizer,
       config: config,
       session: session,
       archives: widget.archives,

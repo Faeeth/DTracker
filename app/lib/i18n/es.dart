@@ -579,4 +579,133 @@ class TextesEs extends Textes {
   @override
   String get majRate => 'La descarga no se ha completado. La página de la release sigue disponible.';
 
+  @override
+  String get valider => 'Aceptar';
+  @override
+  String get enregistrer => 'Guardar';
+  @override
+  String get nom => 'Nombre';
+
+  // ------------------------------------------------------------- organizer
+  @override
+  String get organizer => 'Organizer';
+  @override
+  String get organizerOnglet => 'Tus equipos y sus atajos';
+  @override
+  String get organizerSousTitre =>
+      'Una tecla por personaje, sea cual sea el equipo en juego';
+  @override
+  String get equipe => 'Equipo';
+  @override
+  String get nouvelleEquipe => 'Nuevo equipo';
+  @override
+  String get renommerEquipe => 'Renombrar el equipo';
+  @override
+  String get supprimerEquipe => 'Eliminar el equipo';
+  @override
+  String supprimerEquipeDetail(String equipe, int personnages) {
+    final n = personnages == 1
+        ? '$personnages personaje'
+        : '$personnages personajes';
+    return 'Se eliminarán «$equipe» y sus $n.';
+  }
+
+  @override
+  String get equipeDesactivee => 'Equipo desactivado';
+  @override
+  String resumeEquipe(int actifs, int personnages) {
+    final r = actifs == 1 ? '$actifs atajo activo' : '$actifs atajos activos';
+    final p = personnages == 1
+        ? '$personnages personaje'
+        : '$personnages personajes';
+    return '$r de $p';
+  }
+
+  @override
+  String get isolerEquipe => 'Activar solo este equipo';
+  @override
+  String get replierEquipe => 'Plegar';
+  @override
+  String get deplierEquipe => 'Desplegar';
+  @override
+  String get ajouterPersonnage => 'Añadir un personaje';
+  @override
+  String get equipeVide => 'No hay personajes en este equipo.';
+  @override
+  String get aucuneEquipe => 'Ningún equipo';
+  @override
+  String get aucuneEquipeDetail =>
+      'Crea un equipo y añade sus personajes. Varios equipos pueden compartir '
+      'las mismas teclas: el atajo activa el personaje cuya ventana esté '
+      'abierta.';
+  @override
+  String get creerEquipe => 'Crear un equipo';
+  @override
+  String get nouveauPersonnage => 'Nuevo personaje';
+  @override
+  String get modifierPersonnage => 'Editar el personaje';
+  @override
+  String get activerPersonnage => 'Activar el personaje';
+  @override
+  String get desactiverPersonnage => 'Desactivar el personaje';
+  @override
+  String get titreFenetre => 'Fragmento del título de la ventana';
+  @override
+  String get titreFenetreAide =>
+      'Se busca en los títulos de las ventanas, sin distinguir mayúsculas.';
+  @override
+  String get tester => 'Probar';
+  @override
+  String get fenetreTrouvee => 'Ventana encontrada y activada.';
+  @override
+  String fenetreIntrouvable(String titre) =>
+      'Ninguna ventana contiene «$titre».';
+  @override
+  String get classePersonnage => 'Clase';
+  @override
+  String get sansClasse => 'Sin clase';
+  @override
+  String get choisir => 'Elegir';
+  @override
+  String get changer => 'Cambiar';
+  @override
+  String get masculin => 'Masculino';
+  @override
+  String get feminin => 'Femenino';
+  @override
+  String get raccourci => 'Atajo';
+  @override
+  String get aucunRaccourci => 'Ninguno';
+  @override
+  String raccourciDe(String personnage) => 'Atajo de $personnage';
+  @override
+  String get raccourciInvite => 'Pulsa la combinación que quieras asignar.';
+  @override
+  String get raccourciAide =>
+      'Esc para cancelar. Los atajos globales se suspenden durante la captura.';
+  @override
+  String get effacer => 'Borrar';
+  @override
+  String get raccourciImpossible =>
+      'Windows no puede asociar esta tecla a un atajo.';
+  @override
+  String get modifierRaccourci => 'Modificar el atajo';
+  @override
+  String get raccourciRefuse =>
+      'Rechazado por Windows: la tecla está reservada o ya la usa otra '
+      'aplicación. Añade Ctrl, Alt o Mayús, o cambia de tecla.';
+  @override
+  String raccourcisActifs(int nombre) =>
+      nombre == 1 ? '$nombre atajo activo' : '$nombre atajos activos';
+  @override
+  String raccourcisRefuses(int nombre) => nombre == 1
+      ? '$nombre tecla ya ocupada por otra aplicación'
+      : '$nombre teclas ya ocupadas por otra aplicación';
+  @override
+  String get captureEnCours => 'Capturando, atajos globales suspendidos';
+  @override
+  String aucuneFenetreTrouvee(String titres) =>
+      'Ninguna ventana encontrada: $titres';
+  @override
+  String get reessayer => 'Reintentar';
 }

@@ -32,7 +32,7 @@ class ResPesees extends Ressources {
   String objet(int id) => _noms[id] ?? 'Objet $id';
 
   @override
-  String? imageClasse(int? classe) =>
+  String? imageClasse(int? classe, {bool feminin = false}) =>
       classe == null ? null : 'images/class/2x/Head_${classe * 10}.png';
 }
 

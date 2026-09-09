@@ -26,6 +26,7 @@ enum Onglet {
   mesCombats,
   monInventaire,
   sessions,
+  organizer,
   reglages;
 
   /// Libelle et description suivent la langue : des getters, non des valeurs
@@ -35,6 +36,7 @@ enum Onglet {
     Onglet.mesCombats => T.mesCombats,
     Onglet.monInventaire => T.monInventaire,
     Onglet.sessions => T.sessions,
+    Onglet.organizer => T.organizer,
     Onglet.reglages => T.reglages,
   };
 
@@ -43,6 +45,7 @@ enum Onglet {
     Onglet.mesCombats => T.mesCombatsOnglet,
     Onglet.monInventaire => T.monInventaireOnglet,
     Onglet.sessions => T.sessionsSousTitre,
+    Onglet.organizer => T.organizerOnglet,
     Onglet.reglages => T.reglagesSousTitre,
   };
 
@@ -91,6 +94,18 @@ class EcranSessions extends Ecran {
   String get titre => T.sessions;
   @override
   String? get sousTitre => T.sessionsSousTitre;
+}
+
+/// Les equipes et leurs raccourcis. Rien du suivi n'y entre : c'est un outil
+/// de fenetres qui partage la fenetre du tracker.
+class EcranOrganizer extends Ecran {
+  const EcranOrganizer();
+  @override
+  Onglet get onglet => Onglet.organizer;
+  @override
+  String get titre => T.organizer;
+  @override
+  String? get sousTitre => T.organizerSousTitre;
 }
 
 class EcranReglages extends Ecran {
@@ -218,6 +233,7 @@ class Navigation {
         Onglet.mesCombats => const EcranMesCombats(),
         Onglet.monInventaire => const EcranMonInventaire(),
         Onglet.sessions => const EcranSessions(),
+        Onglet.organizer => const EcranOrganizer(),
         Onglet.reglages => const EcranReglages(),
       });
   }

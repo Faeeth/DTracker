@@ -579,4 +579,136 @@ class TextesFr extends Textes {
   @override
   String get majRate => 'Le téléchargement n\'a pas abouti. La page de la release reste accessible.';
 
+  @override
+  String get valider => 'Valider';
+  @override
+  String get enregistrer => 'Enregistrer';
+  @override
+  String get nom => 'Nom';
+
+  // ------------------------------------------------------------- organizer
+  @override
+  String get organizer => 'Organizer';
+  @override
+  String get organizerOnglet => 'Vos équipes et leurs raccourcis';
+  @override
+  String get organizerSousTitre =>
+      'Une touche par personnage, quelle que soit l\'équipe en jeu';
+  @override
+  String get equipe => 'Équipe';
+  @override
+  String get nouvelleEquipe => 'Nouvelle équipe';
+  @override
+  String get renommerEquipe => 'Renommer l\'équipe';
+  @override
+  String get supprimerEquipe => 'Supprimer l\'équipe';
+  @override
+  String supprimerEquipeDetail(String equipe, int personnages) {
+    final n = personnages <= 1
+        ? '$personnages personnage'
+        : '$personnages personnages';
+    return '« $equipe » et ses $n seront supprimés.';
+  }
+
+  @override
+  String get equipeDesactivee => 'Équipe désactivée';
+  @override
+  String resumeEquipe(int actifs, int personnages) {
+    final r = actifs <= 1
+        ? '$actifs raccourci actif'
+        : '$actifs raccourcis actifs';
+    final p = personnages <= 1
+        ? '$personnages personnage'
+        : '$personnages personnages';
+    return '$r sur $p';
+  }
+
+  @override
+  String get isolerEquipe => 'Activer uniquement cette équipe';
+  @override
+  String get replierEquipe => 'Replier';
+  @override
+  String get deplierEquipe => 'Déplier';
+  @override
+  String get ajouterPersonnage => 'Ajouter un personnage';
+  @override
+  String get equipeVide => 'Aucun personnage dans cette équipe.';
+  @override
+  String get aucuneEquipe => 'Aucune équipe';
+  @override
+  String get aucuneEquipeDetail =>
+      'Créez une équipe, puis ajoutez ses personnages. Plusieurs équipes '
+      'peuvent partager les mêmes touches : le raccourci active le personnage '
+      'dont la fenêtre est ouverte.';
+  @override
+  String get creerEquipe => 'Créer une équipe';
+  @override
+  String get nouveauPersonnage => 'Nouveau personnage';
+  @override
+  String get modifierPersonnage => 'Modifier le personnage';
+  @override
+  String get activerPersonnage => 'Activer le personnage';
+  @override
+  String get desactiverPersonnage => 'Désactiver le personnage';
+  @override
+  String get titreFenetre => 'Fragment du titre de la fenêtre';
+  @override
+  String get titreFenetreAide =>
+      'Recherché dans le titre des fenêtres, sans tenir compte de la casse.';
+  @override
+  String get tester => 'Tester';
+  @override
+  String get fenetreTrouvee => 'Fenêtre trouvée et activée.';
+  @override
+  String fenetreIntrouvable(String titre) =>
+      'Aucune fenêtre ne contient « $titre ».';
+  @override
+  String get classePersonnage => 'Classe';
+  @override
+  String get sansClasse => 'Aucune classe';
+  @override
+  String get choisir => 'Choisir';
+  @override
+  String get changer => 'Changer';
+  @override
+  String get masculin => 'Masculin';
+  @override
+  String get feminin => 'Féminin';
+  @override
+  String get raccourci => 'Raccourci';
+  @override
+  String get aucunRaccourci => 'Aucun';
+  @override
+  String raccourciDe(String personnage) => 'Raccourci de $personnage';
+  @override
+  String get raccourciInvite => 'Appuyez sur la combinaison à assigner.';
+  @override
+  String get raccourciAide =>
+      'Échap pour annuler. Les raccourcis globaux sont suspendus pendant la '
+      'capture.';
+  @override
+  String get effacer => 'Effacer';
+  @override
+  String get raccourciImpossible =>
+      'Windows ne sait pas associer cette touche à un raccourci.';
+  @override
+  String get modifierRaccourci => 'Modifier le raccourci';
+  @override
+  String get raccourciRefuse =>
+      'Refusé par Windows : touche réservée ou déjà prise par une autre '
+      'application. Ajoutez Ctrl, Alt ou Maj, ou changez de touche.';
+  @override
+  String raccourcisActifs(int nombre) =>
+      nombre <= 1 ? '$nombre raccourci actif' : '$nombre raccourcis actifs';
+  @override
+  String raccourcisRefuses(int nombre) => nombre <= 1
+      ? '$nombre touche déjà prise par une autre application'
+      : '$nombre touches déjà prises par une autre application';
+  @override
+  String get captureEnCours => 'Capture en cours, raccourcis suspendus';
+  @override
+  String aucuneFenetreTrouvee(String titres) =>
+      'Aucune fenêtre trouvée : $titres';
+  @override
+  String get reessayer => 'Réessayer';
 }

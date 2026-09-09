@@ -73,6 +73,40 @@ NotesVersion? aAnnoncer({
 }
 
 const _notes = <String, Map<Langue, NotesVersion>>{
+  '1.0.7': {
+    Langue.fr: NotesVersion(
+      nouveautes: [
+        'Organizer : une touche par personnage, et sa fenêtre passe devant. '
+            'Un onglet de plus, indépendant du suivi.',
+        'Les personnages se rangent en équipes qui se replient, chacun avec '
+            'son portrait de classe : la composition se lit d\'un coup d\'œil.',
+      ],
+    ),
+    Langue.en: NotesVersion(
+      nouveautes: [
+        'Organizer: one key per character, and its window comes to the '
+            'front. One more tab, independent from the tracker.',
+        'Characters are grouped into teams that fold away, each with its '
+            'class portrait: the line-up reads at a glance.',
+      ],
+    ),
+    Langue.es: NotesVersion(
+      nouveautes: [
+        'Organizer: una tecla por personaje y su ventana pasa al frente. '
+            'Una pestaña más, independiente del seguimiento.',
+        'Los personajes se agrupan en equipos que se pliegan, cada uno con '
+            'su retrato de clase: la composición se lee de un vistazo.',
+      ],
+    ),
+    Langue.pt: NotesVersion(
+      nouveautes: [
+        'Organizer: uma tecla por personagem e a sua janela vem para a '
+            'frente. Mais um separador, independente do acompanhamento.',
+        'As personagens agrupam-se em equipas que se recolhem, cada uma com '
+            'o seu retrato de classe: a composição lê-se num relance.',
+      ],
+    ),
+  },
   '1.0.6': {
     Langue.fr: NotesVersion(
       correctifs: [

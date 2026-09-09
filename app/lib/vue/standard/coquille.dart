@@ -15,6 +15,7 @@ import '../../config.dart';
 import '../../modele/session.dart';
 import '../../source/archives.dart';
 import '../../source/flux.dart';
+import '../../source/organizer.dart';
 import '../../source/ressources.dart';
 import '../../theme.dart';
 import 'briques.dart';
@@ -22,6 +23,7 @@ import 'navigation.dart';
 import 'pages/butin.dart';
 import 'pages/inventaire.dart';
 import 'pages/combats.dart';
+import 'pages/organizer.dart';
 import 'pages/reglages.dart';
 import 'pages/sessions.dart';
 import 'pages/suivi.dart';
@@ -50,6 +52,7 @@ class Coquille extends StatefulWidget {
     required this.onReduire,
     required this.onReglageChange,
     required this.onBascule,
+    required this.organizer,
     this.interfaces,
   });
 
@@ -74,6 +77,9 @@ class Coquille extends StatefulWidget {
   final VoidCallback onReduire;
   final VoidCallback onReglageChange;
   final Future<void> Function(Archive) onBascule;
+
+  /// Les equipes et leurs raccourcis, tenus a part du suivi.
+  final Organizer organizer;
 
   /// Fournie par les tests, pour ne pas lancer un sous-processus Python.
   final List<Interface>? interfaces;
@@ -294,6 +300,10 @@ class _CoquilleState extends State<Coquille> {
       combat: combat,
       res: widget.res,
       surligne: surligne,
+    ),
+    EcranOrganizer() => PageOrganizer(
+      organizer: widget.organizer,
+      res: widget.res,
     ),
     EcranReglages() => PageReglages(
       config: config,

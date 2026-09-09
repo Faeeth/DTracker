@@ -579,4 +579,133 @@ class TextesEn extends Textes {
   @override
   String get majRate => 'The download did not complete. The release page is still available.';
 
+  @override
+  String get valider => 'Confirm';
+  @override
+  String get enregistrer => 'Save';
+  @override
+  String get nom => 'Name';
+
+  // ------------------------------------------------------------- organizer
+  @override
+  String get organizer => 'Organizer';
+  @override
+  String get organizerOnglet => 'Your teams and their shortcuts';
+  @override
+  String get organizerSousTitre =>
+      'One key per character, whichever team is in play';
+  @override
+  String get equipe => 'Team';
+  @override
+  String get nouvelleEquipe => 'New team';
+  @override
+  String get renommerEquipe => 'Rename team';
+  @override
+  String get supprimerEquipe => 'Delete team';
+  @override
+  String supprimerEquipeDetail(String equipe, int personnages) {
+    final n = personnages == 1
+        ? '$personnages character'
+        : '$personnages characters';
+    return '"$equipe" and its $n will be deleted.';
+  }
+
+  @override
+  String get equipeDesactivee => 'Team disabled';
+  @override
+  String resumeEquipe(int actifs, int personnages) {
+    final r = actifs == 1
+        ? '$actifs active shortcut'
+        : '$actifs active shortcuts';
+    final p = personnages == 1
+        ? '$personnages character'
+        : '$personnages characters';
+    return '$r out of $p';
+  }
+
+  @override
+  String get isolerEquipe => 'Enable this team only';
+  @override
+  String get replierEquipe => 'Collapse';
+  @override
+  String get deplierEquipe => 'Expand';
+  @override
+  String get ajouterPersonnage => 'Add a character';
+  @override
+  String get equipeVide => 'No character in this team.';
+  @override
+  String get aucuneEquipe => 'No team';
+  @override
+  String get aucuneEquipeDetail =>
+      'Create a team, then add its characters. Several teams can share the '
+      'same keys: the shortcut activates whichever character has a window '
+      'open.';
+  @override
+  String get creerEquipe => 'Create a team';
+  @override
+  String get nouveauPersonnage => 'New character';
+  @override
+  String get modifierPersonnage => 'Edit character';
+  @override
+  String get activerPersonnage => 'Enable character';
+  @override
+  String get desactiverPersonnage => 'Disable character';
+  @override
+  String get titreFenetre => 'Window title fragment';
+  @override
+  String get titreFenetreAide =>
+      'Searched in the window titles, ignoring case.';
+  @override
+  String get tester => 'Test';
+  @override
+  String get fenetreTrouvee => 'Window found and activated.';
+  @override
+  String fenetreIntrouvable(String titre) => 'No window contains "$titre".';
+  @override
+  String get classePersonnage => 'Class';
+  @override
+  String get sansClasse => 'No class';
+  @override
+  String get choisir => 'Choose';
+  @override
+  String get changer => 'Change';
+  @override
+  String get masculin => 'Male';
+  @override
+  String get feminin => 'Female';
+  @override
+  String get raccourci => 'Shortcut';
+  @override
+  String get aucunRaccourci => 'None';
+  @override
+  String raccourciDe(String personnage) => 'Shortcut for $personnage';
+  @override
+  String get raccourciInvite => 'Press the combination to assign.';
+  @override
+  String get raccourciAide =>
+      'Esc to cancel. Global shortcuts are suspended while recording.';
+  @override
+  String get effacer => 'Clear';
+  @override
+  String get raccourciImpossible =>
+      'Windows cannot bind this key to a shortcut.';
+  @override
+  String get modifierRaccourci => 'Edit the shortcut';
+  @override
+  String get raccourciRefuse =>
+      'Refused by Windows: the key is reserved, or already taken by another '
+      'application. Add Ctrl, Alt or Shift, or pick another key.';
+  @override
+  String raccourcisActifs(int nombre) =>
+      nombre == 1 ? '$nombre active shortcut' : '$nombre active shortcuts';
+  @override
+  String raccourcisRefuses(int nombre) => nombre == 1
+      ? '$nombre key already held by another application'
+      : '$nombre keys already held by another application';
+  @override
+  String get captureEnCours => 'Recording, global shortcuts suspended';
+  @override
+  String aucuneFenetreTrouvee(String titres) => 'No window found: $titres';
+  @override
+  String get reessayer => 'Retry';
 }

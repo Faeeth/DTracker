@@ -579,4 +579,133 @@ class TextesPt extends Textes {
   @override
   String get majRate => 'A transferência não terminou. A página da release continua disponível.';
 
+  @override
+  String get valider => 'Confirmar';
+  @override
+  String get enregistrer => 'Guardar';
+  @override
+  String get nom => 'Nome';
+
+  // ------------------------------------------------------------- organizer
+  @override
+  String get organizer => 'Organizer';
+  @override
+  String get organizerOnglet => 'As suas equipas e os seus atalhos';
+  @override
+  String get organizerSousTitre =>
+      'Uma tecla por personagem, seja qual for a equipa em jogo';
+  @override
+  String get equipe => 'Equipa';
+  @override
+  String get nouvelleEquipe => 'Nova equipa';
+  @override
+  String get renommerEquipe => 'Renomear a equipa';
+  @override
+  String get supprimerEquipe => 'Eliminar a equipa';
+  @override
+  String supprimerEquipeDetail(String equipe, int personnages) {
+    final n = personnages == 1
+        ? '$personnages personagem'
+        : '$personnages personagens';
+    return '«$equipe» e as suas $n serão eliminadas.';
+  }
+
+  @override
+  String get equipeDesactivee => 'Equipa desativada';
+  @override
+  String resumeEquipe(int actifs, int personnages) {
+    final r = actifs == 1 ? '$actifs atalho ativo' : '$actifs atalhos ativos';
+    final p = personnages == 1
+        ? '$personnages personagem'
+        : '$personnages personagens';
+    return '$r em $p';
+  }
+
+  @override
+  String get isolerEquipe => 'Ativar apenas esta equipa';
+  @override
+  String get replierEquipe => 'Recolher';
+  @override
+  String get deplierEquipe => 'Expandir';
+  @override
+  String get ajouterPersonnage => 'Adicionar uma personagem';
+  @override
+  String get equipeVide => 'Nenhuma personagem nesta equipa.';
+  @override
+  String get aucuneEquipe => 'Nenhuma equipa';
+  @override
+  String get aucuneEquipeDetail =>
+      'Crie uma equipa e adicione as suas personagens. Várias equipas podem '
+      'partilhar as mesmas teclas: o atalho ativa a personagem cuja janela '
+      'estiver aberta.';
+  @override
+  String get creerEquipe => 'Criar uma equipa';
+  @override
+  String get nouveauPersonnage => 'Nova personagem';
+  @override
+  String get modifierPersonnage => 'Editar a personagem';
+  @override
+  String get activerPersonnage => 'Ativar a personagem';
+  @override
+  String get desactiverPersonnage => 'Desativar a personagem';
+  @override
+  String get titreFenetre => 'Fragmento do título da janela';
+  @override
+  String get titreFenetreAide =>
+      'Procurado nos títulos das janelas, sem distinguir maiúsculas.';
+  @override
+  String get tester => 'Testar';
+  @override
+  String get fenetreTrouvee => 'Janela encontrada e ativada.';
+  @override
+  String fenetreIntrouvable(String titre) => 'Nenhuma janela contém «$titre».';
+  @override
+  String get classePersonnage => 'Classe';
+  @override
+  String get sansClasse => 'Sem classe';
+  @override
+  String get choisir => 'Escolher';
+  @override
+  String get changer => 'Alterar';
+  @override
+  String get masculin => 'Masculino';
+  @override
+  String get feminin => 'Feminino';
+  @override
+  String get raccourci => 'Atalho';
+  @override
+  String get aucunRaccourci => 'Nenhum';
+  @override
+  String raccourciDe(String personnage) => 'Atalho de $personnage';
+  @override
+  String get raccourciInvite => 'Prima a combinação a atribuir.';
+  @override
+  String get raccourciAide =>
+      'Esc para cancelar. Os atalhos globais ficam suspensos durante a '
+      'captura.';
+  @override
+  String get effacer => 'Limpar';
+  @override
+  String get raccourciImpossible =>
+      'O Windows não consegue associar esta tecla a um atalho.';
+  @override
+  String get modifierRaccourci => 'Alterar o atalho';
+  @override
+  String get raccourciRefuse =>
+      'Recusado pelo Windows: a tecla está reservada ou já é usada por outra '
+      'aplicação. Junte Ctrl, Alt ou Shift, ou mude de tecla.';
+  @override
+  String raccourcisActifs(int nombre) =>
+      nombre == 1 ? '$nombre atalho ativo' : '$nombre atalhos ativos';
+  @override
+  String raccourcisRefuses(int nombre) => nombre == 1
+      ? '$nombre tecla já ocupada por outra aplicação'
+      : '$nombre teclas já ocupadas por outra aplicação';
+  @override
+  String get captureEnCours => 'A capturar, atalhos globais suspensos';
+  @override
+  String aucuneFenetreTrouvee(String titres) =>
+      'Nenhuma janela encontrada: $titres';
+  @override
+  String get reessayer => 'Tentar novamente';
 }
