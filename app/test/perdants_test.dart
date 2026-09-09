@@ -33,7 +33,7 @@ class ResMonstres extends Ressources {
 
   // Les vraies cherchent `Head_<classe>0` dans les fichiers du client.
   @override
-  String? imageClasse(int? classe) =>
+  String? imageClasse(int? classe, {bool feminin = false}) =>
       classe == null ? null : 'images/breed/$classe.png';
 }
 

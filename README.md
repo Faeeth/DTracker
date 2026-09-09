@@ -16,6 +16,10 @@ plusieurs personnages au fil d'une session de jeu, et conserve chaque session
 pour la relire ensuite. L'affichage se fait dans une fenêtre ordinaire, ou dans
 une bande translucide posée par-dessus le jeu.
 
+Il porte aussi un **Organizer** : une touche par personnage, qui ramène sa
+fenêtre au premier plan. Le suivi et l'Organizer ne se parlent pas — c'est un
+outil de fenêtres qui partage la fenêtre du tracker.
+
 L'outil est **strictement passif** : il lit le trafic réseau que le serveur
 envoie déjà au client. Il n'écrit rien, n'envoie rien au jeu et n'automatise
 rien. Voir [Cadre d'action](#cadre-daction).
@@ -85,6 +89,39 @@ Chaque session est archivée à sa clôture et reste consultable : durée, nombr
 de combats, expérience, butin. Une session archivée peut être renommée,
 supprimée, ouverte dans le détail, ou redevenir la session courante.
 
+### Organizer
+
+![Équipes et raccourcis](docs/captures/organizer.png)
+
+Une touche par personnage, et sa fenêtre passe devant. Le multi-compte demande
+de changer de fenêtre sans arrêt, et Alt+Tab entre huit clients ne mène nulle
+part : ici, F1 appelle toujours le même personnage.
+
+Les personnages se rangent en équipes, avec leur classe en portrait — la
+composition d'une équipe se lit d'un coup d'œil, et une équipe qu'on ne joue
+pas se replie sur son en-tête. Les raccourcis répondent quelle que soit
+l'application au premier plan, y compris depuis le jeu.
+
+![Fiche d'un personnage](docs/captures/organizer-personnage.png)
+
+Un personnage est reconnu au fragment de titre de sa fenêtre — le nom, en
+général, tel que le client l'affiche. Le bouton « Tester » dit tout de suite si
+une fenêtre correspond, sans attendre d'appuyer sur la touche.
+
+Plusieurs personnages peuvent partager la même touche : c'est la fenêtre
+ouverte qui tranche, et l'ordre des équipes donne la priorité. Changer d'équipe
+se fait donc dans le jeu, pas ici.
+
+![Choix de la classe](docs/captures/organizer-classe.png)
+
+Le portrait est celui du jeu, masculin ou féminin, pris dans les mêmes données
+que le reste de l'outil. Sans extraction, les personnages s'affichent sans
+portrait et tout le reste fonctionne.
+
+Toutes les touches sont acceptées, modificateurs compris. Windows refuse celles
+qu'une autre application détient déjà : elles sont signalées en rouge, et un
+bouton les redemande une fois l'autre programme fermé.
+
 ### Réglages
 
 ![Personnages suivis](docs/captures/reglages-personnages.png)
@@ -144,7 +181,11 @@ plus.
 - **Aucun proxy, aucun intermédiaire** : le trafic n'est ni détourné ni
   réécrit, il est observé sur la carte réseau.
 - **Aucune automatisation** : aucune frappe, aucun clic, aucune commande n'est
-  produite. Le programme n'agit jamais en jeu.
+  produite. Le programme n'agit jamais en jeu. L'Organizer fait exception au
+  seul niveau de Windows : il enregistre des raccourcis globaux
+  (`RegisterHotKey`) et amène une fenêtre au premier plan
+  (`SetForegroundWindow`), ce que ferait un clic sur la barre des tâches. Rien
+  n'est envoyé au jeu, et rien n'est enchaîné.
 
 ### Ce qui sort de la machine
 

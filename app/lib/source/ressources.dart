@@ -193,10 +193,25 @@ class Ressources {
   ///
   /// Les fichiers s'appellent `Head_<classe><sexe>` — `Head_120` pour un
   /// Pandawa masculin, `Head_121` pour une Pandawa. Le sexe ne circule pas sur
-  /// le reseau : on prend le portrait masculin, la classe etant la meme dans
-  /// les deux.
-  String? imageClasse(int? classe) =>
-      classe == null ? null : _fichier('breeds', classe * 10);
+  /// le reseau : le suivi prend donc le portrait masculin, la classe etant la
+  /// meme dans les deux. L'Organizer, lui, le demande — c'est l'utilisateur
+  /// qui decrit ses propres personnages, et il connait leur sexe.
+  String? imageClasse(int? classe, {bool feminin = false}) => classe == null
+      ? null
+      : _fichier('breeds', classe * 10 + (feminin ? 1 : 0));
+
+  /// Les identifiants de classe connus, dans l'ordre du jeu.
+  ///
+  /// Tires des libelles et non d'une liste ecrite ici : une classe ajoutee par
+  /// une mise a jour du jeu apparait sans qu'on ait a y toucher.
+  List<int> get classesConnues {
+    final ids = <int>[
+      for (final clef in _libelles['breeds']?.keys ?? const <String>[])
+        ?int.tryParse(clef),
+    ];
+    ids.sort();
+    return ids;
+  }
 
   /// Un index annexe, lu d'un bloc au premier besoin.
   ///

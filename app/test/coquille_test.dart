@@ -10,7 +10,11 @@
 /// d'eux, et l'application Material dessous pour `Scaffold` et consorts.
 library;
 
+import 'dart:async';
+
 import 'package:dofus_tracker/config.dart';
+import 'package:dofus_tracker/modele/organizer.dart';
+import 'package:dofus_tracker/source/organizer.dart';
 import 'package:dofus_tracker/modele/session.dart';
 import 'package:dofus_tracker/source/archives.dart';
 import 'package:dofus_tracker/source/flux.dart';
@@ -59,6 +63,7 @@ Future<void> monte(
     ),
   ],
   Size taille = const Size(1280, 800),
+  Organizer? organizer,
 }) async {
   await tester.binding.setSurfaceSize(taille);
   addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -78,6 +83,10 @@ Future<void> monte(
           builder: (context, rebatit) {
             capteur?.call(rebatit);
             return Coquille(
+              // Sans canal natif sous le harnais : le pont retombe sur ses
+              // pieds et l'onglet reste montable.
+              organizer:
+                  organizer ?? Organizer(config: config, pont: PontOrganizer()),
               config: config,
               session: session,
               archives: archives,
@@ -988,5 +997,94 @@ void main() {
     expect(find.text('1/2'), findsOneWidget);
 
     d.deleteSync(recursive: true);
+  });
+
+  testWidgets('le nom cherche en vain tient sur sa propre ligne', (
+    tester,
+  ) async {
+    // Le message partageait la ligne du bandeau : coince entre le compte des
+    // raccourcis et le bouton d'ajout, c'est le nom du personnage — la seule
+    // chose utile — qui disparaissait le premier.
+    final d = dossierTemporaire();
+    final config = Config();
+    final organizer = Organizer(config: config, pont: PontOrganizer());
+    addTearDown(organizer.dispose);
+    // Sans `await` : le pont s'adresse a un canal que le harnais ne sert pas,
+    // et attendre sa reponse ici bloquerait le cas avant la premiere image.
+    // Ce qui compte — le branchement du rappel — est fait des l'appel.
+    unawaited(organizer.demarre());
+    final equipe = organizer.ajouteEquipe('Kaska');
+    const touche = Raccourci(touche: 0x70, libelle: 'F1');
+    organizer.ajoutePersonnage(
+      equipe.id,
+      nom: 'Kaska-yopette',
+      titre: 'Kaska-yopette',
+      raccourci: touche,
+    );
+
+    await monte(
+      tester,
+      session: sessionJouee(),
+      archives: Archives(d.path),
+      config: config,
+      organizer: organizer,
+    );
+    await tester.tap(find.text(Onglet.organizer.libelle));
+    await tester.pump();
+    // Le temps que la transition d'onglet s'acheve.
+    await tester.pump(const Duration(milliseconds: 400));
+
+    // Aucune fenetre n'a repondu.
+    organizer.pont.surRaccourci!(touche.signature, -1);
+    await tester.pump();
+
+    // Le message en entier, et non un fragment : le nom apparait aussi dans
+    // la liste, et s'y rabattre ferait passer le cas sans rien verifier.
+    final message = find.text(T.aucuneFenetreTrouvee('Kaska-yopette'));
+    expect(message, findsOneWidget);
+    final hautDuMessage = tester.getTopLeft(message).dy;
+    final basDuBouton = tester.getBottomLeft(find.text(T.equipe)).dy;
+    expect(
+      hautDuMessage,
+      greaterThanOrEqualTo(basDuBouton),
+      reason: 'le message doit passer sous le bandeau, pas se serrer dedans',
+    );
+  });
+
+  testWidgets('replier une equipe cache ses personnages', (tester) async {
+    final d = dossierTemporaire();
+    final config = Config();
+    final organizer = Organizer(config: config, pont: PontOrganizer());
+    addTearDown(organizer.dispose);
+    unawaited(organizer.demarre());
+    final equipe = organizer.ajouteEquipe('Kaska');
+    organizer.ajoutePersonnage(
+      equipe.id,
+      nom: 'Kaska-yopette',
+      titre: 'Kaska-yopette',
+      raccourci: const Raccourci(touche: 0x70, libelle: 'F1'),
+    );
+
+    await monte(
+      tester,
+      session: sessionJouee(),
+      archives: Archives(d.path),
+      config: config,
+      organizer: organizer,
+    );
+    await tester.tap(find.text(Onglet.organizer.libelle));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('Kaska-yopette'), findsOneWidget);
+
+    // L'en-tete entier plie, pas seulement le chevron.
+    await tester.tap(find.text('Kaska'));
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(find.text('Kaska-yopette'), findsNothing);
+    expect(find.text('Kaska'), findsOneWidget, reason: 'l en-tete reste');
+
+    await tester.tap(find.text('Kaska'));
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(find.text('Kaska-yopette'), findsOneWidget);
   });
 }

@@ -59,6 +59,10 @@ class Rail extends StatelessWidget {
     Onglet.mesCombats: LucideIcons.swords,
     Onglet.monInventaire: LucideIcons.package,
     Onglet.sessions: LucideIcons.history,
+    // Une fenetre, comme celles que l'outil ramene au premier plan. Pas
+    // `appWindow` : les reglages s'en servent deja pour l'onglet « Fenetre »,
+    // et deux onglets ne doivent pas porter le meme glyphe.
+    Onglet.organizer: LucideIcons.appWindowMac,
     Onglet.reglages: LucideIcons.settings,
   };
 

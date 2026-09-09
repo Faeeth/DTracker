@@ -222,6 +222,9 @@ abstract class Textes {
   String get supprimerConfirme;
   String get annuler;
   String get supprimer;
+  String get valider;
+  String get enregistrer;
+  String get nom;
 
   // ---------------------------------------------------------------- reglages
   String get ongletPersonnages;
@@ -299,4 +302,53 @@ abstract class Textes {
   String get reprendreDetail;
   String get aucunPersonnageSession;
   String rapport(int reussis, int total);
+
+  // ------------------------------------------------------------- organizer
+  String get organizer;
+  String get organizerOnglet;
+  String get organizerSousTitre;
+  String get equipe;
+  String get nouvelleEquipe;
+  String get renommerEquipe;
+  String get supprimerEquipe;
+  String supprimerEquipeDetail(String equipe, int personnages);
+  String get equipeDesactivee;
+  String resumeEquipe(int actifs, int personnages);
+  String get isolerEquipe;
+  String get replierEquipe;
+  String get deplierEquipe;
+  String get ajouterPersonnage;
+  String get equipeVide;
+  String get aucuneEquipe;
+  String get aucuneEquipeDetail;
+  String get creerEquipe;
+  String get nouveauPersonnage;
+  String get modifierPersonnage;
+  String get activerPersonnage;
+  String get desactiverPersonnage;
+  String get titreFenetre;
+  String get titreFenetreAide;
+  String get tester;
+  String get fenetreTrouvee;
+  String fenetreIntrouvable(String titre);
+  String get classePersonnage;
+  String get sansClasse;
+  String get choisir;
+  String get changer;
+  String get masculin;
+  String get feminin;
+  String get raccourci;
+  String get aucunRaccourci;
+  String raccourciDe(String personnage);
+  String get raccourciInvite;
+  String get raccourciAide;
+  String get effacer;
+  String get raccourciImpossible;
+  String get modifierRaccourci;
+  String get raccourciRefuse;
+  String raccourcisActifs(int nombre);
+  String raccourcisRefuses(int nombre);
+  String get captureEnCours;
+  String aucuneFenetreTrouvee(String titres);
+  String get reessayer;
 }

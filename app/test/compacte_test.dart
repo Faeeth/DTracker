@@ -183,7 +183,7 @@ Future<void> survole(WidgetTester tester) async {
 /// Des ressources qui savent aussi ou est le portrait de classe.
 class ResAvecPortrait extends ResAvecSymbole {
   @override
-  String? imageClasse(int? classe) => 'images/breeds/10.png';
+  String? imageClasse(int? classe, {bool feminin = false}) => 'images/breeds/10.png';
 }
 
 /// Monte la vue avec des opacites choisies, comme le fait l'apercu des

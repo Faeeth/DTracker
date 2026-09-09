@@ -16,6 +16,8 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart' show Size;
 
+import 'modele/organizer.dart';
+
 /// Le texte ne descend pas sous ce seuil : en dessous il devient illisible sur
 /// un fond clair, et l'outil n'aurait plus d'usage.
 const int opaciteTexteMin = 20;
@@ -72,6 +74,7 @@ class Config {
     this.succesComptes = true,
     this.langue = 'fr',
     this.versionVue = '',
+    this.equipes = const [],
   });
 
   List<String> personnages;
@@ -109,6 +112,13 @@ class Config {
   /// quelqu'un qui l'avait deja voit enfin ce qu'il a manque.
   String versionVue;
 
+  /// Les equipes de l'Organizer, leurs personnages et leurs touches.
+  ///
+  /// Rangees ici parce qu'elles sont des reglages comme les autres : elles
+  /// profitent ainsi de l'ecriture qui ne touche qu'a ce qu'on a change, et
+  /// une retouche a la main survit a une fenetre restee ouverte.
+  List<EquipeOrganizer> equipes;
+
   /// La vue compacte est-elle clouee sur place ?
   ///
   /// Deverrouillee, toute la fenetre se saisit a la souris — c'est pratique
@@ -138,6 +148,7 @@ class Config {
     'count_achievements': succesComptes,
     'language': langue,
     'seen_version': versionVue,
+    'organizer_teams': [for (final e in equipes) e.versJson()],
   };
 
   /// Ramene les valeurs dans leurs bornes, un fichier edite a la main pouvant
@@ -191,6 +202,7 @@ class Config {
       succesComptes: donnees['count_achievements'] as bool? ?? true,
       langue: '${donnees['language'] ?? 'fr'}',
       versionVue: '${donnees['seen_version'] ?? ''}',
+      equipes: equipesDepuisJson(donnees['organizer_teams']),
     )..borne();
     config._origine = Map.of(config.versJson());
     return config;
@@ -231,12 +243,21 @@ class Config {
   }
 
   static bool _egal(dynamic a, dynamic b) {
+    // Les equipes sont des listes de tables imbriquees : comparer leur ecriture
+    // JSON est plus sur que de descendre a la main, et le cout est negligeable
+    // devant une ecriture de fichier.
     if (a is List && b is List) {
-      return a.length == b.length &&
-          List.generate(
-            a.length,
-            (i) => '${a[i]}' == '${b[i]}',
-          ).every((x) => x);
+      if (a.length != b.length) return false;
+      for (var i = 0; i < a.length; i++) {
+        final x = a[i];
+        final y = b[i];
+        if (x is Map || y is Map) {
+          if (jsonEncode(x) != jsonEncode(y)) return false;
+        } else if ('$x' != '$y') {
+          return false;
+        }
+      }
+      return true;
     }
     return a == b;
   }

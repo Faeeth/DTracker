@@ -563,6 +563,75 @@ les classes qu'elle apprend (`CharacterInfo`), et les prix arrivent avec la
 table du serveur. Au premier lancement, ce que savait la version Python est
 repris, pour ne pas repartir aveugle.
 
+## L'Organizer
+
+Un outil de fenetres qui partage la fenetre du tracker. Il ne lit ni session ni
+combat, et rien du suivi ne le lit : la seule chose que les deux partagent est
+`Config`, ou les equipes tiennent sous la clef `organizer_teams`, et les
+portraits de classe, qui viennent des memes ressources extraites du jeu.
+
+Trois fichiers natifs, dans `windows/runner` :
+
+| Fichier | Ce qu'il tient |
+|---|---|
+| `hotkey_service` | l'enregistrement des touches et la reception de `WM_HOTKEY` |
+| `window_focus` | trouver une fenetre par son titre, et l'amener devant |
+| `organizer_bridge` | le canal `dtracker/organizer` entre Dart et les deux precedents |
+
+`RegisterHotKey` livre `WM_HOTKEY` **au fil qui a enregistre**, et non a une
+fenetre choisie. Le service tient donc sa propre fenetre message-only et sa
+propre boucle de messages : la fenetre Flutter a la sienne, et lui emprunter sa
+procedure de fenetre reviendrait a poser un crochet dans le moteur.
+
+Le Dart pousse un jeu complet de liaisons a chaque changement — jamais un
+ajout, jamais un retrait. Une liaison porte une signature
+(`<modificateurs>:<touche>`), le code de touche, et **la liste des titres**
+dans l'ordre des equipes. Plusieurs personnages partagent une touche sans
+conflit : le natif prend le premier titre dont une fenetre existe, et repond au
+Dart avec l'indice retenu, ou `-1` s'il n'a rien trouve. C'est ce qui permet de
+laisser toutes les equipes actives, et de changer d'equipe dans le jeu plutot
+que dans l'outil.
+
+Seuls les personnages **actifs d'une equipe active et portant une touche**
+entrent dans le jeu de liaisons : le reste n'existe pas pour le natif.
+
+`EnumWindows` rend aussi des fenetres qui ne sont pas a l'ecran. Une fenetre
+sans titre, invisible, ou **masquee** — `DWMWA_CLOAKED`, ce qui arrive aux
+applications d'un autre bureau virtuel — est ecartee, sans quoi la touche
+paraissait ne rien faire. L'activation passe par `AttachThreadInput` : Windows
+refuse `SetForegroundWindow` a un processus qui n'a pas le focus, et attacher
+le fil d'entree du premier plan le temps de l'appel est la facon documentee de
+le demander.
+
+Windows refuse une touche que quelqu'un d'autre detient deja
+(`ERROR_HOTKEY_ALREADY_REGISTERED`). Le natif rend la liste des signatures
+refusees, la page les marque en rouge, et un bouton **Reessayer** repousse le
+jeu entier — l'application fautive est en general fermee entre-temps.
+Reessayer se declenche aussi a l'ouverture de la page, qui est le moment ou
+l'on vient constater le probleme.
+
+Pendant la **capture** d'un raccourci, les touches deja enregistrees sont
+relachees : sans cela Windows les avalerait et la fenetre de saisie ne les
+verrait jamais. Toutes les touches sont acceptees — c'est l'utilisateur qui
+decide, et Windows tranchera a l'enregistrement.
+
+Le code de touche d'une ponctuation depend de la disposition du clavier :
+`VkKeyScanExW` le demande a Windows pour le caractere saisi. Le libelle affiche
+est conserve a cote du code, faute de quoi un `$` saisi sur un clavier
+francais se relirait « OEM 3 ».
+
+Replier une equipe **ne repousse pas** les raccourcis. C'est un etat
+d'affichage, conserve dans les reglages comme le reste ; reenregistrer tout le
+jeu de touches pour un pli ouvrirait une fenetre — courte, mais reelle —
+pendant laquelle elles ne repondent pas.
+
+Le portrait d'un personnage est celui du suivi, plus le sexe : `Head_<classe>0`
+et `Head_<classe>1`. Le reseau ne dit pas le sexe et le suivi prend donc le
+portrait masculin, mais ici c'est l'utilisateur qui decrit ses propres
+personnages. La liste des classes proposees est tiree des libelles extraits,
+non d'une table ecrite dans le code : une classe ajoutee par une mise a jour du
+jeu apparait sans qu'on y touche.
+
 ## La fermeture
 
 Cliquer sur la croix figeait la fenetre cinq secondes. Chronometre, chaque
