@@ -63,6 +63,9 @@ class Rail extends StatelessWidget {
     // `appWindow` : les reglages s'en servent deja pour l'onglet « Fenetre »,
     // et deux onglets ne doivent pas porter le meme glyphe.
     Onglet.organizer: LucideIcons.appWindowMac,
+    // Une liste numerotee : c'est exactement ce qu'est une macro, une suite
+    // de gestes dans l'ordre.
+    Onglet.macros: LucideIcons.listOrdered,
     Onglet.reglages: LucideIcons.settings,
   };
 

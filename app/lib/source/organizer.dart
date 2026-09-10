@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 
 import '../config.dart';
 import '../modele/organizer.dart';
+import 'raccourcis.dart';
 
 /// Un raccourci et les titres qu'il peut activer, par ordre de priorite.
 @immutable
@@ -120,6 +121,88 @@ class PontOrganizer {
     }
   }
 
+  /// Le titre de la fenetre qui a le clavier en ce moment.
+  ///
+  /// Sert de garde avant qu'une macro ne tape : Windows refuse parfois de
+  /// changer le premier plan sans le dire, et les frappes partiraient dans la
+  /// fenetre qui s'y trouvait.
+  Future<String> fenetreDevant() async {
+    try {
+      return await _canal.invokeMethod<String>('window.foreground') ?? '';
+    } on MissingPluginException {
+      return '';
+    }
+  }
+
+  /// La fenetre au premier plan appartient-elle au jeu ?
+  ///
+  /// Le natif refuse de taper ou de cliquer ailleurs ; ceci sert a le dire.
+  Future<bool> premierPlanEstLeJeu() async {
+    try {
+      return await _canal.invokeMethod<bool>('window.isGame') ?? false;
+    } on MissingPluginException {
+      return false;
+    }
+  }
+
+  /// Ecrit du texte dans la fenetre au premier plan.
+  ///
+  /// Sert aux macros, et a rien d'autre. Rend faux quand Windows n'a pas
+  /// accepte la frappe — une fenetre elevee en droits, par exemple, qui
+  /// n'accepte pas l'entree d'un programme ordinaire.
+  Future<bool> envoieTexte(String texte, {int cadence = 0}) async {
+    try {
+      return await _canal.invokeMethod<bool>('input.text', {
+            'text': texte,
+            'pace': cadence,
+          }) ??
+          false;
+    } on MissingPluginException {
+      return false;
+    }
+  }
+
+  /// Appuie et relache une touche dans la fenetre au premier plan.
+  Future<bool> envoieTouche(Raccourci raccourci) async {
+    try {
+      return await _canal.invokeMethod<bool>('input.key', {
+            'keyCode': raccourci.touche,
+            'modifiers': raccourci.modificateurs,
+          }) ??
+          false;
+    } on MissingPluginException {
+      return false;
+    }
+  }
+
+  /// Clique a un endroit de l'ecran.
+  Future<bool> clique(int x, int y, {bool droit = false}) async {
+    try {
+      return await _canal.invokeMethod<bool>('input.click', {
+            'x': x,
+            'y': y,
+            'right': droit,
+          }) ??
+          false;
+    } on MissingPluginException {
+      return false;
+    }
+  }
+
+  /// Ouvre le pointeur de visee et rend le point choisi, ou rien.
+  ///
+  /// Bloque tant que la visee est ouverte : c'est une question fermee, posee a
+  /// l'ecran entier.
+  Future<(int, int)?> pointe() async {
+    try {
+      final point = await _canal.invokeMapMethod<String, int>('mouse.pick');
+      if (point == null) return null;
+      return (point['x'] ?? 0, point['y'] ?? 0);
+    } on MissingPluginException {
+      return null;
+    }
+  }
+
   /// Rend le code de touche virtuelle qui produit [caractere] sur la
   /// disposition courante, ou 0. Sert aux touches de ponctuation, dont le code
   /// depend du clavier.
@@ -138,35 +221,51 @@ class PontOrganizer {
 
 /// Tient les equipes et garde le moteur natif en accord avec elles.
 class Organizer extends ChangeNotifier {
-  Organizer({required this.config, required this.pont, this.enregistre});
+  Organizer({required this.config, required this.raccourcis, this.enregistre}) {
+    // Les refus et la suspension appartiennent a la table, pas a l'Organizer :
+    // il les affiche, il ne les tient pas.
+    raccourcis.addListener(notifyListeners);
+  }
 
   final Config config;
 
-  /// Public comme [config] : un champ prive ne peut pas etre alimente par un
-  /// parametre nomme, que Dart interdit de faire commencer par un souligne.
-  final PontOrganizer pont;
+  /// La table des touches, partagee avec les macros.
+  final Raccourcis raccourcis;
 
   /// Appele apres chaque modification, pour que les reglages soient ecrits.
   final VoidCallback? enregistre;
 
-  Set<String> _refuses = {};
+  /// Le nom sous lequel l'Organizer declare ses touches. Il se declare le
+  /// premier : a touche egale, un personnage passe avant une macro.
+  static const String source = 'organizer';
+
+  PontOrganizer get pont => raccourcis.pont;
+
   DernierAppel? _dernier;
-  Future<void>? _synchro;
-  bool _capture = false;
+
+  @override
+  void dispose() {
+    raccourcis.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   List<EquipeOrganizer> get equipes => config.equipes;
   DernierAppel? get dernierAppel => _dernier;
 
   /// Vrai pendant une capture de raccourci : les raccourcis globaux sont
   /// relaches pour que les touches parviennent au champ de saisie.
-  bool get enCapture => _capture;
+  bool get enCapture => raccourcis.enCapture;
 
   /// Le nombre de raccourcis reellement enregistres dans Windows.
   int get actifs =>
       _liaisons().where((l) => !_refuses.contains(l.id)).length;
 
-  int get refuses => _refuses.length;
-  bool get aDesConflits => _refuses.isNotEmpty;
+  Set<String> get _refuses => raccourcis.refuses;
+
+  int get refuses =>
+      _liaisons().where((l) => _refuses.contains(l.id)).length;
+
+  bool get aDesConflits => refuses > 0;
 
   /// Vrai quand Windows a refuse le raccourci de ce personnage.
   bool enConflit(PersonnageOrganizer personnage) {
@@ -176,24 +275,19 @@ class Organizer extends ChangeNotifier {
 
   /// Se termine quand le jeu de raccourcis pousse par la derniere
   /// modification est arrive au natif. C'est le point d'attente des tests.
-  Future<void> get synchronise => _synchro ?? Future<void>.value();
+  Future<void> get synchronise => raccourcis.synchronise;
 
   /// Redemande a Windows les raccourcis qu'il avait refuses.
   ///
   /// Un refus vient presque toujours d'une autre application qui tenait la
   /// touche ; une fois qu'elle est fermee, rien ne le rattraperait sans cela —
   /// il faudrait modifier une equipe pour que le jeu de raccourcis reparte.
-  Future<void> reessaie() async {
-    if (_refuses.isEmpty) return;
-    _synchro = _pousse();
-    await _synchro;
-  }
+  Future<void> reessaie() => raccourcis.reessaie();
 
   Future<void> demarre() async {
-    pont
-      ..surRaccourci = _surRaccourci
-      ..ecoute();
-    await _pousse();
+    raccourcis.ecoute();
+    _pousse();
+    await synchronise;
   }
 
   // --- Equipes -------------------------------------------------------------
@@ -323,25 +417,8 @@ class Organizer extends ChangeNotifier {
 
   // --- Capture de raccourci -------------------------------------------------
 
-  Future<void> debuteCapture() async {
-    if (_capture) return;
-    _capture = true;
-    notifyListeners();
-    await pont.suspend(suspendu: true);
-  }
-
-  Future<void> termineCapture() async {
-    if (!_capture) return;
-    _capture = false;
-    notifyListeners();
-    await pont.suspend(suspendu: false);
-  }
-
   /// Active la fenetre d'un personnage sans passer par son raccourci.
   Future<bool> essaie(String titre) => pont.active(titre);
-
-  Future<int> toucheDuCaractere(String caractere) =>
-      pont.toucheDuCaractere(caractere);
 
   // --- Interne -------------------------------------------------------------
 
@@ -390,20 +467,18 @@ class Organizer extends ChangeNotifier {
     return liaisons;
   }
 
-  Future<void> _pousse() async {
-    if (_capture) return;
-    final refuses = await pont.applique(_liaisons());
-    if (!setEquals(refuses, _refuses)) {
-      _refuses = refuses;
-      notifyListeners();
-    }
-  }
+  void _pousse() => raccourcis.declare(
+    source,
+    _liaisons(),
+    surAppel: _surRaccourci,
+    priorite: 0,
+  );
 
   void _change(List<EquipeOrganizer> equipes, {bool pousse = true}) {
     config.equipes = equipes;
     notifyListeners();
     enregistre?.call();
-    if (pousse) _synchro = _pousse();
+    if (pousse) _pousse();
   }
 
   void _mapEquipe(

@@ -632,6 +632,109 @@ personnages. La liste des classes proposees est tiree des libelles extraits,
 non d'une table ecrite dans le code : une classe ajoutee par une mise a jour du
 jeu apparait sans qu'on y touche.
 
+## Les macros
+
+Une touche, une suite d'actions. Ce que l'on ecrivait dans un script externe —
+inviter son groupe, repeter une commande sur chaque personnage — ramene dans
+l'outil, et lisible sans savoir programmer.
+
+Cinq actions et pas une de plus : ecrire, appuyer, cliquer, changer de fenetre,
+attendre — plus la boucle, qui contient les autres. Ni condition, ni calcul :
+ce n'est pas un langage, et le jour ou il en faudrait un, c'est qu'on ne fait
+plus la meme chose.
+
+Une macro se **deroule en Dart**, contrairement a l'Organizer dont l'appui de
+touche est traite entierement du cote natif. Elle attend, elle enchaine, elle
+s'arrete en cours : la latence n'a pas la meme importance — tenir des pauses de
+cent millisecondes, pas en gagner deux — et le derouler ici le rend lisible et
+verifiable, ce qu'une boucle dans un fil natif n'aurait pas ete.
+
+### Les variables
+
+Un nom, une ou plusieurs valeurs. Une boucle les parcourt, et `{nom}` vaut
+alors la valeur du tour. **Hors d'une boucle, `{nom}` n'est pas remplace** :
+c'est du texte, et c'est du texte qui part. Substituer partout aurait fait de
+l'accolade un caractere qu'on ne peut plus taper, alors que le jeu en accepte.
+
+L'environnement est copie a chaque tour plutot que modifie : une boucle
+imbriquee ne peut pas ecraser la variable de celle qui la contient.
+
+### Ecrire, et ce qui a mal tourne
+
+Trois mecanismes ont ete essayes avant celui qui tient. Ils sont rappeles ici
+parce que chacun echoue **en silence**, et qu'on y reviendrait sans cela.
+
+`SendInput` avec `KEYEVENTF_UNICODE` fabrique des touches `VK_PACKET` ou le
+caractere voyage dans le code de scan. Le destinataire ne le lit qu'au moment
+ou il traite le message : en retard, il lit le caractere suivant. Une phrase
+entiere envoyee d'un bloc sortait comme autant de copies de sa derniere lettre
+— dix-huit « n » pour « /invite Clandestin ». Espacer les frappes reduisait le
+desordre sans le supprimer.
+
+Le presse-papiers puis `WM_PASTE` ecrit parfaitement dans une fenetre
+ordinaire, et **rien** dans le jeu : `WM_PASTE` appartient aux controles de
+Windows, et un jeu qui dessine lui-meme son tchat laisse le message tomber. Le
+Ctrl+V de la meme idee, en frappes injectees, n'arrivait qu'a moitie — le jeu
+lisait un « v » sans son modificateur.
+
+Ce qui tient : `WM_CHAR` **synchrone** (`SendMessageTimeoutW`) au controle qui a
+le clavier, lettre par lettre. Le caractere voyage dans le message et rien ne
+peut le confondre avec son voisin ; l'envoi synchrone cale le rythme sur ce que
+la fenetre absorbe vraiment. Une cadence — lent, normal, rapide — s'y ajoute,
+non pour laisser respirer le destinataire mais pour ressembler a une main.
+
+Deux details qui ont coute cher :
+
+- **Soixante millisecondes avant la premiere lettre.** La touche qui precede
+  vient souvent d'ouvrir le tchat, et la fenetre met quelques images a l'avoir
+  sous le clavier : le premier caractere se perdait, c'est-a-dire le « / » qui
+  fait une commande.
+- **Le focus se lit apres coup.** Les frappes injectees passent par la file du
+  systeme, les messages par celle du fil : deux chemins, deux vitesses. Lire le
+  focus sans attendre donnait celui d'**avant** la touche precedente. Un
+  `WM_NULL` synchrone rejoint les deux — il ne revient que lorsque le fil d'en
+  face a traite ce qui precede.
+
+### Le jeu, et rien d'autre
+
+Tout ce que l'outil active, tape ou clique passe par un filtre : la fenetre
+doit appartenir a un processus dont l'executable s'appelle `Dofus*`. Ce n'est
+pas une precaution de principe. Une macro d'essai a envoye deux commandes dans
+un client de jeu alors qu'elle visait une autre fenetre — `SetForegroundWindow`
+avait echoue en silence, et rien ne le verifiait.
+
+Le refus est pose dans le natif, au plus pres de l'envoi, la ou l'appelant ne
+peut pas l'oublier. Cote Dart, il **arrete la macro** et le dit : une macro qui
+s'arrete sans expliquer pourquoi se signale comme une panne.
+
+### La table des touches
+
+`RegisterHotKey` ne connait qu'une table par processus, et le natif la remplace
+en entier a chaque envoi : l'Organizer et les macros se seraient effaces l'un
+l'autre. `source/raccourcis.dart` arbitre — chaque source **declare** ce
+qu'elle veut, l'union part au natif, l'appui revient a celle qui l'a demande. A
+touche egale, un personnage passe avant une macro ; la priorite est ecrite, non
+deduite de l'ordre de demarrage.
+
+La touche d'arret est la seule qui reponde pendant qu'une macro joue. Elle ne
+pouvait pas passer par la suspension du natif, qui est globale : la table est
+donc reduite a cette seule touche le temps du jeu, puis rendue entiere.
+
+### Le pointeur de visee
+
+Une fenetre a nous, posee sur tout le bureau, qui **fige l'ecran** au moment ou
+elle s'ouvre. C'est ce qui permet au clic de ne pas atteindre ce qu'il y a
+dessous : il tombe sur cette fenetre-la, qui le lit et se retire.
+
+Le fond etait d'abord une transparence par couleur, recomposee a chaque
+mouvement : douze millions de pixels par pas de souris, et une croix qui
+trainait derriere le pointeur. L'ecran est desormais photographie une fois, et
+seules deux bandes de trois pixels sont redessinees — vingt-cinq mille pixels.
+
+Et surtout, `WM_DESTROY` **ne poste pas** `WM_QUIT` : celui-ci n'appartient pas
+a la visee mais au fil, et la boucle principale de Flutter le lisait comme un
+ordre de fermeture. L'outil se fermait au moment ou l'on validait un point.
+
 ## La fermeture
 
 Cliquer sur la croix figeait la fenetre cinq secondes. Chronometre, chaque

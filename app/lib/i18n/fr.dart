@@ -711,4 +711,165 @@ class TextesFr extends Textes {
       'Aucune fenêtre trouvée : $titres';
   @override
   String get reessayer => 'Réessayer';
+  @override
+  String get macros => 'Macros';
+  @override
+  String get macrosOnglet => 'Suites de gestes déclenchées par une touche';
+  @override
+  String get macrosSousTitre => 'Actions automatisées';
+  @override
+  String get nouvelleMacro => 'Nouvelle macro';
+  @override
+  String get modifierMacro => 'Modifier la macro';
+  @override
+  String get renommerMacro => 'Renommer la macro';
+  @override
+  String get supprimerMacro => 'Supprimer la macro';
+  @override
+  String supprimerMacroDetail(String macro, int actions) => actions <= 1
+      ? '« $macro » et son action sont effacés. Rien ne permet de revenir en '
+            'arrière.'
+      : '« $macro » et ses $actions actions sont effacés. Rien ne permet de '
+            'revenir en arrière.';
+  @override
+  String get aucuneMacro => 'Aucune macro';
+  @override
+  String get aucuneMacroDetail =>
+      'Une macro écrit du texte, appuie sur des touches, clique et attend '
+      'entre les deux. Une touche la déclenche, où que vous soyez.';
+  @override
+  String get creerMacro => 'Créer une macro';
+  @override
+  String get macroVide => 'Aucune action pour le moment';
+  @override
+  String actions(int nombre) =>
+      nombre <= 1 ? '$nombre action' : '$nombre actions';
+  @override
+  String macrosActives(int nombre) =>
+      nombre <= 1 ? '$nombre macro active' : '$nombre macros actives';
+  @override
+  String get macroDesactivee => 'Désactivée';
+  @override
+  String get activerMacro => 'Activer cette macro';
+  @override
+  String get desactiverMacro => 'Désactiver cette macro';
+  @override
+  String get jouerMacro => 'Jouer';
+  @override
+  String get arreterMacro => 'Arrêter';
+  @override
+  String macroEnCours(String macro) => '« $macro » en cours';
+  @override
+  String get actionsMacro => 'Actions';
+  @override
+  String get personnageCible => 'Personnage visé';
+  @override
+  String get personnageCibleAide =>
+      'Sa fenêtre passe devant avant le premier geste. Laissé vide, la macro '
+      'part dans la fenêtre déjà au premier plan.';
+  @override
+  String get fenetreAuPremierPlan => 'Fenêtre au premier plan';
+  @override
+  String get ajouterTexte => 'Texte';
+  @override
+  String get ajouterTouche => 'Touche';
+  @override
+  String get ajouterPause => 'Pause';
+  @override
+  String get texteAEcrire => 'Texte à écrire';
+  @override
+  String get dureeAttente => 'Attente en millisecondes';
+  @override
+  String get etapeTexte => 'Écrire';
+  @override
+  String get etapeTouche => 'Appuyer';
+  @override
+  String get etapePause => 'Attendre';
+  @override
+  String get monter => 'Monter';
+  @override
+  String get descendre => 'Descendre';
+  @override
+  String get toucheDejaPrise => 'Touche déjà tenue par un personnage';
+  @override
+  String get arretMacros => 'Touche d\'arrêt';
+  @override
+  String get arretMacrosAide =>
+      'Elle arrête net la macro en cours. C\'est la seule touche qui '
+      'répond pendant qu\'une macro joue.';
+  @override
+  String get dupliquerMacro => 'Dupliquer';
+  @override
+  String copieDe(String macro) => '$macro (copie)';
+  @override
+  String cadenceFrappe(int ms) => switch (ms) {
+    <= 20 => 'Rapide',
+    <= 30 => 'Normal',
+    _ => 'Lent',
+  };
+  @override
+  String get cadenceProfil =>
+      'Le rythme de la frappe. Une fenêtre qui perd des lettres en demande un '
+      'plus lent.';
+  @override
+  String get ajouterFenetre => 'Focus';
+  @override
+  String get etapeFenetre => 'Focus';
+  @override
+  String get fenetreAide =>
+      'Le nom du personnage. Seules les fenêtres du jeu répondent.';
+  @override
+  String horsDuJeu(String fenetre) => fenetre.isEmpty
+      ? 'La macro s’arrête : le jeu n’est pas au premier plan.'
+      : 'La macro s’arrête : « $fenetre » n’est pas une fenêtre du jeu.';
+  @override
+  String fenetrePasDevant(String cible, String obstacle) =>
+      'Windows a refusé de mettre « $cible » devant : $obstacle tient le '
+      'clavier. Rien n’a été tapé.';
+  @override
+  String get ajouterClic => 'Clic';
+  @override
+  String get ajouterBoucle => 'Boucle';
+  @override
+  String get etapeClic => 'Cliquer';
+  @override
+  String get etapeBoucle => 'Répéter';
+  @override
+  String get viser => 'Viser';
+  @override
+  String get viserAide =>
+      'Cliquez où la macro devra cliquer. Échap pour renoncer.';
+  @override
+  String get clicGauche => 'Clic gauche';
+  @override
+  String get clicDroit => 'Clic droit';
+  @override
+  String get reglerBoucle => 'Régler la boucle';
+  @override
+  String get nombreDeTours => 'Nombre de tours';
+  @override
+  String repeterNFois(int tours) =>
+      tours <= 1 ? '$tours fois' : '$tours fois';
+  @override
+  String pourChaque(String variable, int nombre) =>
+      'pour chaque {$variable} (${valeurs(nombre)})';
+  @override
+  String get parcourirVariable => 'Parcourir une variable';
+  @override
+  String get variablesMacro => 'Variables';
+  @override
+  String get ajouterVariable => 'Ajouter une variable';
+  @override
+  String get nomVariable => 'Nom';
+  @override
+  String get valeursVariable => 'Valeurs, une par ligne';
+  @override
+  String get valeursAide =>
+      'Une boucle parcourt une variable ; dans ses textes, {nom} vaut la '
+      'valeur du tour. Ailleurs, {nom} part tel quel.';
+  @override
+  String get aucuneVariable => 'Aucune variable';
+  @override
+  String valeurs(int nombre) =>
+      nombre <= 1 ? '$nombre valeur' : '$nombre valeurs';
 }

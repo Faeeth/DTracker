@@ -19,7 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../config.dart';
+import '../source/macros.dart';
 import '../source/organizer.dart';
+import '../source/raccourcis.dart';
 import '../modele/session.dart';
 import '../source/archives.dart';
 import '../source/cache.dart';
@@ -67,9 +69,18 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
 
   /// Les equipes et leurs raccourcis. Cree ici pour que les touches restent
   /// actives quelle que soit la page regardee.
+  /// La table des touches globales, partagee par l'Organizer et les macros.
+  final Raccourcis _raccourcis = Raccourcis(pont: PontOrganizer());
+
   late final Organizer _organizer = Organizer(
     config: widget.config,
-    pont: PontOrganizer(),
+    raccourcis: _raccourcis,
+    enregistre: () => widget.config.enregistre(widget.racine),
+  );
+
+  late final Macros _macros = Macros(
+    config: widget.config,
+    raccourcis: _raccourcis,
     enregistre: () => widget.config.enregistre(widget.racine),
   );
   StreamSubscription? _abonnement;
@@ -101,7 +112,10 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
       if (mounted) setState(() => _etat = etat);
     });
     widget.flux.demarre();
+    // L'Organizer se declare le premier : a touche egale, un personnage
+    // passe avant une macro.
     _organizer.demarre();
+    _macros.demarre();
     _accueille();
 
     _horloge = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -507,6 +521,7 @@ class _SurcoucheState extends State<Surcouche> with WindowListener {
     }
     return Coquille(
       organizer: _organizer,
+      macros: _macros,
       config: config,
       session: session,
       archives: widget.archives,

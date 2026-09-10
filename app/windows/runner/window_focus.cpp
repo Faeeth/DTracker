@@ -2,6 +2,8 @@
 
 #include <dwmapi.h>
 
+#include <psapi.h>
+
 #include <algorithm>
 #include <cwctype>
 
@@ -9,9 +11,45 @@ namespace dofus {
 
 namespace {
 
+// Le debut du nom d'executable du jeu, en minuscules. « Dofus.exe » pour le
+// client ordinaire ; le prefixe couvre les variantes sans avoir a les nommer.
+constexpr wchar_t kExecutableDuJeu[] = L"dofus";
+
 // Upper bound used when reading a window title. Dofus titles are far below
 // this, and a fixed stack buffer keeps the hotkey path allocation free.
 constexpr int kMaxTitleLength = 512;
+
+// Le nom de l'executable d'un processus, en minuscules, sans son chemin.
+std::wstring NomDExecutable(DWORD processus) {
+  HANDLE poignee = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE,
+                                 processus);
+  if (poignee == nullptr) {
+    return std::wstring();
+  }
+  wchar_t chemin[MAX_PATH];
+  DWORD longueur = MAX_PATH;
+  std::wstring nom;
+  if (::QueryFullProcessImageNameW(poignee, 0, chemin, &longueur)) {
+    nom.assign(chemin, longueur);
+    const size_t barre = nom.find_last_of(L"\\/");
+    if (barre != std::wstring::npos) {
+      nom = nom.substr(barre + 1);
+    }
+    nom = NormalizeTitleNeedle(nom);
+  }
+  ::CloseHandle(poignee);
+  return nom;
+}
+
+bool EstDuJeu(HWND window) {
+  DWORD processus = 0;
+  ::GetWindowThreadProcessId(window, &processus);
+  if (processus == 0) {
+    return false;
+  }
+  const std::wstring nom = NomDExecutable(processus);
+  return nom.rfind(kExecutableDuJeu, 0) == 0;
+}
 
 // A window is a candidate only when it is a visible, titled top level window
 // that is not cloaked by DWM (virtual desktops, suspended UWP hosts) and does
@@ -26,6 +64,12 @@ bool IsCandidate(HWND window) {
     return false;
   }
   if (::GetWindowTextLengthW(window) == 0) {
+    return false;
+  }
+  // Seules les fenetres du jeu sont des cibles. Un navigateur ou un editeur
+  // ouvert sur le nom d'un personnage porte le meme titre, et une macro qui
+  // s'y tromperait ecrirait ailleurs.
+  if (!EstDuJeu(window)) {
     return false;
   }
   BOOL cloaked = FALSE;
@@ -129,6 +173,10 @@ BOOL CALLBACK EnumProc(HWND window, LPARAM lparam) {
 }
 
 }  // namespace
+
+bool EstFenetreDuJeu(HWND window) {
+  return window != nullptr && EstDuJeu(window);
+}
 
 std::wstring NormalizeTitleNeedle(const std::wstring& title) {
   std::wstring normalized = title;
