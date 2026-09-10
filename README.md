@@ -16,9 +16,10 @@ plusieurs personnages au fil d'une session de jeu, et conserve chaque session
 pour la relire ensuite. L'affichage se fait dans une fenêtre ordinaire, ou dans
 une bande translucide posée par-dessus le jeu.
 
-Il porte aussi un **Organizer** : une touche par personnage, qui ramène sa
-fenêtre au premier plan. Le suivi et l'Organizer ne se parlent pas — c'est un
-outil de fenêtres qui partage la fenêtre du tracker.
+Il porte aussi un **Organizer** — une touche par personnage, qui ramène sa
+fenêtre au premier plan — et des **macros**, qui enchaînent des actions sur
+une touche. Ni l'un ni l'autre ne parle au suivi : ce sont des outils de
+fenêtres et de clavier qui partagent la fenêtre du tracker.
 
 L'outil est **strictement passif** : il lit le trafic réseau que le serveur
 envoie déjà au client. Il n'écrit rien, n'envoie rien au jeu et n'automatise
@@ -122,6 +123,38 @@ Toutes les touches sont acceptées, modificateurs compris. Windows refuse celles
 qu'une autre application détient déjà : elles sont signalées en rouge, et un
 bouton les redemande une fois l'autre programme fermé.
 
+### Macros
+
+![Liste des macros](docs/captures/macros.png)
+
+Une touche déclenche une suite d'actions : écrire du texte, appuyer sur une
+touche, cliquer à un endroit de l'écran, passer à la fenêtre d'un autre
+personnage, attendre, répéter. C'est ce qu'on écrivait jusqu'ici dans un script
+externe, ramené dans l'outil et lisible sans savoir programmer.
+
+![Éditeur d'une macro](docs/captures/macro-editeur.png)
+
+Une macro porte des **variables** — un nom, une ou plusieurs valeurs — et une
+**boucle** les parcourt : un tour par personnage, et `{mes_persos}` vaut celui
+du tour. Hors d'une boucle, `{mes_persos}` n'est pas interprété et part tel
+quel : une accolade reste un caractère qu'on peut taper.
+
+Le texte s'écrit lettre à lettre, à l'un des trois rythmes — lent, normal,
+rapide. Ce n'est pas une coquetterie : une fenêtre qui reçoit tout d'un bloc
+n'a pas toujours vidé sa file de messages entre deux caractères, et rend alors
+plusieurs fois la même lettre.
+
+Le clic se prend au **pointeur de visée** : l'écran se fige, une croix suit la
+souris avec les coordonnées, et un clic les retient sans atteindre ce qu'il y a
+dessous.
+
+Une **touche d'arrêt**, réglée en tête de page, reprend la main sur une macro
+partie de travers. C'est la seule touche qui réponde pendant qu'une macro joue.
+
+Une macro d'exemple est livrée, désactivée et sans touche : elle montre la
+boucle, la variable et le passage d'une fenêtre à l'autre sur le cas qui a
+motivé tout ceci — inviter son groupe.
+
 ### Réglages
 
 ![Personnages suivis](docs/captures/reglages-personnages.png)
@@ -180,12 +213,20 @@ plus.
 - **Aucune modification du client** : aucun fichier du jeu n'est écrit.
 - **Aucun proxy, aucun intermédiaire** : le trafic n'est ni détourné ni
   réécrit, il est observé sur la carte réseau.
-- **Aucune automatisation** : aucune frappe, aucun clic, aucune commande n'est
-  produite. Le programme n'agit jamais en jeu. L'Organizer fait exception au
-  seul niveau de Windows : il enregistre des raccourcis globaux
-  (`RegisterHotKey`) et amène une fenêtre au premier plan
-  (`SetForegroundWindow`), ce que ferait un clic sur la barre des tâches. Rien
-  n'est envoyé au jeu, et rien n'est enchaîné.
+- **Aucun automatisme qui ne vienne de vous** : le suivi n'écrit rien et
+  n'envoie rien. L'Organizer et les macros, eux, agissent — c'est leur objet —
+  et uniquement sur commande.
+
+  L'**Organizer** enregistre des raccourcis globaux (`RegisterHotKey`) et amène
+  une fenêtre au premier plan (`SetForegroundWindow`), ce que ferait un clic
+  sur la barre des tâches.
+
+  Les **macros** produisent de vraies frappes et de vrais clics
+  (`SendInput`, `WM_CHAR`), à la touche que vous leur donnez, dans l'ordre que
+  vous avez écrit. Elles ne lisent rien du jeu, ne décident rien, ne se
+  déclenchent pas seules et ne bouclent pas sans fin — une boucle est bornée à
+  mille tours. Elles refusent de partir si la fenêtre au premier plan
+  n'appartient pas au jeu, et s'arrêtent en le disant.
 
 ### Ce qui sort de la machine
 
@@ -209,8 +250,11 @@ s'affichant alors « Objet 1731 ».
 
 ### Responsabilité
 
-DTracker est un outil de lecture et d'analyse. Il reste à la charge de chacun de
-vérifier que son usage est compatible avec les conditions d'utilisation du jeu.
+DTracker lit le réseau, et — pour l'Organizer et les macros — envoie au jeu des
+frappes et des clics que vous avez écrits. Une macro n'est pas un robot : elle
+ne lit pas l'état du jeu et ne décide rien. Elle n'en reste pas moins une
+automatisation, et il revient à chacun de vérifier que son usage est compatible
+avec les conditions d'utilisation du jeu.
 
 ---
 

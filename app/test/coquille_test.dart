@@ -14,7 +14,9 @@ import 'dart:async';
 
 import 'package:dofus_tracker/config.dart';
 import 'package:dofus_tracker/modele/organizer.dart';
+import 'package:dofus_tracker/source/macros.dart';
 import 'package:dofus_tracker/source/organizer.dart';
+import 'package:dofus_tracker/source/raccourcis.dart';
 import 'package:dofus_tracker/modele/session.dart';
 import 'package:dofus_tracker/source/archives.dart';
 import 'package:dofus_tracker/source/flux.dart';
@@ -64,6 +66,7 @@ Future<void> monte(
   ],
   Size taille = const Size(1280, 800),
   Organizer? organizer,
+  Macros? macros,
 }) async {
   await tester.binding.setSurfaceSize(taille);
   addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -86,7 +89,9 @@ Future<void> monte(
               // Sans canal natif sous le harnais : le pont retombe sur ses
               // pieds et l'onglet reste montable.
               organizer:
-                  organizer ?? Organizer(config: config, pont: PontOrganizer()),
+                  organizer ?? Organizer(config: config, raccourcis: Raccourcis(pont: PontOrganizer())),
+              macros:
+                  macros ?? Macros(config: config, raccourcis: Raccourcis(pont: PontOrganizer())),
               config: config,
               session: session,
               archives: archives,
@@ -1007,7 +1012,7 @@ void main() {
     // chose utile — qui disparaissait le premier.
     final d = dossierTemporaire();
     final config = Config();
-    final organizer = Organizer(config: config, pont: PontOrganizer());
+    final organizer = Organizer(config: config, raccourcis: Raccourcis(pont: PontOrganizer()));
     addTearDown(organizer.dispose);
     // Sans `await` : le pont s'adresse a un canal que le harnais ne sert pas,
     // et attendre sa reponse ici bloquerait le cas avant la premiere image.
@@ -1054,7 +1059,7 @@ void main() {
   testWidgets('replier une equipe cache ses personnages', (tester) async {
     final d = dossierTemporaire();
     final config = Config();
-    final organizer = Organizer(config: config, pont: PontOrganizer());
+    final organizer = Organizer(config: config, raccourcis: Raccourcis(pont: PontOrganizer()));
     addTearDown(organizer.dispose);
     unawaited(organizer.demarre());
     final equipe = organizer.ajouteEquipe('Kaska');

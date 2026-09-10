@@ -14,6 +14,15 @@ namespace dofus {
 // normalized through this function before comparison.
 std::wstring NormalizeTitleNeedle(const std::wstring& title);
 
+// Vrai quand |window| appartient au jeu.
+//
+// Le programme est reconnu au nom de son executable, non a son titre : un
+// navigateur ouvert sur le nom d'un personnage porterait le meme titre, et
+// c'est precisement ce qu'on ne veut pas viser. Tout ce que l'outil active,
+// tape ou clique passe par ce filtre — une macro qui se trompe de fenetre
+// ecrit dans autre chose que le jeu, et cela s'est deja produit.
+bool EstFenetreDuJeu(HWND window);
+
 // Resolves top level windows by title substring and brings them to the
 // foreground.
 //

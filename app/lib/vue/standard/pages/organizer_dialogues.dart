@@ -14,6 +14,7 @@ import 'package:shadcn_ui/shadcn_ui.dart' hide Cache;
 import '../../../i18n/textes.dart';
 import '../../../modele/organizer.dart';
 import '../../../source/organizer.dart';
+import '../../../source/raccourcis.dart';
 import '../../../source/ressources.dart';
 import '../briques.dart';
 
@@ -183,7 +184,7 @@ Future<void> changeRaccourci(
 ) async {
   final choix = await captureUnRaccourci(
     context,
-    organizer,
+    organizer.raccourcis,
     titre: T.raccourciDe(personnage.nom),
     initial: personnage.raccourci,
   );
@@ -275,7 +276,7 @@ class _FichePersonnageState extends State<_FichePersonnage> {
     final nom = _nom.text.trim();
     final choix = await captureUnRaccourci(
       context,
-      widget.organizer,
+      widget.organizer.raccourcis,
       titre: T.raccourciDe(nom.isEmpty ? T.nouveauPersonnage : nom),
       initial: _raccourci,
     );
@@ -651,7 +652,7 @@ class ChoixRaccourci {
 
 Future<ChoixRaccourci?> captureUnRaccourci(
   BuildContext context,
-  Organizer organizer, {
+  Raccourcis raccourcis, {
   required String titre,
   Raccourci? initial,
 }) {
@@ -659,7 +660,7 @@ Future<ChoixRaccourci?> captureUnRaccourci(
     context: context,
     barrierDismissible: false,
     builder: (contexte) =>
-        _Capture(organizer: organizer, titre: titre, initial: initial),
+        _Capture(raccourcis: raccourcis, titre: titre, initial: initial),
   );
 }
 
@@ -669,9 +670,9 @@ Future<ChoixRaccourci?> captureUnRaccourci(
 /// avalerait les touches deja enregistrees au lieu de les laisser arriver
 /// jusqu'ici.
 class _Capture extends StatefulWidget {
-  const _Capture({required this.organizer, required this.titre, this.initial});
+  const _Capture({required this.raccourcis, required this.titre, this.initial});
 
-  final Organizer organizer;
+  final Raccourcis raccourcis;
   final String titre;
   final Raccourci? initial;
 
@@ -687,12 +688,12 @@ class _CaptureState extends State<_Capture> {
   @override
   void initState() {
     super.initState();
-    widget.organizer.debuteCapture();
+    widget.raccourcis.debuteCapture();
   }
 
   @override
   void dispose() {
-    widget.organizer.termineCapture();
+    widget.raccourcis.termineCapture();
     _focus.dispose();
     super.dispose();
   }
@@ -704,19 +705,20 @@ class _CaptureState extends State<_Capture> {
       if (evenement.logicalKey == LogicalKeyboardKey.escape) {
         Navigator.of(context).pop();
       } else if (!estModificateur(evenement.logicalKey)) {
-        _saisit(evenement.logicalKey);
+        _saisit(evenement.logicalKey, evenement.character);
       }
     }
     // Rien ne s'echappe pendant la capture, pas meme la tabulation.
     return KeyEventResult.handled;
   }
 
-  Future<void> _saisit(LogicalKeyboardKey touche) async {
+  Future<void> _saisit(LogicalKeyboardKey touche, String? caractere) async {
     var code = toucheVirtuelle(touche);
     // Ponctuation et touches mortes : leur code depend de la disposition, on
     // demande a Windows quelle touche produit ce caractere.
-    if (code == null && touche.keyLabel.isNotEmpty) {
-      final resolu = await widget.organizer.toucheDuCaractere(touche.keyLabel);
+    final ecrit = caractereEcrit(touche, caractere);
+    if (code == null && ecrit.isNotEmpty) {
+      final resolu = await widget.raccourcis.toucheDuCaractere(ecrit);
       if (resolu != 0) code = resolu;
     }
     if (!mounted) return;
@@ -734,7 +736,7 @@ class _CaptureState extends State<_Capture> {
       _capture = Raccourci(
         touche: code!,
         modificateurs: modificateurs,
-        libelle: touche.keyLabel.isEmpty ? null : touche.keyLabel,
+        libelle: ecrit.isEmpty ? null : ecrit,
       );
       _erreur = null;
     });
@@ -964,6 +966,22 @@ int? toucheVirtuelle(LogicalKeyboardKey touche) {
     }
   }
   return null;
+}
+
+/// Le caractere que la touche a reellement produit.
+///
+/// Le libelle d'une touche logique est celui de la **disposition americaine**,
+/// et il ment des qu'on s'en ecarte : sur un clavier francais, la touche `*`
+/// s'annonce `\` — celle qui porte cela en QWERTY. Demander a Windows quelle
+/// touche produit `\` renvoyait alors AltGr+8, c'est-a-dire une autre touche,
+/// et le raccourci ne repondait jamais.
+///
+/// Le caractere de l'evenement, lui, vient de la disposition en cours. On s'y
+/// fie quand il y en a un ; le libelle ne sert plus que pour ce qui n'ecrit
+/// rien.
+String caractereEcrit(LogicalKeyboardKey touche, String? caractere) {
+  if (caractere != null && caractere.trim().isNotEmpty) return caractere;
+  return touche.keyLabel;
 }
 
 /// Vrai quand la touche ne fait que modifier une autre et ne peut pas etre

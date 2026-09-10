@@ -2,6 +2,8 @@
 
 #include <flutter/standard_method_codec.h>
 
+#include "input_service.h"
+#include "point_picker.h"
 #include "utils.h"
 
 namespace dofus {
@@ -13,6 +15,12 @@ constexpr char kMethodApply[] = "hotkeys.apply";
 constexpr char kMethodSetSuspended[] = "hotkeys.setSuspended";
 constexpr char kMethodFocus[] = "window.focus";
 constexpr char kMethodVirtualKey[] = "keys.virtualKeyForCharacter";
+constexpr char kMethodSendText[] = "input.text";
+constexpr char kMethodSendKey[] = "input.key";
+constexpr char kMethodForeground[] = "window.foreground";
+constexpr char kMethodClick[] = "input.click";
+constexpr char kMethodPick[] = "mouse.pick";
+constexpr char kMethodIsGame[] = "window.isGame";
 constexpr char kEventHotkey[] = "onHotkey";
 
 using flutter::EncodableList;
@@ -61,7 +69,10 @@ bool ParseBinding(const EncodableValue& value, HotkeyBinding* binding) {
     }
     binding->needles.push_back(NormalizeTitleNeedle(Utf16FromUtf8(*title)));
   }
-  return !binding->needles.empty();
+  // Une liste vide est licite : c'est la liaison d'une macro, qui n'active
+  // aucune fenetre par elle-meme. Le natif se contente alors de signaler
+  // l'appui, et Dart decide de la suite.
+  return true;
 }
 
 }  // namespace
@@ -160,6 +171,90 @@ void OrganizerBridge::HandleMethodCall(
     }
     result->Success(
         EncodableValue(static_cast<int32_t>(VirtualKeyForCharacter(wide[0]))));
+    return;
+  }
+
+  // Le titre de la fenetre qui a le clavier.
+  //
+  // Une macro s'en sert avant de taper : `SetForegroundWindow` echoue en
+  // silence quand Windows refuse le changement de premier plan — un jeu en
+  // plein ecran, par exemple — et les frappes partiraient alors dans la
+  // fenetre qui etait devant.
+  if (call.method_name() == kMethodForeground) {
+    const HWND fenetre = ::GetForegroundWindow();
+    if (fenetre == nullptr) {
+      result->Success(EncodableValue(std::string()));
+      return;
+    }
+    const int longueur = ::GetWindowTextLengthW(fenetre);
+    std::wstring titre(static_cast<size_t>(longueur) + 1, L'\0');
+    const int lu = ::GetWindowTextW(fenetre, titre.data(), longueur + 1);
+    titre.resize(static_cast<size_t>(lu < 0 ? 0 : lu));
+    result->Success(EncodableValue(Utf8FromUtf16(titre.c_str())));
+    return;
+  }
+
+  // La fenetre au premier plan appartient-elle au jeu ?
+  //
+  // Le natif refuse deja de taper ailleurs ; ceci sert a le **dire** — une
+  // macro qui s'arrete sans expliquer pourquoi se signale comme une panne.
+  if (call.method_name() == kMethodIsGame) {
+    result->Success(EncodableValue(EstFenetreDuJeu(::GetForegroundWindow())));
+    return;
+  }
+
+  if (call.method_name() == kMethodSendText) {
+    const auto* map = std::get_if<EncodableMap>(call.arguments());
+    if (map == nullptr) {
+      result->Error("bad_arguments", "Un texte est attendu");
+      return;
+    }
+    const std::string texte = ValueOr<std::string>(*map, "text", "");
+    const DWORD cadence =
+        static_cast<DWORD>(ValueOr<int32_t>(*map, "pace", 0));
+    result->Success(EncodableValue(
+        InputService::SendText(Utf16FromUtf8(texte), cadence)));
+    return;
+  }
+
+  if (call.method_name() == kMethodSendKey) {
+    const auto* map = std::get_if<EncodableMap>(call.arguments());
+    if (map == nullptr) {
+      result->Error("bad_arguments", "Une touche est attendue");
+      return;
+    }
+    const UINT key = static_cast<UINT>(ValueOr<int32_t>(*map, "keyCode", 0));
+    const UINT modifiers =
+        static_cast<UINT>(ValueOr<int32_t>(*map, "modifiers", 0));
+    result->Success(EncodableValue(InputService::SendKey(key, modifiers)));
+    return;
+  }
+
+  if (call.method_name() == kMethodClick) {
+    const auto* map = std::get_if<EncodableMap>(call.arguments());
+    if (map == nullptr) {
+      result->Error("bad_arguments", "Des coordonnees sont attendues");
+      return;
+    }
+    const int x = ValueOr<int32_t>(*map, "x", 0);
+    const int y = ValueOr<int32_t>(*map, "y", 0);
+    const bool droit = ValueOr<bool>(*map, "right", false);
+    result->Success(EncodableValue(InputService::SendClick(x, y, droit)));
+    return;
+  }
+
+  // La visee. Les raccourcis sont relaches par Dart avant l'appel : sans cela
+  // une touche de fonction enregistree partirait pendant qu'on vise.
+  if (call.method_name() == kMethodPick) {
+    const std::optional<POINT> point = PointPicker::Pick();
+    if (!point.has_value()) {
+      result->Success();
+      return;
+    }
+    result->Success(EncodableValue(EncodableMap{
+        {EncodableValue("x"), EncodableValue(static_cast<int32_t>(point->x))},
+        {EncodableValue("y"), EncodableValue(static_cast<int32_t>(point->y))},
+    }));
     return;
   }
 

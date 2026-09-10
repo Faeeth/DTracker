@@ -16,6 +16,7 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart' show Size;
 
+import 'modele/macro.dart';
 import 'modele/organizer.dart';
 
 /// Le texte ne descend pas sous ce seuil : en dessous il devient illisible sur
@@ -75,6 +76,8 @@ class Config {
     this.langue = 'fr',
     this.versionVue = '',
     this.equipes = const [],
+    this.macros = const [],
+    this.arretMacros,
   });
 
   List<String> personnages;
@@ -119,6 +122,17 @@ class Config {
   /// une retouche a la main survit a une fenetre restee ouverte.
   List<EquipeOrganizer> equipes;
 
+  /// Les macros, leurs actions et leurs touches. Rangees ici pour les memes
+  /// raisons que les equipes.
+  List<Macro> macros;
+
+  /// La touche qui arrete net la macro en cours.
+  ///
+  /// Un reglage et non une macro : elle repond meme pendant qu'une autre joue,
+  /// ce qu'aucune macro ne fait, et c'est le seul moyen de reprendre la main
+  /// sur une suite d'actions partie de travers.
+  Raccourci? arretMacros;
+
   /// La vue compacte est-elle clouee sur place ?
   ///
   /// Deverrouillee, toute la fenetre se saisit a la souris — c'est pratique
@@ -149,6 +163,8 @@ class Config {
     'language': langue,
     'seen_version': versionVue,
     'organizer_teams': [for (final e in equipes) e.versJson()],
+    'macros': [for (final m in macros) m.versJson()],
+    if (arretMacros != null) 'macros_stop_shortcut': arretMacros!.versJson(),
   };
 
   /// Ramene les valeurs dans leurs bornes, un fichier edite a la main pouvant
@@ -203,6 +219,12 @@ class Config {
       langue: '${donnees['language'] ?? 'fr'}',
       versionVue: '${donnees['seen_version'] ?? ''}',
       equipes: equipesDepuisJson(donnees['organizer_teams']),
+      // La clef absente veut dire « jamais rien dit », et seulement cela :
+      // une liste vide est un choix, celui de qui a supprime l'exemple.
+      macros: donnees.containsKey('macros')
+          ? macrosDepuisJson(donnees['macros'])
+          : macrosParDefaut(),
+      arretMacros: Raccourci.depuisJson(donnees['macros_stop_shortcut']),
     )..borne();
     config._origine = Map.of(config.versJson());
     return config;

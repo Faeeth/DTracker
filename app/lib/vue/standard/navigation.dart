@@ -27,6 +27,7 @@ enum Onglet {
   monInventaire,
   sessions,
   organizer,
+  macros,
   reglages;
 
   /// Libelle et description suivent la langue : des getters, non des valeurs
@@ -37,6 +38,7 @@ enum Onglet {
     Onglet.monInventaire => T.monInventaire,
     Onglet.sessions => T.sessions,
     Onglet.organizer => T.organizer,
+    Onglet.macros => T.macros,
     Onglet.reglages => T.reglages,
   };
 
@@ -46,6 +48,7 @@ enum Onglet {
     Onglet.monInventaire => T.monInventaireOnglet,
     Onglet.sessions => T.sessionsSousTitre,
     Onglet.organizer => T.organizerOnglet,
+    Onglet.macros => T.macrosOnglet,
     Onglet.reglages => T.reglagesSousTitre,
   };
 
@@ -106,6 +109,34 @@ class EcranOrganizer extends Ecran {
   String get titre => T.organizer;
   @override
   String? get sousTitre => T.organizerSousTitre;
+}
+
+/// Les macros. Comme l'Organizer, rien du suivi n'y entre.
+class EcranMacros extends Ecran {
+  const EcranMacros();
+  @override
+  Onglet get onglet => Onglet.macros;
+  @override
+  String get titre => T.macros;
+  @override
+  String? get sousTitre => T.macrosSousTitre;
+}
+
+/// L'editeur d'une macro.
+///
+/// Porte son identifiant et non la macro elle-meme : elle se modifie pendant
+/// qu'on la regarde, et une copie prise a l'ouverture aurait vieilli des la
+/// premiere frappe.
+class EcranMacro extends Ecran {
+  const EcranMacro(this.id, this.nom);
+  final String id;
+  final String nom;
+  @override
+  Onglet get onglet => Onglet.macros;
+  @override
+  String get titre => nom;
+  @override
+  String? get sousTitre => T.modifierMacro;
 }
 
 class EcranReglages extends Ecran {
@@ -234,6 +265,7 @@ class Navigation {
         Onglet.monInventaire => const EcranMonInventaire(),
         Onglet.sessions => const EcranSessions(),
         Onglet.organizer => const EcranOrganizer(),
+        Onglet.macros => const EcranMacros(),
         Onglet.reglages => const EcranReglages(),
       });
   }

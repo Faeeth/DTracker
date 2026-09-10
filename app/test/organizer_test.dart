@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:dofus_tracker/config.dart';
 import 'package:dofus_tracker/modele/organizer.dart';
 import 'package:dofus_tracker/source/organizer.dart';
+import 'package:dofus_tracker/source/raccourcis.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -43,7 +44,7 @@ void main() {
     dossier = await Directory.systemTemp.createTemp('organizer_test');
     config = Config();
     pont = _PontEspion();
-    organizer = Organizer(config: config, pont: pont);
+    organizer = Organizer(config: config, raccourcis: Raccourcis(pont: pont));
     await organizer.demarre();
   });
 
@@ -155,7 +156,7 @@ void main() {
         'un_reglage_inconnu': 42,
       }));
       final chargee = await Config.charge(dossier.path);
-      final organizerBis = Organizer(config: chargee, pont: _PontEspion());
+      final organizerBis = Organizer(config: chargee, raccourcis: Raccourcis(pont: _PontEspion()));
       organizerBis.ajouteEquipe('Kaska');
       await organizerBis.synchronise;
       await chargee.enregistre(dossier.path);

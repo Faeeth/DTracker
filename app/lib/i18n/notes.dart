@@ -73,6 +73,68 @@ NotesVersion? aAnnoncer({
 }
 
 const _notes = <String, Map<Langue, NotesVersion>>{
+  '1.0.8': {
+    Langue.fr: NotesVersion(
+      nouveautes: [
+        'Macros : une touche déclenche une suite d\'actions — écrire, '
+            'appuyer, cliquer, changer de fenêtre, attendre, répéter.',
+        'Des variables et une boucle : la liste de vos personnages, un tour '
+            'par nom, et {mes_persos} qui vaut celui du tour.',
+        'Une touche d\'arrêt reprend la main sur une macro partie de travers, '
+            'même pendant qu\'elle joue.',
+      ],
+      ajustements: [
+        'Rien ne part vers autre chose que le jeu : une frappe ou un clic est '
+            'refusé si une autre fenêtre est devant, et la macro s\'arrête en '
+            'le disant.',
+      ],
+    ),
+    Langue.en: NotesVersion(
+      nouveautes: [
+        'Macros: one key fires a sequence of actions — type, press, click, '
+            'switch window, wait, repeat.',
+        'Variables and a loop: your list of characters, one round per name, '
+            'and {my_chars} standing for the one of the round.',
+        'A stop key takes back control of a macro gone wrong, even while it '
+            'is playing.',
+      ],
+      ajustements: [
+        'Nothing leaves for anything but the game: a keystroke or a click is '
+            'refused when another window is in front, and the macro stops '
+            'saying so.',
+      ],
+    ),
+    Langue.es: NotesVersion(
+      nouveautes: [
+        'Macros: una tecla lanza una secuencia de acciones — escribir, '
+            'pulsar, hacer clic, cambiar de ventana, esperar, repetir.',
+        'Variables y un bucle: tu lista de personajes, una vuelta por nombre, '
+            'y {mis_personajes} que vale el del turno.',
+        'Una tecla de parada recupera el control de una macro descarriada, '
+            'incluso mientras se ejecuta.',
+      ],
+      ajustements: [
+        'Nada sale hacia otra cosa que el juego: una pulsación o un clic se '
+            'rechaza si otra ventana está delante, y la macro se detiene '
+            'diciéndolo.',
+      ],
+    ),
+    Langue.pt: NotesVersion(
+      nouveautes: [
+        'Macros: uma tecla lança uma sequência de ações — escrever, carregar, '
+            'clicar, mudar de janela, esperar, repetir.',
+        'Variáveis e um ciclo: a lista das suas personagens, uma volta por '
+            'nome, e {as_minhas} que vale a da volta.',
+        'Uma tecla de paragem retoma o controlo de uma macro que correu mal, '
+            'mesmo enquanto ela decorre.',
+      ],
+      ajustements: [
+        'Nada sai para outra coisa que não o jogo: uma tecla ou um clique é '
+            'recusado se outra janela estiver à frente, e a macro para a '
+            'dizê-lo.',
+      ],
+    ),
+  },
   '1.0.7': {
     Langue.fr: NotesVersion(
       nouveautes: [

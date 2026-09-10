@@ -15,6 +15,7 @@ import '../../config.dart';
 import '../../modele/session.dart';
 import '../../source/archives.dart';
 import '../../source/flux.dart';
+import '../../source/macros.dart';
 import '../../source/organizer.dart';
 import '../../source/ressources.dart';
 import '../../theme.dart';
@@ -23,6 +24,8 @@ import 'navigation.dart';
 import 'pages/butin.dart';
 import 'pages/inventaire.dart';
 import 'pages/combats.dart';
+import 'pages/macro_editeur.dart';
+import 'pages/macros.dart';
 import 'pages/organizer.dart';
 import 'pages/reglages.dart';
 import 'pages/sessions.dart';
@@ -53,6 +56,7 @@ class Coquille extends StatefulWidget {
     required this.onReglageChange,
     required this.onBascule,
     required this.organizer,
+    required this.macros,
     this.interfaces,
   });
 
@@ -80,6 +84,9 @@ class Coquille extends StatefulWidget {
 
   /// Les equipes et leurs raccourcis, tenus a part du suivi.
   final Organizer organizer;
+
+  /// Les macros, tenues a part elles aussi.
+  final Macros macros;
 
   /// Fournie par les tests, pour ne pas lancer un sous-processus Python.
   final List<Interface>? interfaces;
@@ -305,6 +312,11 @@ class _CoquilleState extends State<Coquille> {
       organizer: widget.organizer,
       res: widget.res,
     ),
+    EcranMacros() => PageMacros(
+      macros: widget.macros,
+      onOuvre: (m) => _va(EcranMacro(m.id, m.nom)),
+    ),
+    EcranMacro(:final id) => PageMacro(macros: widget.macros, id: id),
     EcranReglages() => PageReglages(
       config: config,
       ou: widget.ou,
